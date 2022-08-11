@@ -1,0 +1,11 @@
+---
+- name: Reboot
+  ansible.builtin.reboot:
+    msg: Rebooting nodes due to system changes
+
+- name: Restart unattended-upgrades
+  ansible.builtin.service:
+    name: unattended-upgrades.service
+    daemon_reload: true
+    enabled: true
+    state: restarted
