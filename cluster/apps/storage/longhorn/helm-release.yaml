@@ -1,0 +1,48 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: longhorn-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: longhorn
+      version: 1.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    defaultSettings:
+      defaultReplicaCount: 3
+
+    longhornManager:
+      tolerations:
+        - key: "StorageOnly"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+
+    longhornDriver:
+      tolerations:
+        - key: "StorageOnly"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+
+    longhornUI:
+      tolerations:
+        - key: "StorageOnly"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"

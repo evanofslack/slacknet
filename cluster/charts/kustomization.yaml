@@ -1,3 +1,4 @@
+---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
@@ -10,6 +11,7 @@ resources:
   - jetstack.yaml
   - k8s-at-home.yaml
   - k8s-gateway.yaml
+  - longhorn.yaml
   - metallb.yaml
   - metrics-server.yaml
   - prometheus-community.yaml
