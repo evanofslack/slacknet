@@ -33,6 +33,7 @@ spec:
           - default
           - networking
           - monitoring
+          - longhorn-system
       name: "Evan"
       customApps:
         - name: Raspi Grafana
