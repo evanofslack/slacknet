@@ -27,9 +27,29 @@ spec:
 
     alertmanager:
       fullnameOverride: alertmanager
-      enabled: false
+      enabled: true
       ingress:
-        enabled: false
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "alertmanager"
+          hajimari.io/icon: "alert-circle-outline"
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        hosts:
+          - host: "alertmanager.local.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "alertmanager.local.${SECRET_DOMAIN}"
+            secretName: "alertmanager-tls"
+
+        # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+        # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+        # ingressClassName: nginx
 
     grafana:
       enabled: true
@@ -55,7 +75,7 @@ spec:
 
     kubeControllerManager:
       enabled: true
-      endpoints: 
+      endpoints:
         - 10.33.1.200
         - 10.33.1.201
         - 10.33.1.202
@@ -68,7 +88,7 @@ spec:
 
     kubeEtcd:
       enabled: true
-      endpoints: 
+      endpoints:
         - 10.33.1.200
         - 10.33.1.201
         - 10.33.1.202
