@@ -33,15 +33,13 @@ spec:
         pathType: Prefix
         ingressClassName: "nginx"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/appName: "alertmanager"
           hajimari.io/icon: "alert-circle-outline"
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
           - 'alertmanager.local.${SECRET_DOMAIN}'
-        # paths:
-        #   - '/'
         tls:
           - secretName: alertmanager-tls
             hosts:
@@ -56,6 +54,22 @@ spec:
       defaultDashboardsTimezone: utc
       serviceMonitor:
         enabled: true
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "grafana"
+          hajimari.io/icon: "chart-areaspline"
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        hosts:
+          - 'grafana.local.${SECRET_DOMAIN}'
+        tls:
+          - secretName: grafana-tls
+            hosts:
+              - grafana.local.${SECRET_DOMAIN}
 
     kubeApiServer:
       enabled: true
