@@ -14,11 +14,12 @@ env:
   KUBECONFIG: "{{.PROJECT_DIR}}/provision/kubeconfig"
 
 includes:
-  ansible: .taskfiles/AnsibleTasks.yml
-  cluster: .taskfiles/ClusterTasks.yml
-  precommit: .taskfiles/PrecommitTasks.yml
-  terraform: .taskfiles/TerraformTasks.yml
-  sops: .taskfiles/SopsTasks.yml
+  ansible: .taskfiles/Ansible.yml
+  cluster: .taskfiles/Cluster.yml
+  precommit: .taskfiles/Precommit.yml
+  terraform: .taskfiles/Terraform.yml
+  sops: .taskfiles/Sops.yml
+  flux: .taskfiles/Flux.yml
 
 tasks:
 
