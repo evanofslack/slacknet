@@ -222,7 +222,7 @@ spec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         retention: 24h
-        retentionSize: "100GB"
+        retentionSize: "20Gi"
         enableAdminAPI: true
         walCompression: true
         storageSpec:
@@ -231,7 +231,7 @@ spec:
               storageClassName: "longhorn"
               resources:
                 requests:
-                  storage: 100Gi
+                  storage: 20Gi
         additionalScrapeConfigs:
           - job_name: "raspi"
             scrape_interval: 1m
