@@ -32,6 +32,7 @@ spec:
         matchNames:
           - default
           - networking
+          - monitoring
       name: "Evan"
       customApps:
         - name: Raspi Grafana
