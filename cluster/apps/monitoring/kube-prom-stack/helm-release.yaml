@@ -44,6 +44,14 @@ spec:
           - secretName: alertmanager-tls
             hosts:
               - alertmanager.local.${SECRET_DOMAIN}
+      alertmanagerSpec:
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: "longhorn"
+              resources:
+                requests:
+                  storage: 4Gi
 
     grafana:
       enabled: true
