@@ -59,7 +59,7 @@ spec:
       forceDeployDatasources: false
       forceDeployDashboards: false
       defaultDashboardsEnabled: true
-      defaultDashboardsTimezone: utc
+      defaultDashboardsTimezone: est
       serviceMonitor:
         enabled: true
       ingress:
@@ -78,6 +78,22 @@ spec:
           - secretName: grafana-tls
             hosts:
               - grafana.local.${SECRET_DOMAIN}
+      sidecar:
+        dashboards:
+          enabled: true
+          label: grafana_dashboard
+          labelValue: "1"
+          annotations: {}
+          multicluster:
+            global:
+              enabled: false
+            etcd:
+              enabled: true
+          provider:
+            allowUiUpdates: false
+      persistance:
+        enabled: true
+        existingClaim: grafana-config
 
     kubeApiServer:
       enabled: true
