@@ -93,7 +93,13 @@ spec:
             allowUiUpdates: false
       persistance:
         enabled: true
-        existingClaim: grafana-config
+        type: pvc
+        storageClassName: longhorn
+        accessModes:
+          - ReadWriteOnce
+        size: 2Gi
+        finalizers:
+          - kubernetes.io/pvc-protection
 
     kubeApiServer:
       enabled: true
