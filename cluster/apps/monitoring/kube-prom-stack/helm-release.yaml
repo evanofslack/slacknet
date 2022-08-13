@@ -91,7 +91,7 @@ spec:
               enabled: true
           provider:
             allowUiUpdates: false
-      persistance:
+      persistence:
         enabled: true
         type: pvc
         storageClassName: longhorn
