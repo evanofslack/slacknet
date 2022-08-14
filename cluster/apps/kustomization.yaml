@@ -5,6 +5,7 @@ resources:
   - default
   - flux-system
   - kube-system
+  - home-automation
   - monitoring
   - networking
   - storage
