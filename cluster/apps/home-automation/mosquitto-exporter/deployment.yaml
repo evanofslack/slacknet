@@ -40,5 +40,7 @@ spec:
                   name: mosquitto-exporter-config
                   key: MQTT_PASSWORD
                   optional: false
-          args: ["-e ${METALLB_MOSQUITTO_ADDR} -u $(MQTT_USERNAME) -p $(MQTT_PASSWORD)"]
+          command:
+            - "mosquitto_exporter"
+          args: ["--endpoint=${METALLB_MOSQUITTO_ADDR} -user=$(MQTT_USERNAME) -pass=$(MQTT_PASSWORD)"]
       restartPolicy: Always
