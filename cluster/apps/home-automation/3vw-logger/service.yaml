@@ -1,0 +1,14 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: 3vw-logger-service
+  labels:
+    app: 3vw-logger
+    prometheus: monitoring
+spec:
+  selector:
+    app: mosquitto-exporter
+  ports:
+    - name: metrics
+      port: 8000

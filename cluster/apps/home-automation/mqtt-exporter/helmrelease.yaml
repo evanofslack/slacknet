@@ -50,10 +50,10 @@ spec:
       runAsUser: 65534
   valuesFrom:
   - kind: Secret
-    name: mqtt-exporter-config
+    name: mosquitto-creds
     valuesKey: MQTT_USERNAME
     targetPath: env.MQTT_USERNAME
   - kind: Secret
-    name: mqtt-exporter-config
+    name: mosquitto-creds
     valuesKey: MQTT_PASSWORD
     targetPath: env.MQTT_PASSWORD

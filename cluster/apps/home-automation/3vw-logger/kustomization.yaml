@@ -4,8 +4,8 @@ kind: Kustomization
 namespace: home-automation
 resources:
   - ./deployment.yaml
-  - ./service.yaml
-  - ./service-monitor.yaml
+    ./service.yaml
+    ./service-monitor.yaml
 commonLabels:
-  app.kubernetes.io/name: mosquitto
-  app.kubernetes.io/instance: mosquitto
+  app.kubernetes.io/name: 3vw-logger
+  app.kubernetes.io/instance: 3vw-logger

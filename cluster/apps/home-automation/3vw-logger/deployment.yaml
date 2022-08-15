@@ -2,24 +2,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mosquitto-exporter-deployment
+  name: 3vw-logger-deployment
   labels:
-    app: mosquitto-exporter
+    app: 3vw-logger
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mosquitto-exporter
+      app: 3vw-logger
   template:
     metadata:
       labels:
-        app: mosquitto-exporter
+        app: 3vw-logger
     spec:
       containers:
-        - name: mosquitto-exporter
-          image: sapcc/mosquitto-exporter:0.8.0
+        - name: 3vw-logger
+          image: evanofslack/3vw-logger:latest
           ports:
-            - containerPort: 9234
+            - name: http
+              containerPort: 5000
+            - name: metrics
+              containerPort: 8000
           resources:
             requests:
               cpu: 25m
@@ -28,18 +31,20 @@ spec:
               cpu: 400m
               memory: 512Mi
           env:
-            - name: MQTT_USER
+            - name: MQTT_USERNAME
               valueFrom:
                 secretKeyRef:
                   name: mosquitto-creds
                   key: MQTT_USERNAME
                   optional: false
-            - name: MQTT_PASS
+            - name: MQTT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: mosquitto-creds
                   key: MQTT_PASSWORD
                   optional: false
-            - name: BROKER_ENDPOINT
-              value: ${METALLB_MOSQUITTO_ADDR}:1883
+            - name: MQTT_HOST
+              value: ${METALLB_MOSQUITTO_ADDR}
+            - name: MQTT_PORT
+              value: "1883"
       restartPolicy: Always
