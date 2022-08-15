@@ -49,8 +49,11 @@ spec:
       runAsNonRoot: true
       runAsUser: 65534
   valuesFrom:
-  - secretKeyRef:
+  - kind: Secret
     name: mqtt-exporter-config
-    namespace: home-automation
-    key: values.yaml
-    optional: false
+    valuesKey: MQTT_USERNAME
+    targetPath: env.MQTT_USERNAME
+  - kind: Secret
+    name: mqtt-exporter-config
+    valuesKey: MQTT_PASSWORD
+    targetPath: env.MQTT_PASSWORD
