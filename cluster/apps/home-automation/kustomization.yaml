@@ -7,3 +7,4 @@ resources:
   - mosquitto
   # - mqtt-exporter
   - mosquitto-exporter
+  - sensata-exporter

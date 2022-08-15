@@ -2,9 +2,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: 3vw-logger-deployment
+  name: sensata-exporter-deployment
   labels:
-    app: 3vw-logger
+    app: sensata-exporter
 spec:
   replicas: 1
   selector:
@@ -47,4 +47,16 @@ spec:
               value: ${METALLB_MOSQUITTO_ADDR}
             - name: MQTT_PORT
               value: "1883"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
       restartPolicy: Always
