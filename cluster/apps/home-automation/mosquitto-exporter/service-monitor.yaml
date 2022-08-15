@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mosquitto-exporter-monitor
+  namespace: monitoring
+  labels:
+    app: mosquitto-exporter
+    prometheus: monitoring
+spec:
+  endpoints:
+    - port: metrics
+      path: '/metrics'
+      interval: 30s
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      app: mosquitto-exporter
+      prometheus: monitoring

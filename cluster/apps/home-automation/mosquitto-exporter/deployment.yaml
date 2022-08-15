@@ -42,6 +42,4 @@ spec:
                   optional: false
             - name: BROKER_ENDPOINT
               value: ${METALLB_MOSQUITTO_ADDR}:1883
-          # command: ["mosquitto_exporter", "--endpoint=${METALLB_MOSQUITTO_ADDR}:1883", "--user=$(MQTT_USERNAME)", "--pass=$(MQTT_PASSWORD)"]
-          # args: ["--endpoint", "${METALLB_MOSQUITTO_ADDR}", "--user", "$(MQTT_USERNAME)", "--pass", "$(MQTT_PASSWORD)"]
       restartPolicy: Always
