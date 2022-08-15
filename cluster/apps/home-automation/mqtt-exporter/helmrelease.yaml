@@ -1,3 +1,4 @@
+# yamllint disable
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -48,13 +49,8 @@ spec:
       runAsNonRoot: true
       runAsUser: 65534
   valuesFrom:
-    - secretKeyRef:
-      name: mqtt-exporter-config
-      namespace: home-automation
-      key: MQTT_USERNAME
-      optional: false
-    - secretKeyRef:
-      name: mqtt-exporter-config
-      namespace: home-automation
-      key: MQTT_PASSWORD
-      optional: false
+  - secretKeyRef:
+    name: mqtt-exporter-config
+    namespace: home-automation
+    key: values.yaml
+    optional: false
