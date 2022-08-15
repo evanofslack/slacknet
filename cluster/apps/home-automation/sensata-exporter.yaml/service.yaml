@@ -2,9 +2,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: 3vw-logger-service
+  name: sensata-exporter-service
   labels:
-    app: 3vw-logger
+    app: sensata-exporter
     prometheus: monitoring
 spec:
   selector:

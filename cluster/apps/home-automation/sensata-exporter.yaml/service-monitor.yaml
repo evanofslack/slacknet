@@ -2,10 +2,10 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: 3vw-logger-monitor
+  name: sensata-exporter-monitor
   namespace: monitoring
   labels:
-    app: 3vw-logger
+    app: sensata-exporter
     prometheus: monitoring
 spec:
   endpoints:
@@ -16,5 +16,5 @@ spec:
     any: true
   selector:
     matchLabels:
-      app: 3vw-logger
+      app: sensata-exporter
       prometheus: monitoring

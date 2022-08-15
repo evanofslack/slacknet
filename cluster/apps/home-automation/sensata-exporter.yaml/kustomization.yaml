@@ -7,5 +7,5 @@ resources:
     ./service.yaml
     ./service-monitor.yaml
 commonLabels:
-  app.kubernetes.io/name: 3vw-logger
-  app.kubernetes.io/instance: 3vw-logger
+  app.kubernetes.io/name: sensata-exporter
+  app.kubernetes.io/instance: sensata-exporter

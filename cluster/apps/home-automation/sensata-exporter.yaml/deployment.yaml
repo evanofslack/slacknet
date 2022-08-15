@@ -9,14 +9,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: 3vw-logger
+      app: sensata-exporter
   template:
     metadata:
       labels:
-        app: 3vw-logger
+        app: sensata-exporter
     spec:
       containers:
-        - name: 3vw-logger
+        - name: sensata-exporter
           image: evanofslack/3vw-logger:latest
           ports:
             - name: http
