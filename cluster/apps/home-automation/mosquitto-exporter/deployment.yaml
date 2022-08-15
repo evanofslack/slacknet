@@ -28,19 +28,20 @@ spec:
               cpu: 400m
               memory: 512Mi
           env:
-            - name: MQTT_USERNAME
+            - name: MQTT_USER
               valueFrom:
                 secretKeyRef:
                   name: mosquitto-exporter-config
                   key: MQTT_USERNAME
                   optional: false
-            - name: MQTT_PASSWORD
+            - name: MQTT_PASS
               valueFrom:
                 secretKeyRef:
                   name: mosquitto-exporter-config
                   key: MQTT_PASSWORD
                   optional: false
-          command:
-            - "mosquitto_exporter"
-          args: ["--endpoint", "${METALLB_MOSQUITTO_ADDR}", "--user", "$(MQTT_USERNAME)", "--pass", "$(MQTT_PASSWORD)"]
+            - name: BROKER_ENDPOINT
+              value: ${METALLB_MOSQUITTO_ADDR}:1883
+          # command: ["mosquitto_exporter", "--endpoint=${METALLB_MOSQUITTO_ADDR}:1883", "--user=$(MQTT_USERNAME)", "--pass=$(MQTT_PASSWORD)"]
+          # args: ["--endpoint", "${METALLB_MOSQUITTO_ADDR}", "--user", "$(MQTT_USERNAME)", "--pass", "$(MQTT_PASSWORD)"]
       restartPolicy: Always
