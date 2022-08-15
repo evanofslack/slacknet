@@ -1,0 +1,44 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mosquitto-exporter-deployment
+  labels:
+    app: mosquitto-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto-exporter
+  template:
+    metadata:
+      labels:
+        app: mosquitto-exporter
+    spec:
+      containers:
+        - name: mosquitto-exporter
+          image: sapcc/mosquitto-exporter:0.8.0
+          ports:
+            - containerPort: 9234
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              cpu: 400m
+              memory: 512Mi
+          env:
+            - name: MQTT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mosquitto-exporter-config
+                  key: MQTT_USERNAME
+                  optional: false
+            - name: MQTT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mosquitto-exporter-config
+                  key: MQTT_PASSWORD
+                  optional: false
+          args: ["-e ${METALLB_MOSQUITTO_ADDR} -u $(MQTT_USERNAME) -p $(MQTT_PASSWORD)"]
+      restartPolicy: OnFailure
