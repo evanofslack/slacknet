@@ -42,5 +42,5 @@ spec:
                   optional: false
           command:
             - "mosquitto_exporter"
-          args: ["--endpoint=${METALLB_MOSQUITTO_ADDR} -user=$(MQTT_USERNAME) -pass=$(MQTT_PASSWORD)"]
+          args: ["--endpoint", "${METALLB_MOSQUITTO_ADDR}", "--user", "$(MQTT_USERNAME)", "--pass", "$(MQTT_PASSWORD)"]
       restartPolicy: Always
