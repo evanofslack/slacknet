@@ -249,8 +249,7 @@ spec:
         replicaExternalLabelName: "replica"
         serviceMonitorSelector:
           matchLabels:
-            prometheus: monitoring
-            operated-prometheus: "true"
+            # prometheus: monitoring
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
