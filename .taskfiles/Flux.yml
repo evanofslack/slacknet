@@ -31,6 +31,17 @@ tasks:
   sources:
     desc: Debug "not ready" errors
     cmds:
-      - flux get helmreleases --all-namespaces
       - flux get sources helm --all-namespaces
       - flux get sources chart --all-namespaces
+
+  get:
+    desc: Get common flux resources
+    cmds:
+      - kubectl get kustomizations.kustomize.toolkit.fluxcd.io -A
+      - kubectl get helmreleases.helm.toolkit.fluxcd.io -A
+      - kubectl get helmcharts.source.toolkit.fluxcd.io -A
+
+  objects:
+    desc: Get flux objects
+    cmds:
+      - flux get all -A --status-selector ready=false
