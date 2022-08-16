@@ -250,6 +250,7 @@ spec:
         serviceMonitorSelector:
           matchLabels:
             prometheus: monitoring
+            operated-prometheus: "true"
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
