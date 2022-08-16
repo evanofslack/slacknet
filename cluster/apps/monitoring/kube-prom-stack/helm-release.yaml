@@ -247,8 +247,8 @@ spec:
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"
-        serviceMonitorSelector:
-          matchLabels:
+        # serviceMonitorSelector:
+        #   matchLabels:
             # prometheus: monitoring
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
