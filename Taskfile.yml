@@ -62,3 +62,8 @@ tasks:
     desc: Configure repository from env settings
     cmds:
       - ./configure
+
+  webhook:
+    desc: Create Github webhook for Flux
+    cmds:
+      - ./webhook
