@@ -34,11 +34,6 @@ spec:
             port: 1883
             protocol: TCP
             targetPort: 1883
-          mqtts:
-            enabled: true
-            port: 8883
-            protocol: TCP
-            targetPort: 8883
     podAnnotations:
       secret.reloader.stakater.com/reload: mosquitto-config
     persistence:
