@@ -6,6 +6,13 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./service-monitor.yaml
+configMapGenerator:
+  - name: sensata-exporter-grafana-dashboards
+    files:
+      - dashboard/3vw-display.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 commonLabels:
   app.kubernetes.io/name: sensata-exporter
   app.kubernetes.io/instance: sensata-exporter
