@@ -5,6 +5,7 @@ resources:
   - bitnami.yaml
   - emberstack.yaml
   - external-dns.yaml
+  - fairwinds-charts.yaml
   - grafana-charts.yaml
   - hajimari.yaml
   - ingress-nginx.yaml

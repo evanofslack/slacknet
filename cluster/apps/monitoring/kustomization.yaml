@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - flux-monitor
-  # - goldilocks
+  - goldilocks
   - kube-prom-stack
   - loki
   - speedtest-exporter
