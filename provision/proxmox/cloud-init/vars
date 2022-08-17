@@ -1,0 +1,48 @@
+# Change this line to reflect the VMID you would like to use for the template.
+build_vm_id='9001'
+
+# What directory do you have all of the files in? Use a trailing /
+install_dir='~/cloud-init-build/'
+
+# Who are you?
+creator='eslack'
+
+# Create this file and add your SSH keys 1 per line
+keyfile=${install_dir}keyfile
+
+# Enter the URL for the cloud-init image you would like to you. Below are Ubuntu Focal
+# and Ubuntu Kinetic. For Focal I like to refresh weekly and Kinetic daily. Uncomment
+# the distro you would like to use.
+cloud_img_url='https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img'
+
+# Leave this variable alone
+image_name=${cloud_img_url##*/}
+
+# Enter the additional packages you would like in your template.
+package_list='cloud-init,qemu-guest-agent,curl,wget,git,vim'
+
+# What storage location on your PVE node do you want to use for the template? (zfs-mirror, local-lvm, local, etc.)
+storage_location='local-lvm'
+
+# VM options
+
+# Your preferred DNS
+nameserver='10.33.1.1'
+# Your domain (ie, domain.com, domain.local, domain)
+searchdomain='eslack.local'
+
+# Username for accessing the image
+cloud_init_user='eslack'
+
+# Default setting is the most common
+scsihw='virtio-scsi-pci'
+
+# What to name your template. This is free form with no spaces and will be used for automation/deployments.
+template_name='ubuntu-cloud-focal'
+
+# Memory and CPU cores. These are overridden with image deployments or through the PVE interface.
+vm_mem='2048'
+vm_cores='2'
+
+# Where to store the build-info file in the template for easy identification.
+build_info_file_location='/etc/template-build-info'

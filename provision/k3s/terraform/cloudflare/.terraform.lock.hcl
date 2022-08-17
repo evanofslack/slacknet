@@ -43,6 +43,7 @@ provider "registry.terraform.io/hashicorp/http" {
   constraints = "3.0.1"
   hashes = [
     "h1:JwZjgViaGfvuEQuND7yPFVpfR2ELK2gy+m5og+pgb+o=",
+    "h1:erRYH73nKe/lTX6SZ5OCG/p0rFMfJR5NVqXvFiXb4FU=",
     "zh:3b161998147d8cc3986a1580ddb065009ab628747424934cbcb9d221783541f8",
     "zh:62c78b565cde08d8e3b98e8138cd8e46b50fdc2ddc560ac1f62b5646ce8e9b1f",
     "zh:69ba560cd6360a285e83e1c220ab140d3119371850756ff2ed0abe39d362ea49",
