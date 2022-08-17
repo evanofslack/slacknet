@@ -73,7 +73,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "pve_uptime_seconds{id=\"node/host1\"}",
@@ -89,7 +89,7 @@
       "columns": [],
       "datasource": {
         "type": "prometheus",
-        "uid": "hiA2lBwnz"
+        "uid": "prometheus"
       },
       "fontSize": "100%",
       "gridPos": {
@@ -375,7 +375,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hiA2lBwnz"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -455,7 +455,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hiA2lBwnz"
+        "uid": "prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -613,7 +613,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "((pve_cpu_usage_ratio{instance=\"$instance\"} / pve_cpu_usage_limit) * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
@@ -708,7 +708,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "(pve_memory_usage_bytes{instance=\"$instance\"} / pve_memory_size_bytes * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
@@ -811,7 +811,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": false,
           "expr": "pve_disk_usage_bytes{instance=\"$instance\", id=~\"storage/.+\"} / pve_disk_size_bytes * on (id, instance) group_left(storage) pve_storage_info",
@@ -902,7 +902,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": false,
           "expr": "pve_disk_size_bytes{instance=\"$instance\", id=~\"storage/.+\"} * on (id, instance) group_left(storage) pve_storage_info",
@@ -994,7 +994,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "pve_disk_usage_bytes{instance=\"$instance\"} / pve_disk_size_bytes{instance=\"$instance\"} * on (id, instance) group_left(name, type) pve_guest_info",
@@ -1103,7 +1103,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "(rate(pve_network_receive_bytes{instance=\"$instance\"}[5m]) * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
@@ -1116,7 +1116,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "(rate(pve_network_transmit_bytes{instance=\"$instance\"}[5m])* on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
@@ -1214,7 +1214,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hiA2lBwnz"
+            "uid": "prometheus"
           },
           "exemplar": true,
           "expr": "((rate(pve_disk_write_bytes{instance=\"$instance\"}[5m]) + rate(pve_disk_read_bytes[5m])) * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
@@ -1246,7 +1246,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "hiA2lBwnz"
+          "uid": "prometheus"
         },
         "definition": "label_values(pve_node_info, instance)",
         "hide": 0,
