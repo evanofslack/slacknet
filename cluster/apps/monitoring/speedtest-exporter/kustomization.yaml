@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - helm-release.yaml
+  - service-monitor.yaml
 configMapGenerator:
   - name: speedtest-exporter-grafana-dashboard
     files:
