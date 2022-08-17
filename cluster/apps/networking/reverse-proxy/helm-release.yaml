@@ -47,6 +47,23 @@ spec:
           hosts:
             - host: proxmox.local.${SECRET_DOMAIN}
               path: /
+      - name: adguard
+        enabled: true
+        ip: 10.33.1.98
+        port: 80
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-staging"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "speedometer"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - adguard.local.${SECRET_DOMAIN}
+              secretName: "adguard-tls"
+          hosts:
+            - host: adguard.local.${SECRET_DOMAIN}
+              path: /
 
     ingressPort:
       # -- Ingress port for non-TLS
