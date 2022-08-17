@@ -5,6 +5,7 @@ namespace: home-automation
 resources:
   - ./deployment.yaml
   - ./service.yaml
+  - ./service-monitor.yaml
 commonLabels:
   app.kubernetes.io/name: sensata-exporter
   app.kubernetes.io/instance: sensata-exporter

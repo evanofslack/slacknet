@@ -5,7 +5,6 @@ metadata:
   name: mosquitto-exporter-service
   labels:
     app: mosquitto-exporter
-    prometheus: monitoring
 spec:
   selector:
     app: mosquitto-exporter

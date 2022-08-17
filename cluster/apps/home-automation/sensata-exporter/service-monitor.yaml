@@ -3,18 +3,14 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: sensata-exporter-monitor
-  namespace: monitoring
+  namespace: home-automation
   labels:
     app: sensata-exporter
-    prometheus: monitoring
 spec:
   endpoints:
     - port: metrics
       path: '/metrics'
       interval: 30s
-  namespaceSelector:
-    any: true
   selector:
     matchLabels:
       app: sensata-exporter
-      prometheus: monitoring
