@@ -8,5 +8,12 @@ configMapGenerator:
   - name: cloudflare-proxied-networks
     files:
       - cloudflare-proxied-networks.txt
+  - name: nginx-exporter-grafana-dashboard
+    files:
+      - dashboards/nginx.json
+      - dashboards/request-handling.json
+    options:
+      labels:
+        grafana_dashboard: "1"
 generatorOptions:
   disableNameSuffixHash: true
