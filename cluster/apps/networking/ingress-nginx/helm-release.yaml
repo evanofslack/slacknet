@@ -55,7 +55,16 @@ spec:
         ssl-protocols: "TLSv1.3 TLSv1.2"
         use-forwarded-headers: "true"
       metrics:
-        enabled: false
+        enabled: true
+        port: 10254
+        # if this port is changed, change healthz-port: in extraArgs: accordingly
+        # service:
+        #   annotations:
+        #     prometheus.io/scrape: "true"
+        #     prometheus.io/port: "10254"
+        serviceMonitor:
+          enabled: True
+          namespace: networking
       podAnnotations:
         configmap.reloader.stakater.com/reload: "cloudflare-proxied-networks"
       resources:
@@ -75,17 +84,6 @@ spec:
           value: lost-in-space
         - name: SHOW_DETAILS
           value: "false"
-      metrics:
-        port: 10254
-        # if this port is changed, change healthz-port: in extraArgs: accordingly
-        enabled: true
-        # service:
-        #   annotations:
-        #     prometheus.io/scrape: "true"
-        #     prometheus.io/port: "10254"
-        serviceMonitor:
-          enabled: True
-          namespace: networking
   valuesFrom:
     # Cloudflare Networks
     # https://www.cloudflare.com/ips/
