@@ -896,8 +896,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue",
-                "value": null
+                "color": "dark-blue"
               },
               {
                 "color": "blue",
@@ -1015,8 +1014,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1134,8 +1132,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1187,7 +1184,9 @@
   "refresh": "10s",
   "schemaVersion": 36,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "3vw"
+  ],
   "templating": {
     "list": [
       {
@@ -1260,7 +1259,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "3VW Display",
+  "title": "3VW Monitor",
   "uid": "gAaDofm4k",
   "version": 1,
   "weekStart": ""
