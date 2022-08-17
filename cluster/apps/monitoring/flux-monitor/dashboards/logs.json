@@ -99,7 +99,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 24,
         "x": 0,
         "y": 0
@@ -139,7 +139,7 @@
         "h": 25,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 5
       },
       "id": 2,
       "options": {
@@ -158,7 +158,7 @@
             "type": "loki",
             "uid": "${DS_LOKI}"
           },
-          "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", app=~\"$controller\"}",
+          "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\"",
           "queryType": "range",
           "refId": "A"
         }
@@ -198,7 +198,7 @@
       {
         "allValue": "info|error",
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "All",
           "value": "$__all"
         },
@@ -291,13 +291,9 @@
       {
         "allValue": ".+",
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": {
           "uid": ""
@@ -320,7 +316,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "Loki",
           "value": "Loki"
         },
@@ -331,7 +327,6 @@
         "name": "DS_LOKI",
         "options": [],
         "query": "loki",
-        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
