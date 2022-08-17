@@ -11,7 +11,8 @@ spec:
     matchLabels:
       app: longhorn-manager
   namespaceSelector:
-    matchNames: longhorn-system
+    matchNames:
+      - longhorn-system
   endpoints:
     - port: manager
       interval: 1m

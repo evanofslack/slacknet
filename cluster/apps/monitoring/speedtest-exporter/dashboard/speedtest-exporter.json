@@ -273,7 +273,7 @@
             "mode": "thresholds"
           },
           "mappings": [],
-          "max": 30,
+          "max": 100,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -284,15 +284,15 @@
               },
               {
                 "color": "yellow",
-                "value": 5
+                "value": 15
               },
               {
                 "color": "orange",
-                "value": 10
+                "value": 50
               },
               {
                 "color": "red",
-                "value": 20
+                "value": 75
               }
             ]
           },
@@ -721,7 +721,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "10.42.39.51:9798",
           "value": "10.42.39.51:9798"
         },
@@ -747,7 +747,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "speedtest-exporter",
           "value": "speedtest-exporter"
         },
@@ -781,6 +781,6 @@
   "timezone": "",
   "title": "Speedtest Monitor",
   "uid": "-fs18ztMz",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
