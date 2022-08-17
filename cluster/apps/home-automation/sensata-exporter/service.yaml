@@ -5,10 +5,9 @@ metadata:
   name: sensata-exporter-service
   labels:
     app: sensata-exporter
-    prometheus: monitoring
 spec:
   selector:
-    app: mosquitto-exporter
+    app: sensata-exporter
   ports:
     - name: metrics
       port: 8000
