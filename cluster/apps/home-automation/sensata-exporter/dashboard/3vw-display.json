@@ -45,7 +45,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "gridPos": {
                 "h": 4,
@@ -64,7 +64,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -118,7 +118,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_temperature{DUT=~\"$DUT\"}",
@@ -133,7 +133,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "",
             "fieldConfig": {
@@ -185,7 +185,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_acoustic_p2p{DUT=~\"$DUT\"} + 2 ^ 5",
@@ -200,7 +200,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "",
             "fieldConfig": {
@@ -255,7 +255,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_accel_p2p{DUT=~\"$DUT\"}",
@@ -270,7 +270,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Total number of unique 3VW devices registered to broker",
             "fieldConfig": {
@@ -322,7 +322,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "exemplar": true,
@@ -352,7 +352,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Cumulative time Mosquitto broker has been running on EC2",
             "fieldConfig": {
@@ -416,7 +416,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "broker_uptime",
@@ -431,7 +431,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Cumulative time 3VW logger has been running",
             "fieldConfig": {
@@ -485,7 +485,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "time() - sensata_broker_start{instance=\"3vw-logger:8000\"}",
@@ -500,7 +500,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Total number of messages received by broker",
             "fieldConfig": {
@@ -574,7 +574,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "exemplar": true,
@@ -591,7 +591,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Total number of messages received by broker",
             "fieldConfig": {
@@ -666,7 +666,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "exemplar": true,
@@ -683,7 +683,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Total number of unique messages received by broker",
             "fieldConfig": {
@@ -735,7 +735,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "exemplar": true,
@@ -752,7 +752,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Rate of received messages by broker",
             "fieldConfig": {
@@ -799,7 +799,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "avg(rate(broker_messages_received[1h]))",
@@ -827,7 +827,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "3VW Temperature (TMP117)",
             "fieldConfig": {
@@ -912,7 +912,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "exemplar": false,
@@ -941,7 +941,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Accelerometer peak to peak acceleration (G)",
             "fieldConfig": {
@@ -1045,7 +1045,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_accel_p2p{axis=\"x-axis\", DUT=~\"$DUT\"}",
@@ -1060,7 +1060,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Accelerometer primary frequency (Hz)",
             "fieldConfig": {
@@ -1164,7 +1164,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_accel_prime_freq{axis=\"x-axis\", DUT=~\"$DUT\"}",
@@ -1179,7 +1179,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Accelerometer peak to peak acceleration (G)",
             "fieldConfig": {
@@ -1258,7 +1258,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_accel_p2p{axis=\"y-axis\", DUT=~\"$DUT\"}",
@@ -1273,7 +1273,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Accelerometer primary frequency (Hz)",
             "fieldConfig": {
@@ -1377,7 +1377,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_accel_prime_freq{axis=\"y-axis\", DUT=~\"$DUT\"}",
@@ -1392,7 +1392,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Accelerometer peak to peak acceleration (G)",
             "fieldConfig": {
@@ -1471,7 +1471,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_accel_p2p{axis=\"z-axis\", DUT=~\"$DUT\"}",
@@ -1486,7 +1486,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Accelerometer primary frequency (Hz)",
             "fieldConfig": {
@@ -1565,7 +1565,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_accel_prime_freq{axis=\"z-axis\", DUT=~\"$DUT\"}",
@@ -1593,7 +1593,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Acoustic microphone peak to peak (Volts)",
             "fieldConfig": {
@@ -1672,7 +1672,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_acoustic_p2p{DUT=~\"$DUT\"}",
@@ -1687,7 +1687,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "PBFA97CFB590B2093"
+                "uid": "prometheus"
             },
             "description": "Acoustic microphone Primary Frequency (Hz)",
             "fieldConfig": {
@@ -1766,7 +1766,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "PBFA97CFB590B2093"
+                        "uid": "prometheus"
                     },
                     "editorMode": "builder",
                     "expr": "sensata_acoustic_prime_freq{DUT=~\"$DUT\"}",
@@ -1797,7 +1797,7 @@
                 },
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "PBFA97CFB590B2093"
+                    "uid": "prometheus"
                 },
                 "definition": "label_values(sensata_subscribed_topics, topic)",
                 "hide": 0,
@@ -1827,7 +1827,7 @@
                 },
                 "datasource": {
                     "type": "prometheus",
-                    "uid": "PBFA97CFB590B2093"
+                    "uid": "prometheus"
                 },
                 "definition": "label_values(sensata_msg_total, DUT)",
                 "description": "Which DUT to query",
