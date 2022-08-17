@@ -79,13 +79,13 @@ spec:
         port: 10254
         # if this port is changed, change healthz-port: in extraArgs: accordingly
         enabled: true
-        service:
-          annotations:
-            prometheus.io/scrape: "true"
-            prometheus.io/port: "10254"
+        # service:
+        #   annotations:
+        #     prometheus.io/scrape: "true"
+        #     prometheus.io/port: "10254"
         serviceMonitor:
-          namespace: networking
           enabled: True
+          namespace: networking
   valuesFrom:
     # Cloudflare Networks
     # https://www.cloudflare.com/ips/
