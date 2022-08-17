@@ -150,6 +150,19 @@
         }
       ],
       "title": "Temperature",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "labelsToFields": false,
+            "mode": "seriesToRows",
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        }
+      ],
       "type": "gauge"
     },
     {
@@ -218,6 +231,16 @@
         }
       ],
       "title": "Noise",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        }
+      ],
       "type": "gauge"
     },
     {
@@ -281,8 +304,8 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "sensata_accel_p2p{DUT=~\"$DUT\"}",
-          "legendFormat": "{{DUT}} - {{axis}}",
+          "expr": "sensata_accel_p2p{DUT=~\"$DUT\", instance=\"$instance\"}",
+          "legendFormat": "{{axis}}",
           "range": true,
           "refId": "A"
         }
@@ -349,7 +372,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "sensata_DUT_total",
+          "expr": "sensata_DUT_total{instance=\"$instance\"}",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -601,7 +624,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "sum by(DUT) (sensata_msg_total{modality=\"all\"})",
+          "expr": "sum by(DUT) (sensata_msg_total{modality=\"all\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{DUT}}",
           "range": true,
@@ -693,7 +716,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "sum by(modality) (sensata_msg_total{modality!=\"all\"})",
+          "expr": "sum by(modality) (sensata_msg_total{modality!=\"all\", instance=\"$instance\"})",
           "interval": "",
           "legendFormat": "{{DUT}}",
           "range": true,
@@ -896,7 +919,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               },
               {
                 "color": "blue",
@@ -960,7 +984,7 @@
           },
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "sensata_temperature",
+          "expr": "sensata_temperature{instance=~\"$instance\"}",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -1014,7 +1038,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1078,7 +1103,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "sensata_accel_p2p{DUT=~\"$DUT\"}",
+          "expr": "sensata_accel_p2p{DUT=~\"$DUT\", instance=\"$instance\"}",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -1132,7 +1157,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1170,8 +1196,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "code",
-          "expr": " sensata_acoustic_p2p{DUT=~\"$DUT\"} + 2 ^ 5",
+          "editorMode": "builder",
+          "expr": "sensata_acoustic_p2p{DUT=~\"$DUT\", instance=\"$instance\"} + 2 ^ 5",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -1185,7 +1211,7 @@
   "schemaVersion": 36,
   "style": "dark",
   "tags": [
-    "3vw"
+    "3VW"
   ],
   "templating": {
     "list": [
@@ -1193,10 +1219,10 @@
         "current": {
           "selected": true,
           "text": [
-            "$share/k3s/dev/#"
+            "$share/k3s/home/#"
           ],
           "value": [
-            "$share/k3s/dev/#"
+            "$share/k3s/home/#"
           ]
         },
         "datasource": {
@@ -1223,10 +1249,10 @@
         "current": {
           "selected": true,
           "text": [
-            "bedroom"
+            "outside"
           ],
           "value": [
-            "bedroom"
+            "outside"
           ]
         },
         "datasource": {
@@ -1250,17 +1276,40 @@
         "skipUrlSync": false,
         "sort": 3,
         "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "10.42.39.5:8000",
+          "value": "10.42.39.5:8000"
+        },
+        "definition": "label_values(sensata_msg_total, instance)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Instance",
+        "multi": false,
+        "name": "instance",
+        "options": [],
+        "query": {
+          "query": "label_values(sensata_msg_total, instance)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "3VW Monitor",
   "uid": "gAaDofm4k",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
