@@ -78,11 +78,13 @@ spec:
           - secretName: grafana-tls
             hosts:
               - grafana.local.${SECRET_DOMAIN}
+
       sidecar:
         dashboards:
           enabled: true
           label: grafana_dashboard
           labelValue: "1"
+          searchNamespace: ALL
           annotations: {}
           multicluster:
             global:
