@@ -1,14 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_LOKI",
-      "label": "Loki",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "loki",
-      "pluginName": "Loki"
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -47,15 +37,16 @@
   },
   "description": "Flux logs collected from Kubernetes, stored in Loki",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 29,
-  "iteration": 1653748775696,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": "${DS_LOKI}",
+      "datasource": {
+        "type": "loki",
+        "uid": "${DS_LOKI}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -127,18 +118,22 @@
       },
       "targets": [
         {
-          "datasource": "${DS_LOKI}",
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
           "expr": "sum(count_over_time({namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\" [$__interval]))",
-          "instant": false,
-          "legendFormat": "Log count",
-          "range": true,
+          "queryType": "range",
           "refId": "A"
         }
       ],
       "type": "timeseries"
     },
     {
-      "datasource": "${DS_LOKI}",
+      "datasource": {
+        "type": "loki",
+        "uid": "${DS_LOKI}"
+      },
       "description": "Logs from services running in Kubernetes",
       "gridPos": {
         "h": 25,
@@ -159,8 +154,12 @@
       },
       "targets": [
         {
-          "datasource": "${DS_LOKI}",
-          "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\"",
+          "datasource": {
+            "type": "loki",
+            "uid": "${DS_LOKI}"
+          },
+          "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", app=~\"$controller\"}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -240,14 +239,19 @@
             "$__all"
           ]
         },
-        "datasource": "${DS_LOKI}",
+        "datasource": {
+          "uid": ""
+        },
         "definition": "label_values(app)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "controller",
         "options": [],
-        "query": "label_values(app)",
+        "query": {
+          "query": "label_values(app)",
+          "refId": "Prometheus-controller-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -259,20 +263,25 @@
         "current": {
           "selected": true,
           "text": [
-            "flux-system"
+            "All"
           ],
           "value": [
-            "flux-system"
+            "$__all"
           ]
         },
-        "datasource": "${DS_LOKI}",
+        "datasource": {
+          "uid": ""
+        },
         "definition": "label_values(namespace)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "namespace",
         "options": [],
-        "query": "label_values(namespace)",
+        "query": {
+          "query": "label_values(namespace)",
+          "refId": "Prometheus-namespace-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -282,18 +291,27 @@
       {
         "allValue": ".+",
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
-        "datasource": "${DS_LOKI}",
+        "datasource": {
+          "uid": ""
+        },
         "definition": "label_values(stream)",
         "hide": 0,
         "includeAll": true,
         "multi": true,
         "name": "stream",
         "options": [],
-        "query": "label_values(stream)",
+        "query": {
+          "query": "label_values(stream)",
+          "refId": "Prometheus-stream-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -302,7 +320,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "Loki",
           "value": "Loki"
         },
@@ -313,6 +331,7 @@
         "name": "DS_LOKI",
         "options": [],
         "query": "loki",
+        "queryValue": "",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -328,5 +347,6 @@
   "timezone": "",
   "title": "Flux Logs",
   "uid": "flux-logs",
-  "version": 2
+  "version": 1,
+  "weekStart": ""
 }
