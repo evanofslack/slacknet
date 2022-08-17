@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: monitoring
+resources:
+  - helm-release.yaml
+configMapGenerator:
+  - name: speedtest-exporter-grafana-dashboard
+    files:
+      - dashboard/speedtest-exporter.json
+    options:
+      labels:
+        grafana_dashboard: "1"

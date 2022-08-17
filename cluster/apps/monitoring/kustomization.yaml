@@ -6,3 +6,4 @@ resources:
   - flux-monitor
   - kube-prom-stack
   - loki
+  - speedtest-exporter

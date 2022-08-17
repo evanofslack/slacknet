@@ -26,7 +26,7 @@ spec:
     controller:
       replicas: 3
     env:
-      TZ: EST
+      TZ: ${TIMEZONE}
     ingress:
       main:
         enabled: true

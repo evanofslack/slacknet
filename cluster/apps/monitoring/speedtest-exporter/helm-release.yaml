@@ -1,0 +1,66 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: speedtest-exporter
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      version: 2.x
+      chart: speedtest-exporter
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  values:
+    controller:
+      replicas: 1
+    env:
+      TZ: ${TIMEZONE}
+    service:
+      main:
+        ports:
+          http:
+            enabled: false
+          metrics:
+            enabled: true
+            protocol: TCP
+            port: 9798
+    metrics:
+      enabled: true
+      serviceMonitor:
+        interval: 60m
+        scrapeTimeout: 2m
+        labels: {}
+      prometheusRule:
+        enabled: true
+        # -- Download speed you want alerts to be triggered in Mbps
+        downloadLimit: 10
+        # -- Upload speed you want alerts to be triggered in Mbps
+        uploadLimit: 10
+        # -- Ping latency you want alerts to be triggered in ms
+        pingLimit: 50
+        # -- Jitter latency you want alerts to be triggered in ms
+        jitterLimit: 50
+        labels: {}
+        rules:
+          - alert: SpeedtestSlowInternetDownload
+            annotations:
+              description: Internet download speed is averaging {{ "{{ humanize $value }}" }} Mbps.
+              summary: SpeedTest slow internet download.
+            expr: |
+              avg_over_time(speedtest_download_bits_per_second{job=~".*{{ include "common.names.fullname" . }}.*"}[4h])
+                < {{ .Values.metrics.prometheusRule.downloadLimit }}
+            for: 0m
+            labels:
+              severity: warning
