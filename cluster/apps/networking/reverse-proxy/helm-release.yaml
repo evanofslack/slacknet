@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     controller:
-      replicas: 1
+      replicas: 3
     # generateTLS:
     #   enabled: true
     #   secretName: ""
