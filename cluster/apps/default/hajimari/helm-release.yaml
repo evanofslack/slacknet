@@ -24,7 +24,7 @@ spec:
       retries: 5
   values:
     image:
-      repository: ghcr.io/evanofslack/hajimari
+      repository: evanofslack/hajimari
       tag: latest
     hajimari:
       defaultEnable: false
