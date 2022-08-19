@@ -538,6 +538,7 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -641,6 +642,7 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -781,6 +783,6 @@
   "timezone": "",
   "title": "Speedtest Monitor",
   "uid": "-fs18ztMz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
