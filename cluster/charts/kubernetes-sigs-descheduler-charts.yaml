@@ -5,5 +5,5 @@ metadata:
   name: kubernetes-sigs-descheduler-charts
   namespace: flux-system
 spec:
-  interval: 1hr
+  interval: 1h
   url: https://kubernetes-sigs.github.io/descheduler
