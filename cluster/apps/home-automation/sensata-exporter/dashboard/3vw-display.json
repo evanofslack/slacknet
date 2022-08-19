@@ -465,7 +465,7 @@
             "uid": "prometheus"
           },
           "editorMode": "builder",
-          "expr": "broker_uptime",
+          "expr": "sum by() (broker_uptime)",
           "legendFormat": "{{sensata_broker_status}}",
           "range": true,
           "refId": "A"
@@ -624,7 +624,7 @@
           },
           "editorMode": "builder",
           "exemplar": true,
-          "expr": "sum by(DUT) (sensata_msg_total{modality=\"all\", instance=~\"$instance\"})",
+          "expr": "sum by(DUT) (sensata_msg_total{modality=\"all\"})",
           "interval": "",
           "legendFormat": "{{DUT}}",
           "range": true,
@@ -714,9 +714,9 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by(modality) (sensata_msg_total{modality!=\"all\", instance=\"$instance\"})",
+          "expr": "sum by(modality) (sensata_msg_total{modality!=\"all\"})",
           "interval": "",
           "legendFormat": "{{DUT}}",
           "range": true,
@@ -984,7 +984,7 @@
           },
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "sensata_temperature{instance=~\"$instance\"}",
+          "expr": "sensata_temperature{instance=\"$instance\"}",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -1049,32 +1049,7 @@
           },
           "unit": "accG"
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "bedroom"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -1279,9 +1254,13 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "10.42.39.5:8000",
-          "value": "10.42.39.5:8000"
+          "selected": false,
+          "text": "10.42.133.219:8000",
+          "value": "10.42.133.219:8000"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
         },
         "definition": "label_values(sensata_msg_total, instance)",
         "hide": 0,
@@ -1310,6 +1289,6 @@
   "timezone": "browser",
   "title": "3VW Monitor",
   "uid": "gAaDofm4k",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
