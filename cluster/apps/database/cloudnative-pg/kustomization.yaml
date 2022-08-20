@@ -4,3 +4,4 @@ kind: Kustomization
 namespace: database
 resources:
   - helm-release.yaml
+  - cluster-test.yaml
