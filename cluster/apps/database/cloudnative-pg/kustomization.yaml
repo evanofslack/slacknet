@@ -7,3 +7,10 @@ resources:
   - secret.sops.yaml
   - cluster.yaml
   - service.yaml
+configMapGenerator:
+  - name: cnpg-grafana-dashboards
+    files:
+      - dashboard/cnpg-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"
