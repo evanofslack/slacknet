@@ -4,6 +4,6 @@ kind: Kustomization
 namespace: database
 resources:
   - helm-release.yaml
-  - cluster-test.yaml
-  - service-config.yaml
+  - secret.sops.yaml
+  - cluster.yaml
   - service.yaml
