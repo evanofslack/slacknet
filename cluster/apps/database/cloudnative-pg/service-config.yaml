@@ -5,4 +5,4 @@ metadata:
   name: tcp-services
   namespace: database
 data:
-  5432: "default/cluster-test-rw:5432"
+  "5432": "default/cluster-test-rw:5432"
