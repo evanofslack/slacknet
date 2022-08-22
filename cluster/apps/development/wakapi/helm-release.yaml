@@ -49,6 +49,11 @@ spec:
       WAKAPI_EXPOSE_METRICS: true
       WAKAPI_PUBLIC_URL: &host wakapi.local.${SECRET_DOMAIN}
 
+    service:
+      main:
+        ports:
+          http:
+            port: &port 80
     ingress:
       main:
         enabled: true
@@ -63,6 +68,8 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+                service:
+                  port: *port
         tls:
           - hosts:
               - *host
