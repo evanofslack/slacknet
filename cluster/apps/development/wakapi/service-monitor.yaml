@@ -9,7 +9,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: wakapi
+      app: service-wakapi
   endpoints:
     - port: http
       path: '/api/metrics'
