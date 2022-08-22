@@ -14,3 +14,6 @@ spec:
     - port: http
       path: '/api/metrics'
       interval: 30s
+      bearerTokenSecret:
+        name: wakapi-token
+        key: token
