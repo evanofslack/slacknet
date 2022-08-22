@@ -30,8 +30,8 @@ spec:
     global:
       nameOverride: *app
     image:
-      repository: n1try/wakapi
-      tag: 2.3.7
+      repository: ghcr.io/muety/wakapi
+      tag: latest
     env:
       WAKAPI_DB_TYPE: "postgres"
       WAKAPI_DB_NAME: "wakapi"
