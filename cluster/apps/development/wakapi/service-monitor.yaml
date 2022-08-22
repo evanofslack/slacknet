@@ -5,11 +5,11 @@ metadata:
   name: wakapi-service-monitor
   namespace: development
   labels:
-    app: wakapi
+    app.kubernetes.io/name: wakapi
 spec:
   selector:
     matchLabels:
-      app: wakapi
+      app.kubernetes.io/name: wakapi
   endpoints:
     - port: http
       path: '/api/metrics'
