@@ -41,13 +41,12 @@ spec:
           secretKeyRef:
             name: wakapi-user
             key: password
-      WAKAPI_DB_HOST: "PG_DATABASE_RW_SERVICE_HOST"
+      WAKAPI_DB_HOST: "postgres-wakapi-rw"
       WAKAPI_DB_PORT: 5432
       WAKAPI_DB_SSL: true
       ENVIRONMENT: "prod"
       WAKAPI_PASSWORD_SALT: "saltyboi"
       WAKAPI_EXPOSE_METRICS: true
-      WAKAPI_PUBLIC_URL: &host wakapi.local.${SECRET_DOMAIN}
 
     service:
       main:
@@ -74,7 +73,7 @@ spec:
           - hosts:
               - *host
             secretName: "wakatime-tls"
-    persistence:
-      config:
-        enabled: true
-        existingClaim: wakapi-pvc
+    # persistence:
+    #   config:
+    #     enabled: true
+    #     existingClaim: wakapi-pvc
