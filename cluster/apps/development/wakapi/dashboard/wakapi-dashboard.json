@@ -5,13 +5,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.1.1"
-    },
-    {
-      "type": "panel",
-      "id": "grafana-piechart-panel",
-      "name": "Pie Chart",
-      "version": "1.6.0"
+      "version": "7.1.3"
     },
     {
       "type": "panel",
@@ -24,6 +18,12 @@
       "id": "prometheus",
       "name": "Prometheus",
       "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
     }
   ],
   "annotations": {
@@ -39,32 +39,36 @@
       }
     ]
   },
-  "description": "Displays statistics from Wakatime via the Prometheus wakatime_exporter",
+  "description": "Displays statistics from the Prometheus wakatime_exporter v0.1.0",
   "editable": true,
   "gnetId": 12790,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1596755124672,
-  "links": [],
+  "iteration": 1597508999485,
+  "links": [
+    {
+      "icon": "info",
+      "tags": [],
+      "targetBlank": true,
+      "title": "Wakatime Exporter",
+      "tooltip": "Open the Wakatime Exporter project",
+      "type": "link",
+      "url": "https://github.com/MacroPower/wakatime_exporter"
+    }
+  ],
   "panels": [
     {
-      "aliasColors": {
-        "time": "purple"
-      },
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "$prometheus",
-      "decimals": null,
       "fieldConfig": {
         "defaults": {
           "custom": {},
+          "decimals": 2,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "blue",
                 "value": null
               }
             ]
@@ -73,34 +77,85 @@
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 1,
       "gridPos": {
-        "h": 11,
-        "w": 18,
+        "h": 5,
+        "w": 3,
         "x": 0,
         "y": 0
       },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.3",
+      "targets": [
+        {
+          "expr": "sum without (instance) (wakatime_cumulative_seconds_total)",
+          "interval": "",
+          "legendFormat": "total",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Time Logged",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {
+        "Mac": "dark-purple",
+        "Windows": "dark-blue"
+      },
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 3,
+        "y": 0
+      },
       "hiddenSeries": false,
-      "id": 7,
+      "id": 9,
+      "interval": null,
       "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "hideEmpty": true,
-        "hideZero": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
         "show": true,
-        "total": true,
-        "values": true
+        "total": false,
+        "values": false
       },
       "lines": false,
-      "linewidth": 2,
-      "nullPointMode": "null as zero",
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -110,51 +165,49 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(wakatime_seconds_total[1d])",
-          "instant": false,
-          "interval": "1d",
-          "intervalFactor": 1,
-          "legendFormat": "time",
+          "expr": "sum without (instance) (increase(wakatime_operating_system_seconds_total[$__range])) > 0",
+          "instant": true,
+          "interval": "1m",
+          "legendFormat": "{{ name }}",
           "refId": "A"
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
+      "timeFrom": "$longterm",
       "timeRegions": [],
       "timeShift": null,
-      "title": "Total Time",
+      "title": "Time by OS",
       "tooltip": {
         "shared": true,
-        "sort": 0,
+        "sort": 2,
         "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
         "buckets": null,
-        "mode": "time",
+        "mode": "series",
         "name": null,
-        "show": true,
-        "values": []
+        "show": false,
+        "values": [
+          "total"
+        ]
       },
       "yaxes": [
         {
-          "$$hashKey": "object:428",
-          "decimals": null,
           "format": "s",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
-          "$$hashKey": "object:429",
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -163,57 +216,119 @@
       }
     },
     {
-      "aliasColors": {
-        "Mac": "#B877D9",
-        "Windows": "#5794F2"
-      },
-      "breakPoint": "50%",
+      "aliasColors": {},
+      "bars": true,
       "cacheTimeout": null,
-      "combine": {
-        "label": "Others",
-        "threshold": 0
-      },
+      "dashLength": 10,
+      "dashes": false,
       "datasource": "$prometheus",
       "fieldConfig": {
         "defaults": {
-          "custom": {}
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
         },
         "overrides": []
       },
-      "fontSize": "100%",
-      "format": "s",
+      "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
-        "h": 11,
-        "w": 6,
-        "x": 18,
+        "h": 10,
+        "w": 5,
+        "x": 7,
         "y": 0
       },
-      "id": 9,
+      "hiddenSeries": false,
+      "id": 17,
       "interval": null,
       "legend": {
-        "percentage": true,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
         "show": true,
-        "values": true
+        "total": false,
+        "values": false
       },
-      "legendType": "On graph",
+      "lines": false,
+      "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "pluginVersion": "7.1.1",
-      "strokeWidth": 1,
+      "maxDataPoints": 100,
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(wakatime_operating_system_seconds_total[$__range])",
+          "expr": "sum without (instance) (increase(wakatime_machine_seconds_total[$__range])) > 0",
+          "instant": true,
           "interval": "",
           "legendFormat": "{{ name }}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
+      "thresholds": [],
+      "timeFrom": "$longterm",
+      "timeRegions": [],
       "timeShift": null,
-      "title": "Coding Time by OS",
-      "type": "grafana-piechart-panel",
-      "valueName": "current"
+      "title": "Time by Machine",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": false,
+        "values": [
+          "total"
+        ]
+      },
+      "yaxes": [
+        {
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {
@@ -224,10 +339,10 @@
         "Text": "dark-purple"
       },
       "bars": true,
+      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$prometheus",
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -248,13 +363,188 @@
         },
         "overrides": []
       },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hiddenSeries": false,
+      "id": 19,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": false,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "total",
+        "sortDesc": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 10,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(10, sum without (instance) (increase(wakatime_language_seconds_total{name!=\"Other\"}[$__range])) > 0)",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{ name }}",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(increase(wakatime_language_seconds_total{name!~\"$top10lang\"}[$__range])) > 0",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "Other",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "$longterm",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Language Distribution",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "series",
+        "name": null,
+        "show": true,
+        "values": [
+          "current"
+        ]
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1524",
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1525",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": "$prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "locale"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 0,
+        "y": 5
+      },
+      "id": 13,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.3",
+      "targets": [
+        {
+          "expr": "sum without (instance) (wakatime_rank)",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current Rank",
+      "type": "stat"
+    },
+    {
+      "aliasColors": {
+        "Go": "super-light-blue",
+        "JSON": "light-yellow",
+        "Other": "dark-red",
+        "Python": "dark-blue",
+        "Text": "dark-purple"
+      },
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$prometheus",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 10,
       "fillGradient": 0,
       "gridPos": {
         "h": 13,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 2,
@@ -277,7 +567,7 @@
       "linewidth": 0,
       "nullPointMode": "null as zero",
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -287,7 +577,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(wakatime_language_seconds_total[1d])",
+          "expr": "sum without (instance) (increase(wakatime_language_seconds_total[1d]))",
           "interval": "1d",
           "intervalFactor": 1,
           "legendFormat": "{{ name }}",
@@ -298,7 +588,6 @@
       "timeFrom": null,
       "timeRegions": [
         {
-          "$$hashKey": "object:481",
           "colorMode": "background6",
           "fill": true,
           "fillColor": "rgba(234, 112, 112, 0.12)",
@@ -308,7 +597,7 @@
         }
       ],
       "timeShift": null,
-      "title": "Coding Time by Language",
+      "title": "Time by Language",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -324,7 +613,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:375",
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -333,7 +621,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:376",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -355,6 +642,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "$prometheus",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -367,7 +655,7 @@
         "h": 13,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 4,
@@ -390,7 +678,7 @@
       "linewidth": 2,
       "nullPointMode": "null as zero",
       "percentage": false,
-      "pluginVersion": "7.1.1",
+      "pluginVersion": "7.1.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -400,7 +688,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(wakatime_project_seconds_total[1d])",
+          "expr": "sum without (instance) (increase(wakatime_project_seconds_total[1d]))",
           "interval": "1d",
           "intervalFactor": 1,
           "legendFormat": "{{ name }}",
@@ -411,7 +699,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Coding Time by Project",
+      "title": "Time by Project",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -427,7 +715,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:82",
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -436,7 +723,311 @@
           "show": true
         },
         {
-          "$$hashKey": "object:83",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {
+        "time": "purple"
+      },
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$prometheus",
+      "decimals": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 23
+      },
+      "hiddenSeries": false,
+      "id": 7,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": true,
+        "rightSide": false,
+        "show": true,
+        "total": true,
+        "values": true
+      },
+      "lines": false,
+      "linewidth": 2,
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "activity",
+          "bars": false,
+          "hideTooltip": true,
+          "legend": false,
+          "lines": true,
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum without (instance) (increase(wakatime_seconds_total[1d]))",
+          "instant": false,
+          "interval": "1d",
+          "intervalFactor": 1,
+          "legendFormat": "time",
+          "refId": "A"
+        },
+        {
+          "expr": "sum without (instance) (increase(wakatime_seconds_total[$__interval]))",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 10,
+          "legendFormat": "activity",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Total Time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "s",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 2,
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 12,
+        "y": 23
+      },
+      "hiddenSeries": false,
+      "id": 20,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "wakatime_goal_progress_seconds_total{delta=\"day\"} / wakatime_goal_seconds{delta=\"day\"}",
+          "interval": "1m",
+          "intervalFactor": 3,
+          "legendFormat": "{{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "24h",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Daily Goal Progress",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 2,
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 18,
+        "y": 23
+      },
+      "hiddenSeries": false,
+      "id": 15,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pluginVersion": "7.1.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "wakatime_goal_progress_seconds_total{delta=\"week\"} / wakatime_goal_seconds{delta=\"week\"}",
+          "interval": "1m",
+          "intervalFactor": 3,
+          "legendFormat": "{{ name }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": "7d",
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Weekly Goal Progress",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percentunit",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -477,6 +1068,78 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {},
+        "datasource": "$prometheus",
+        "definition": "query_result(topk(10, sum without (instance,job) (increase(wakatime_language_seconds_total{name!=\"Other\"}[$__range])) > 0))",
+        "hide": 2,
+        "includeAll": true,
+        "label": null,
+        "multi": false,
+        "name": "top10lang",
+        "options": [],
+        "query": "query_result(topk(10, sum without (instance,job) (increase(wakatime_language_seconds_total{name!=\"Other\"}[$__range])) > 0))",
+        "refresh": 2,
+        "regex": "/\"([^\"]+)\"/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": true,
+          "text": "120d",
+          "value": "120d"
+        },
+        "hide": 0,
+        "label": "Long Term Interval",
+        "name": "longterm",
+        "options": [
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "30d",
+            "value": "30d"
+          },
+          {
+            "selected": false,
+            "text": "60d",
+            "value": "60d"
+          },
+          {
+            "selected": true,
+            "text": "120d",
+            "value": "120d"
+          }
+        ],
+        "query": "1d,7d,14d,30d,60d,120d",
+        "queryValue": "",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
       }
     ]
   },
@@ -498,7 +1161,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Wakatime Exporter for Prometheus - Coding Stats Dashboard",
+  "title": "1/0.1.0 Wakatime Exporter - Wakatime Coding Stats Dashboard",
   "uid": "BRqbRfVGz",
-  "version": 30
+  "version": 83
 }
