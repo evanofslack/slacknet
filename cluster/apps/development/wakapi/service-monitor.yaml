@@ -1,0 +1,16 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: wakapi-service-monitor
+  namespace: development
+  labels:
+    app: wakapi
+spec:
+  selector:
+    matchLabels:
+      app: wakapi
+  endpoints:
+    - port: http
+      path: 'api/metrics'
+      interval: 30s
