@@ -35,6 +35,7 @@ spec:
           - monitoring
           - longhorn-system
           - home-automation
+          - development
       name: "Evan"
       customApps: {}
       groups:
