@@ -19,4 +19,5 @@ resources:
   - metrics-server.yaml
   - prometheus-community.yaml
   - stakater.yaml
+  - wakapi.yaml
   - weaveworks-kured.yaml
