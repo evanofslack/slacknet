@@ -4,9 +4,9 @@ kind: Kustomization
 namespace: development
 resources:
   - secret.sops.yaml
-  # - wakapi-pvc.yaml
   - cluster.yaml
   - helm-release.yaml
+  # - service.yaml
 configMapGenerator:
   - name: wakapi-grafana-dashboards
     files:
