@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: development
+resources:
+  - secret.sops.yaml
+  - wakapi-pvc.yaml
+  - cluster.yaml
+  - helm-release.yaml
+configMapGenerator:
+  - name: wakapi-grafana-dashboards
+    files:
+      - dashboard/wakapi-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"

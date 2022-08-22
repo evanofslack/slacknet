@@ -13,7 +13,8 @@
         "Kubernetes": "cluster/*.yaml",
         "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-inventory.json": [
             "file:///Users/evan/Documents/GitHub/slacknet/cluster/apps/dev/analogdb/cluster.yaml",
-            "file:///Users/evan/Documents/GitHub/slacknet/cluster/apps/database/cloudnative-pg/cluster.yaml"
+            "file:///Users/evan/Documents/GitHub/slacknet/cluster/apps/database/cloudnative-pg/cluster.yaml",
+            "file:///Users/evan/Documents/GitHub/slacknet/cluster/apps/development/wakapi/cluster.yaml"
         ]
     },
     "editor.bracketPairColorization.enabled": true,
