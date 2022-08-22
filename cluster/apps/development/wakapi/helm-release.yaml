@@ -41,7 +41,7 @@ spec:
           secretKeyRef:
             name: wakapi-user
             key: password
-      WAKAPI_DB_HOST: "postgres-wakapi"
+      WAKAPI_DB_HOST: "postgres-wakapi-rw"
       WAKAPI_DB_PORT: "5432"
       WAKAPI_DB_SSL: true
       ENVIRONMENT: "prod"
