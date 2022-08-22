@@ -12,5 +12,5 @@ spec:
       app: wakapi
   endpoints:
     - port: http
-      path: 'api/metrics'
+      path: '/api/metrics'
       interval: 30s
