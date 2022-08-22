@@ -49,7 +49,6 @@ spec:
       WAKAPI_EXPOSE_METRICS: true
       WAKAPI_PUBLIC_URL: &host wakapi.local.${SECRET_DOMAIN}
 
-    service:
     ingress:
       main:
         enabled: true
