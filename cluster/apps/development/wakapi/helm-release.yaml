@@ -77,7 +77,7 @@ spec:
           - hosts:
               - *host
             secretName: "wakatime-tls"
-        persistence:
-          config:
-            enabled: true
-            existingClaim: wakapi-config
+      persistence:
+        config:
+          enabled: true
+          existingClaim: wakapi-config

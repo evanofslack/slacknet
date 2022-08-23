@@ -198,7 +198,8 @@
               "viz": false
             }
           },
-          "mappings": []
+          "mappings": [],
+          "unit": "s"
         },
         "overrides": []
       },
@@ -402,7 +403,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "bars",
-            "fillOpacity": 100,
+            "fillOpacity": 67,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -410,12 +411,12 @@
               "viz": false
             },
             "lineInterpolation": "linear",
-            "lineWidth": 1,
+            "lineWidth": 2,
             "pointSize": 8,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "always",
+            "showPoints": "never",
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -469,15 +470,19 @@
               },
               {
                 "id": "custom.lineWidth",
-                "value": 2
+                "value": 1
               },
               {
                 "id": "unit",
-                "value": "short"
+                "value": "s"
               },
               {
                 "id": "custom.axisPlacement",
                 "value": "hidden"
+              },
+              {
+                "id": "custom.lineInterpolation",
+                "value": "smooth"
               }
             ]
           }
@@ -1042,7 +1047,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
