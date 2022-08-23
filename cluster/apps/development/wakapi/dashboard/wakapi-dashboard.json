@@ -61,8 +61,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 5,
+        "h": 6,
+        "w": 4,
         "x": 0,
         "y": 0
       },
@@ -108,7 +108,7 @@
           },
           "custom": {
             "axisLabel": "",
-            "axisPlacement": "auto",
+            "axisPlacement": "left",
             "fillOpacity": 67,
             "gradientMode": "none",
             "hideFrom": {
@@ -136,9 +136,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 12,
-        "x": 5,
+        "h": 12,
+        "w": 5,
+        "x": 4,
         "y": 0
       },
       "id": 17,
@@ -154,7 +154,7 @@
           "placement": "bottom"
         },
         "orientation": "vertical",
-        "showValue": "auto",
+        "showValue": "never",
         "stacking": "none",
         "tooltip": {
           "mode": "single",
@@ -178,13 +178,100 @@
         }
       ],
       "timeFrom": "$longterm",
-      "title": "Time by Machine",
+      "title": "Machine",
       "type": "barchart"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "$prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "semi-dark-orange",
+            "mode": "continuous-BlPu"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "fillOpacity": 67,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 5,
+        "x": 9,
+        "y": 0
+      },
+      "id": 24,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.9,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "orientation": "vertical",
+        "showValue": "never",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "Time",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "9.0.5",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "$prometheus"
+          },
+          "editorMode": "code",
+          "expr": "sum without (instance) (increase(wakatime_operating_system_seconds_total[$__range])) > 0",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{ name }}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": "$longterm",
+      "title": "OS",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "$prometheus"
       },
       "fieldConfig": {
         "defaults": {
@@ -192,57 +279,168 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "fillOpacity": 80,
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
             }
           },
           "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
           "unit": "s"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Go"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "super-light-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "JSON"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Other"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Python"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Text"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 10,
-        "w": 7,
-        "x": 17,
+        "h": 12,
+        "w": 10,
+        "x": 14,
         "y": 0
       },
-      "id": 23,
+      "id": 19,
+      "links": [],
       "options": {
+        "barRadius": 0,
+        "barWidth": 0.7,
+        "groupWidth": 1,
         "legend": {
+          "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "right"
         },
-        "pieType": "pie",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
+        "orientation": "auto",
+        "showValue": "never",
+        "stacking": "none",
         "tooltip": {
           "mode": "single",
           "sort": "none"
-        }
+        },
+        "xField": "Time",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
       },
+      "pluginVersion": "9.0.5",
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "$prometheus"
           },
-          "editorMode": "code",
-          "expr": "wakatime_language_seconds_total",
-          "legendFormat": "{{name}}",
-          "range": true,
+          "expr": "topk(10, sum without (instance) (increase(wakatime_language_seconds_total{name!=\"Other\"}[$__range])) > 0)",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{ name }}",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "$prometheus"
+          },
+          "expr": "sum(increase(wakatime_language_seconds_total{name!~\"$top10lang\"}[$__range])) > 0",
+          "format": "time_series",
+          "hide": true,
+          "instant": true,
+          "interval": "",
+          "legendFormat": "Other",
+          "refId": "B"
         }
       ],
-      "title": "Panel Title",
-      "type": "piechart"
+      "timeFrom": "$longterm",
+      "title": "Language Distribution",
+      "type": "barchart"
     },
     {
       "datasource": {
@@ -268,10 +466,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 5,
+        "h": 6,
+        "w": 4,
         "x": 0,
-        "y": 5
+        "y": 6
       },
       "id": 21,
       "options": {
@@ -301,92 +499,6 @@
       ],
       "title": "Heartbeats",
       "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "$prometheus"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "semi-dark-orange",
-            "mode": "continuous-BlPu"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "fillOpacity": 67,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 12,
-        "x": 5,
-        "y": 5
-      },
-      "id": 24,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "barRadius": 0,
-        "barWidth": 0.9,
-        "groupWidth": 0.7,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "orientation": "vertical",
-        "showValue": "auto",
-        "stacking": "none",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        },
-        "xField": "Time",
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 0
-      },
-      "pluginVersion": "9.0.5",
-      "targets": [
-        {
-          "datasource": {
-            "uid": "$prometheus"
-          },
-          "expr": "sum without (instance) (increase(wakatime_operating_system_seconds_total[$__range])) > 0",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "{{ name }}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": "$longterm",
-      "title": "Time by OS",
-      "type": "barchart"
     },
     {
       "datasource": {
@@ -489,10 +601,10 @@
         ]
       },
       "gridPos": {
-        "h": 11,
-        "w": 12,
+        "h": 10,
+        "w": 17,
         "x": 0,
-        "y": 10
+        "y": 12
       },
       "id": 7,
       "options": {
@@ -515,11 +627,11 @@
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum without (instance) (increase(wakatime_seconds_total[1d]))",
-          "instant": true,
+          "instant": false,
           "interval": "1d",
           "intervalFactor": 1,
           "legendFormat": "time",
-          "range": false,
+          "range": true,
           "refId": "A"
         },
         {
@@ -538,8 +650,71 @@
           "refId": "B"
         }
       ],
-      "title": "Total Time",
+      "title": "History",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 7,
+        "x": 17,
+        "y": 12
+      },
+      "id": 23,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "wakatime_language_seconds_total",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Language Distribution",
+      "type": "piechart"
     },
     {
       "datasource": {
@@ -617,8 +792,8 @@
       "gridPos": {
         "h": 11,
         "w": 12,
-        "x": 12,
-        "y": 10
+        "x": 0,
+        "y": 22
       },
       "id": 4,
       "options": {
@@ -641,11 +816,11 @@
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum without (instance) (increase(wakatime_project_seconds_total[1d]))",
-          "instant": true,
+          "instant": false,
           "interval": "1d",
           "intervalFactor": 1,
           "legendFormat": "{{ name }}",
-          "range": false,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -653,10 +828,7 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${prometheus}"
-      },
+      "datasource": {},
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -788,8 +960,8 @@
       "gridPos": {
         "h": 11,
         "w": 12,
-        "x": 0,
-        "y": 21
+        "x": 12,
+        "y": 22
       },
       "id": 2,
       "options": {
@@ -808,135 +980,21 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${prometheus}"
+            "uid": ""
           },
           "editorMode": "code",
           "exemplar": false,
           "expr": "sum without (instance) (increase(wakatime_language_seconds_total[1d]))",
-          "instant": true,
+          "instant": false,
           "interval": "1d",
           "intervalFactor": 1,
           "legendFormat": "{{name}}",
-          "range": false,
+          "range": true,
           "refId": "A"
         }
       ],
       "title": "Time by Language",
       "type": "timeseries"
-    },
-    {
-      "aliasColors": {
-        "Go": "super-light-blue",
-        "JSON": "light-yellow",
-        "Other": "dark-red",
-        "Python": "dark-blue",
-        "Text": "dark-purple"
-      },
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": {
-        "uid": "$prometheus"
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 11,
-        "w": 12,
-        "x": 12,
-        "y": 21
-      },
-      "hiddenSeries": false,
-      "id": 19,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "total",
-        "sortDesc": true,
-        "total": true,
-        "values": true
-      },
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "9.0.5",
-      "pointradius": 10,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "datasource": {
-            "uid": "$prometheus"
-          },
-          "expr": "topk(10, sum without (instance) (increase(wakatime_language_seconds_total{name!=\"Other\"}[$__range])) > 0)",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "{{ name }}",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "uid": "$prometheus"
-          },
-          "expr": "sum(increase(wakatime_language_seconds_total{name!~\"$top10lang\"}[$__range])) > 0",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Other",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": "$longterm",
-      "timeRegions": [],
-      "title": "Language Distribution",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "series",
-        "show": true,
-        "values": [
-          "current"
-        ]
-      },
-      "yaxes": [
-        {
-          "$hashKey": "object:1524",
-          "format": "s",
-          "logBase": 1,
-          "show": true
-        },
-        {
-          "$hashKey": "object:1525",
-          "format": "short",
-          "logBase": 1,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false
-      }
     }
   ],
   "refresh": false,
@@ -1000,20 +1058,20 @@
         "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "1d",
-          "value": "1d"
+          "text": "7d",
+          "value": "7d"
         },
         "hide": 0,
         "label": "Long Term Interval",
         "name": "longterm",
         "options": [
           {
-            "selected": true,
+            "selected": false,
             "text": "1d",
             "value": "1d"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "7d",
             "value": "7d"
           },
@@ -1047,7 +1105,7 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {

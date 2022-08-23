@@ -17,6 +17,7 @@ resources:
   - longhorn.yaml
   - metallb.yaml
   - metrics-server.yaml
+  - mongodb.yaml
   - prometheus-community.yaml
   - stakater.yaml
   - weaveworks-kured.yaml
