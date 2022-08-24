@@ -41,6 +41,7 @@
   "panels": [
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "$prometheus"
       },
       "fieldConfig": {
@@ -87,7 +88,7 @@
           "datasource": {
             "uid": "$prometheus"
           },
-          "expr": "sum without (instance) (wakatime_cumulative_seconds_total)",
+          "expr": "sum (wakatime_cumulative_seconds_total)",
           "interval": "",
           "legendFormat": "total",
           "refId": "A"
@@ -98,6 +99,7 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
         "uid": "$prometheus"
       },
       "fieldConfig": {
@@ -133,7 +135,32 @@
           },
           "unit": "s"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DESKTOP-O0AO635"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "workstation-pc"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Evans-MBP-3.fios-router.home"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "macbook"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 12,
@@ -170,7 +197,7 @@
           "datasource": {
             "uid": "$prometheus"
           },
-          "expr": "sum without (instance) (increase(wakatime_machine_seconds_total[$__range])) > 0",
+          "expr": "sum without (instance, pod) (increase(wakatime_machine_seconds_total[$__range])) > 0",
           "instant": true,
           "interval": "",
           "legendFormat": "{{ name }}",
@@ -257,7 +284,7 @@
             "uid": "$prometheus"
           },
           "editorMode": "code",
-          "expr": "sum without (instance) (increase(wakatime_operating_system_seconds_total[$__range])) > 0",
+          "expr": "sum without (instance, pod) (increase(wakatime_operating_system_seconds_total[$__range])) > 0",
           "instant": true,
           "interval": "",
           "legendFormat": "{{ name }}",
@@ -493,7 +520,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "wakatime_heartbeats_total",
+          "expr": "sum (wakatime_heartbeats_total)",
           "refId": "A"
         }
       ],
@@ -626,7 +653,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without (instance) (increase(wakatime_seconds_total[1d]))",
+          "expr": "sum without (instance, pod) (increase(wakatime_seconds_total[1d]))",
           "instant": false,
           "interval": "1d",
           "intervalFactor": 1,
@@ -640,7 +667,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without (instance) (increase(wakatime_seconds_total[$__interval]))",
+          "expr": "sum without (instance, pod) (increase(wakatime_seconds_total[$__interval]))",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -707,7 +734,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "wakatime_language_seconds_total",
+          "expr": "sum without (instance, pod) (wakatime_language_seconds_total)",
           "legendFormat": "{{name}}",
           "range": true,
           "refId": "A"
@@ -815,7 +842,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without (instance) (increase(wakatime_project_seconds_total[1d]))",
+          "expr": "sum without (instance, pod) (increase(wakatime_project_seconds_total[1d]))",
           "instant": false,
           "interval": "1d",
           "intervalFactor": 1,
@@ -828,7 +855,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": {},
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -984,7 +1014,8 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum without (instance) (increase(wakatime_language_seconds_total[1d]))",
+          "expr": "wakatime_language_seconds_total",
+          "format": "time_series",
           "instant": false,
           "interval": "1d",
           "intervalFactor": 1,
@@ -1058,20 +1089,20 @@
         "auto_min": "10s",
         "current": {
           "selected": false,
-          "text": "7d",
-          "value": "7d"
+          "text": "1d",
+          "value": "1d"
         },
         "hide": 0,
         "label": "Long Term Interval",
         "name": "longterm",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "1d",
             "value": "1d"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "7d",
             "value": "7d"
           },
@@ -1105,7 +1136,7 @@
     ]
   },
   "time": {
-    "from": "now-2d",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {
