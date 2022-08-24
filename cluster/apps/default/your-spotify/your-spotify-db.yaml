@@ -1,0 +1,31 @@
+---
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: your-spotify-mongodb
+  namespace: default
+spec:
+  members: 1
+  type: ReplicaSet
+  version: "5.0.6"
+
+  prometheus:
+    username: prometheus
+    passwordSecretRef:
+      name: prometheus-endpoint-password
+
+  security:
+    authentication:
+      modes: ["SCRAM"]
+
+  users:
+    - name: eslack
+      db: admin
+      passwordSecretRef:
+        name: spotify-mongodb-password
+      roles:
+        - name: clusterAdmin
+          db: admin
+        - name: userAdminAnyDatabase
+          db: admin
+      scramCredentialsSecretName: my-scram
