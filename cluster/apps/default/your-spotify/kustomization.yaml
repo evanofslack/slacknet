@@ -5,4 +5,3 @@ namespace: database
 resources:
   - secret.sops.yaml
   - your-spotify-db.yaml
-  - service-monitor.yaml

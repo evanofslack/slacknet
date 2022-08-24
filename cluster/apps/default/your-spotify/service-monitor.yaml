@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: mongodb-service-monitor
+  name: mongodb-spotify-service-monitor
   namespace: default
 spec:
   endpoints:
