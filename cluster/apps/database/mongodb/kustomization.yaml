@@ -4,10 +4,13 @@ kind: Kustomization
 namespace: database
 resources:
   - helm-release.yaml
-# configMapGenerator:
-#   - name: cnpg-grafana-dashboards
-#     files:
-#       - dashboard/cnpg-dashboard.json
-#     options:
-#       labels:
-#         grafana_dashboard: "1"
+  - secret.sops.yaml
+  - test-db.yaml
+  - service-monitor.yaml
+configMapGenerator:
+  - name: mongodb-grafana-dashboards
+    files:
+      - dashboard/mongodb-dashboard.json
+    options:
+      labels:
+        grafana_dashboard: "1"

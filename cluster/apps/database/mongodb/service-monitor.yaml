@@ -1,0 +1,25 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: mongodb-service-monitor
+  namespace: database
+  # labels:
+  #   release: prometheus
+spec:
+  endpoints:
+    - basicAuth:
+        password:
+          key: password
+          name: metrics-endpoint-password
+        username:
+          key: username
+          name: metrics-endpoint-password
+      port: prometheus
+      scheme: http
+  namespaceSelector:
+    matchNames:
+      - database
+  selector:
+    matchLabels:
+      app: mongodb-svc
