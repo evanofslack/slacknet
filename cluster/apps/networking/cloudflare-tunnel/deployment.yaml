@@ -2,23 +2,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cloudflare-tunnel-deployment
+  name: cloudflared-deployment
   labels:
-    app: cloudflare-tunnel
+    app: cloudflared
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cloudflare-tunnel
+      app: cloudflared
   template:
     metadata:
       labels:
-        app: cloudflare-tunnel
+        app: cloudflared
     spec:
       containers:
-        - name: cloudflare-tunnel
-          image: erisamoe/cloudflared
-          command: ["tunnel", "run"]
+        - name: cloudflared
+          image: cloudflare/cloudflared:2022.3.0
+          args:
+            - tunnel
+            - run
+          livenessProbe:
+            httpGet:
+              path: /ready
+              port: 2000
+            failureThreshold: 1
+            initialDelaySeconds: 10
+            periodSeconds: 10
           resources:
             requests:
               cpu: 25m
