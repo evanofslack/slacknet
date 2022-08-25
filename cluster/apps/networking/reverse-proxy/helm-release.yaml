@@ -149,7 +149,7 @@ spec:
           tls:
             - hosts:
                 - api.spotify.local.${SECRET_DOMAIN}
-              secretName: "spotify-client-tls"
+              secretName: "spotify-server-tls"
           hosts:
             - host: api.spotify.local.${SECRET_DOMAIN}
               path: /
