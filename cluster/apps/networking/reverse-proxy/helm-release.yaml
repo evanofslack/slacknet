@@ -25,9 +25,6 @@ spec:
   values:
     controller:
       replicas: 3
-    # generateTLS:
-    #   enabled: true
-    #   secretName: ""
 
     instances:
       - name: proxmox
@@ -117,6 +114,44 @@ spec:
               secretName: "navi-grafana-tls"
           hosts:
             - host: navi-grafana.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: your-spotify-client
+        enabled: true
+        ip: 10.33.1.20
+        port: 3001
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            # hajimari.io/icon: "shield-check-outline"
+            # hajimari.io/appName: "adguard"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - spotify.local.${SECRET_DOMAIN}
+              secretName: "spotify-client-tls"
+          hosts:
+            - host: spotify.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: your-spotify-server
+        enabled: true
+        ip: 10.33.1.20
+        port: 8080
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            # hajimari.io/icon: "shield-check-outline"
+            # hajimari.io/appName: "adguard"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - api.spotify.local.${SECRET_DOMAIN}
+              secretName: "spotify-client-tls"
+          hosts:
+            - host: api.spotify.local.${SECRET_DOMAIN}
               path: /
 
     ingressPort:
