@@ -20,12 +20,10 @@ spec:
 
   users:
     - name: eslack
-      db: admin
+      db: your-spotify
       passwordSecretRef:
         name: spotify-mongodb-password
       roles:
-        - name: clusterAdmin
-          db: admin
-        - name: userAdminAnyDatabase
-          db: admin
+        - name: readWrite
+          db: your-spotify
       scramCredentialsSecretName: my-scram
