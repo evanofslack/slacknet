@@ -25,9 +25,9 @@ spec:
             httpGet:
               path: /ready
               port: 2000
-            failureThreshold: 1
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            failureThreshold: 3
+            initialDelaySeconds: 20
+            periodSeconds: 20
           resources:
             requests:
               cpu: 25m
