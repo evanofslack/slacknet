@@ -24,6 +24,35 @@ spec:
       retries: 5
   values:
     fullnameOverride: prometheus
+    defaultRules:
+      create: true
+      rules:
+        alertmanager: true
+        etcd: false
+        configReloaders: true
+        general: true
+        k8s: true
+        kubeApiserverAvailability: false
+        kubeApiserverBurnrate: false
+        kubeApiserverHistogram: false
+        kubeApiserverSlos: false
+        kubeControllerManager: false
+        kubelet: false
+        kubeProxy: false
+        kubePrometheusGeneral: false
+        kubePrometheusNodeRecording: false
+        kubernetesApps: false
+        kubernetesResources: false
+        kubernetesStorage: true
+        kubernetesSystem: false
+        kubeScheduler: false
+        kubeStateMetrics: false
+        network: false
+        node: true
+        nodeExporterAlerting: false
+        nodeExporterRecording: true
+        prometheus: true
+        prometheusOperator: true
 
     alertmanager:
       fullnameOverride: alertmanager
