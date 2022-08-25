@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-spotify-server-deployment
+  labels:
+    app: your-spotify-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: your-spotify-server
+  template:
+    metadata:
+      labels:
+        app: your-spotify-server
+    spec:
+      containers:
+        - name: your-spotify-server
+          image: yooooomi/your_spotify_server:latest
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              cpu: 400m
+              memory: 512Mi
+          env:
+            - name: SPOTIFY_PUBLIC
+              valueFrom:
+                secretKeyRef:
+                  name: spotify-creds
+                  key: client-id
+                  optional: false
+            - name: SPOTIFY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: spotify-creds
+                  key: client-secret
+                  optional: false
+            - name: MONGO_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: your-spotify-mongodb-admin-eslack
+                  key: connectionString.standard
+                  optional: false
+            - name: CORS
+              value: all
+            - name: API_ENDPOINT
+              value: https://your-spotify-backend.local.eslack.net
+            - name: CLIENT_ENDPOINT
+              value: https://your-spotify.local.eslack.net
+      restartPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: your-spotify-client-deployment
+  labels:
+    app: your-spotify-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: your-spotify-client
+  template:
+    metadata:
+      labels:
+        app: your-spotify-client
+    spec:
+      containers:
+        - name: your-spotify-client
+          image: yooooomi/your_spotify_client:latest
+          ports:
+            - name: http
+              containerPort: 3000
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              cpu: 400m
+              memory: 512Mi
+          env:
+            - name: API_ENDPOINT
+              value: https://your-spotify-backend.local.eslack.net
+      restartPolicy: Always

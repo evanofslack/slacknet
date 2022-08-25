@@ -1,0 +1,26 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: your-spotify-server-service
+  labels:
+    app: your-spotify-server
+spec:
+  selector:
+    app: your-spotify-server
+  ports:
+    - name: http
+      port: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: your-spotify-client-service
+  labels:
+    app: your-spotify-client
+spec:
+  selector:
+    app: your-spotify-client
+  ports:
+    - name: http
+      port: 3000
