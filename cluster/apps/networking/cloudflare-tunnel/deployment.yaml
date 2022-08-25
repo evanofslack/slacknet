@@ -18,7 +18,7 @@ spec:
       containers:
         - name: cloudflare-tunnel
           image: erisamoe/cloudflared
-          command: ["tunnel run"]
+          command: ["tunnel", "run"]
           resources:
             requests:
               cpu: 25m
