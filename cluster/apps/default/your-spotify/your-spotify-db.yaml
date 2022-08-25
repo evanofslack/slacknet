@@ -19,10 +19,20 @@ spec:
       modes: ["SCRAM"]
 
   users:
+    - name: admin
+      db: your-spotify
+      passwordSecretRef:
+        name: spotify-mongodb-password-admin
+      roles:
+        - name: clusterAdmin
+          db: your-spotify
+        - name: userAdminAnyDatabase
+          db: your-spotify
+      scramCredentialsSecretName: my-scram
     - name: eslack
       db: your-spotify
       passwordSecretRef:
-        name: spotify-mongodb-password
+        name: spotify-mongodb-password-user
       roles:
         - name: readWrite
           db: your-spotify
