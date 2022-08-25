@@ -18,6 +18,7 @@ spec:
   namespaceSelector:
     matchNames:
       - database
+      - default
   selector:
     matchLabels:
       app: mongodb-svc

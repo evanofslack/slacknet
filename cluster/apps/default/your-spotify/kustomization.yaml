@@ -6,3 +6,5 @@ resources:
   - rbac
   - secret.sops.yaml
   - your-spotify-db.yaml
+  - deployment.yaml
+  - service.yaml
