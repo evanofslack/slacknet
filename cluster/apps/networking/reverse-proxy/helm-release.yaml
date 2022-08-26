@@ -166,7 +166,7 @@ spec:
           tls:
             - hosts:
                 - portainer.local.${SECRET_DOMAIN}
-              secretName: "spotify-client-tls"
+              secretName: "portainer-tls"
           hosts:
             - host: portainer.local.${SECRET_DOMAIN}
               path: /
