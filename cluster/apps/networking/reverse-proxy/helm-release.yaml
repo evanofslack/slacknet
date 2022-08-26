@@ -123,9 +123,9 @@ spec:
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
-            hajimari.io/enable: "false"
-            # hajimari.io/icon: "shield-check-outline"
-            # hajimari.io/appName: "adguard"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "spotify"
+            hajimari.io/appName: "spotify-stats"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
@@ -143,8 +143,6 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "false"
-            # hajimari.io/icon: "shield-check-outline"
-            # hajimari.io/appName: "adguard"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
@@ -152,6 +150,25 @@ spec:
               secretName: "spotify-server-tls"
           hosts:
             - host: api.spotify.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: portainer
+        enabled: true
+        ip: 10.33.1.20
+        port: 9000
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "docker"
+            hajimari.io/appName: "portainer"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - portainer.local.${SECRET_DOMAIN}
+              secretName: "spotify-client-tls"
+          hosts:
+            - host: portainer.local.${SECRET_DOMAIN}
               path: /
 
     ingressPort:
