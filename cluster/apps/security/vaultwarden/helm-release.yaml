@@ -45,10 +45,10 @@ spec:
       main:
         ports:
           http:
-            port: 80
+            port: &port 80
           websocket:
             enabled: true
-            port: 3012
+            port: &websocket-port 3012
     ingress:
       main:
         enabled: true
@@ -65,15 +65,15 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
-                  port: http
+                  port: *port
               - path: /notifications/hub/negotiate
                 pathType: Prefix
                 service:
-                  port: http
+                  port: *port
               - path: /notifications/hub
                 pathType: Prefix
                 service:
-                  port: websocket
+                  port: *websocket-port
         tls:
           - hosts:
               - "vaultwarden.local.${SECRET_DOMAIN}"
