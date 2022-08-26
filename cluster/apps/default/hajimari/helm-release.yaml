@@ -36,6 +36,7 @@ spec:
           - longhorn-system
           - home-automation
           - development
+          - security
       name: "Evan"
       customApps: {}
       groups:
