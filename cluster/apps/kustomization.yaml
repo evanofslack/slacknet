@@ -10,5 +10,6 @@ resources:
   - home-automation
   - monitoring
   - networking
+  - security
   - storage
   - system-upgrade

@@ -1,0 +1,28 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-vaultwarden
+  namespace: security
+spec:
+  instances: 1
+  primaryUpdateStrategy: unsupervised
+
+  postgresql:
+    pg_hba:
+      - host all all all md5
+
+  bootstrap:
+    initdb:
+      database: vaultwarden
+      owner: vaultwarden
+      secret:
+        name: vaultwarden-user
+
+  storage:
+    size: 10Gi
+    storageClass: longhorn
+  superuserSecret:
+    name: postgres-superuser
+  monitoring:
+    enablePodMonitor: true
