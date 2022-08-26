@@ -1,0 +1,84 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: &app vaultwarden
+  namespace: security
+spec:
+  releaseName: *app
+  interval: 15m
+  chart:
+    spec:
+      chart: vaultwarden
+      version: 5.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home
+        namespace: flux-system
+      interval: 15m
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: database
+  values:
+    global:
+      nameOverride: *app
+    image:
+      repository: vaultwarden/server
+      tag: 1.25.2
+      pullPolicy: IfNotPresent
+    env:
+      DATA_FOLDER: "config"
+      DATABASE_URL:
+        valueFrom:
+          secretKeyRef:
+            name: vaultwarden-postgres
+            key: POSTGRES_URL
+
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+          websocket:
+            enabled: true
+            port: 3012
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "form-textbox-password"
+          hajimari.io/appName: "vaultwarden"
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        hosts:
+          - host: vaultwarden.local.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  port: http
+              - path: /notifications/hub/negotiate
+                pathType: Prefix
+                service:
+                  port: http
+              - path: /notifications/hub
+                pathType: Prefix
+                service:
+                  port: websocket
+        tls:
+          - hosts:
+              - "vaultwarden.local.${SECRET_DOMAIN}"
+            secretName: "vaultwarden-tls"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: vaultwarden-config

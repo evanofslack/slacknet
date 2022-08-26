@@ -5,4 +5,5 @@ namespace: security
 resources:
   - secret.sops.yaml
   - cluster.yaml
-  # - helm-release.yaml
+  - config-pvc.yaml
+  - helm-release.yaml
