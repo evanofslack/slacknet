@@ -21,13 +21,6 @@ spec:
           args:
             - tunnel
             - run
-          livenessProbe:
-            httpGet:
-              path: /ready
-              port: 2000
-            failureThreshold: 3
-            initialDelaySeconds: 20
-            periodSeconds: 20
           resources:
             requests:
               cpu: 25m
