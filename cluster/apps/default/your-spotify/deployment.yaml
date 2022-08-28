@@ -53,6 +53,8 @@ spec:
               value: https://your-spotify-backend.local.eslack.net
             - name: CLIENT_ENDPOINT
               value: https://your-spotify.local.eslack.net
+            - name: TIMEZONE
+              value: ${TIMEZONE}
       restartPolicy: Always
 ---
 apiVersion: apps/v1
