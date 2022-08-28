@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -15,37 +18,22 @@
           "type": "dashboard"
         },
         "type": "dashboard"
-      },
-      {
-        "datasource": {
-          "type": "datasource",
-          "uid": "grafana"
-        },
-        "enable": true,
-        "iconColor": "red",
-        "name": "flux events",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [
-            "flux"
-          ],
-          "type": "tags"
-        }
       }
     ]
   },
-  "description": "Flux logs collected from Kubernetes, stored in Loki",
+  "description": "Logs collected from Kubernetes, stored in Loki",
   "editable": true,
   "fiscalYearStartMonth": 0,
+  "gnetId": 15141,
   "graphTooltip": 0,
+  "id": 509,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_LOKI}"
+        "uid": "P8E80F9AEF21F6940"
       },
       "description": "",
       "fieldConfig": {
@@ -120,10 +108,12 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_LOKI}"
+            "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time({namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\" [$__interval]))",
-          "queryType": "range",
+          "expr": "sum(count_over_time({namespace=~\"$namespace\", stream=~\"$stream\", container =~\"$container\"} |= \"$query\" [$__interval]))",
+          "instant": false,
+          "legendFormat": "Log count",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -132,7 +122,7 @@
     {
       "datasource": {
         "type": "loki",
-        "uid": "${DS_LOKI}"
+        "uid": "P8E80F9AEF21F6940"
       },
       "description": "Logs from services running in Kubernetes",
       "gridPos": {
@@ -143,9 +133,9 @@
       },
       "id": 2,
       "options": {
-        "dedupStrategy": "numbers",
-        "enableLogDetails": false,
-        "prettifyLogMessage": true,
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
         "showCommonLabels": false,
         "showLabels": false,
         "showTime": false,
@@ -156,21 +146,20 @@
         {
           "datasource": {
             "type": "loki",
-            "uid": "${DS_LOKI}"
+            "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", app =~\"$controller\"} | json | __error__!=\"JSONParserErr\" | level=~\"$level\" |= \"$query\"",
-          "queryType": "range",
+          "expr": "{namespace=~\"$namespace\", stream=~\"$stream\", container =~\"$container\"} |= \"$query\"",
           "refId": "A"
         }
       ],
       "type": "logs"
     }
   ],
-  "refresh": "10s",
+  "refresh": false,
   "schemaVersion": 36,
-  "style": "light",
+  "style": "dark",
   "tags": [
-    "flux"
+    "Loki"
   ],
   "templating": {
     "list": [
@@ -196,81 +185,15 @@
         "type": "textbox"
       },
       {
-        "allValue": "info|error",
+        "allValue": ".+",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "All",
           "value": "$__all"
         },
-        "hide": 0,
-        "includeAll": true,
-        "multi": false,
-        "name": "level",
-        "options": [
-          {
-            "selected": true,
-            "text": "All",
-            "value": "$__all"
-          },
-          {
-            "selected": false,
-            "text": "info",
-            "value": "info"
-          },
-          {
-            "selected": false,
-            "text": "error",
-            "value": "error"
-          }
-        ],
-        "query": "info,error",
-        "queryValue": "",
-        "skipUrlSync": false,
-        "type": "custom"
-      },
-      {
-        "allValue": ".+",
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
         "datasource": {
-          "uid": ""
-        },
-        "definition": "label_values(app)",
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "name": "controller",
-        "options": [],
-        "query": {
-          "query": "label_values(app)",
-          "refId": "Prometheus-controller-Variable-Query"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "type": "query"
-      },
-      {
-        "allValue": ".+",
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "uid": ""
+          "type": "loki",
+          "uid": "P8E80F9AEF21F6940"
         },
         "definition": "label_values(namespace)",
         "hide": 0,
@@ -278,10 +201,7 @@
         "multi": true,
         "name": "namespace",
         "options": [],
-        "query": {
-          "query": "label_values(namespace)",
-          "refId": "Prometheus-namespace-Variable-Query"
-        },
+        "query": "label_values(namespace)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -296,7 +216,8 @@
           "value": "$__all"
         },
         "datasource": {
-          "uid": ""
+          "type": "loki",
+          "uid": "P8E80F9AEF21F6940"
         },
         "definition": "label_values(stream)",
         "hide": 0,
@@ -304,10 +225,31 @@
         "multi": true,
         "name": "stream",
         "options": [],
-        "query": {
-          "query": "label_values(stream)",
-          "refId": "Prometheus-stream-Variable-Query"
+        "query": "label_values(stream)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": ".+",
+        "current": {
+          "selected": false,
+          "text": "All",
+          "value": "$__all"
         },
+        "datasource": {
+          "type": "loki",
+          "uid": "P8E80F9AEF21F6940"
+        },
+        "definition": "label_values(container)",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "container",
+        "options": [],
+        "query": "label_values(container)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -317,20 +259,28 @@
       {
         "current": {
           "selected": false,
-          "text": "Loki",
-          "value": "Loki"
+          "text": "debug",
+          "value": "debug"
         },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "definition": "label_values(level)",
         "hide": 0,
         "includeAll": false,
-        "label": "Datasource",
         "multi": false,
-        "name": "DS_LOKI",
+        "name": "level",
         "options": [],
-        "query": "loki",
+        "query": {
+          "query": "label_values(level)",
+          "refId": "StandardVariableQuery"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "type": "datasource"
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
@@ -340,8 +290,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Flux Logs",
-  "uid": "flux-logs",
-  "version": 1,
+  "title": "Loki Kubernetes Logs",
+  "uid": "o6-BGgnnk",
+  "version": 6,
   "weekStart": ""
 }
