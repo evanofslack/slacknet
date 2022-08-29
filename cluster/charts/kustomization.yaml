@@ -5,6 +5,7 @@ resources:
   - bitnami.yaml
   - cloudnative-pg-charts.yaml
   - emberstack.yaml
+  - emqx-charts.yaml
   - external-dns.yaml
   - fairwinds-charts.yaml
   - grafana-charts.yaml
