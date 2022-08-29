@@ -7,5 +7,5 @@ resources:
   - emqx
   # - home-assistant
   - mosquitto
-  - mosquitto-exporter
-  - sensata-exporter
+  # - mosquitto-exporter
+  # - sensata-exporter
