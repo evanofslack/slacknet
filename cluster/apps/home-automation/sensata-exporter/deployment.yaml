@@ -44,7 +44,7 @@ spec:
                   key: MQTT_PASSWORD
                   optional: false
             - name: MQTT_HOST
-              value: ${METALLB_MOSQUITTO_ADDR}
+              value: ${METALLB_EMQX_ADDR}
             - name: MQTT_PORT
               value: "1883"
           livenessProbe:
