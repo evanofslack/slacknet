@@ -1,0 +1,28 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-hass
+  namespace: home-automation
+spec:
+  instances: 1
+  primaryUpdateStrategy: unsupervised
+
+  postgresql:
+    pg_hba:
+      - host all all all md5
+
+  bootstrap:
+    initdb:
+      database: hass
+      owner: hass
+      secret:
+        name: hass-user
+
+  storage:
+    size: 10Gi
+    storageClass: longhorn
+  superuserSecret:
+    name: postgres-superuser
+  monitoring:
+    enablePodMonitor: true
