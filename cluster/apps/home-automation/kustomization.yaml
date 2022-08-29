@@ -8,4 +8,4 @@ resources:
   # - home-assistant
   # - mosquitto
   # - mosquitto-exporter
-  # - sensata-exporter
+  - sensata-exporter
