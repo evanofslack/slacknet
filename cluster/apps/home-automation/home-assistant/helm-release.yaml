@@ -34,9 +34,9 @@ spec:
       TZ: "${TIMEZONE}"
       POSTGRES_HOST: postgres-hass-rw
       POSTGRES_DB: hass
-    envFrom:
-      - secretRef:
-          name: *app
+    # envFrom:
+    #   - secretRef:
+    #       name: *app
     service:
       main:
         type: LoadBalancer
