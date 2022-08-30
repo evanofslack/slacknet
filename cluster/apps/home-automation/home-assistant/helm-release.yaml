@@ -55,7 +55,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "home-assistant"
           hajimari.io/appName: "home-assistant"
-          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          # nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
           - host: &host "hass.local.${SECRET_DOMAIN}"
             paths:
@@ -64,7 +64,7 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: hass-tls
+            # secretName: hass-tls
     probes:
       liveness:
         enabled: false
@@ -105,14 +105,14 @@ spec:
           enabled: true
           ingressClassName: "nginx"
           hosts:
-            - host: &host "hass-code.${SECRET_DOMAIN}"
+            - host: &host "hass-code.local.${SECRET_DOMAIN}"
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - hosts:
                 - *host
-              secretName: hass-code-tls
+              # secretName: hass-code-tls
         volumeMounts:
           - name: config
             mountPath: /config
