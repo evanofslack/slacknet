@@ -142,8 +142,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
-          "expr": "sensata_temperature{DUT=~\"$DUT\"}",
+          "editorMode": "code",
+          "expr": "avg without (instance, pod) (sensata_temperature{DUT=~\"$DUT\"})",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -223,8 +223,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
-          "expr": "sensata_acoustic_p2p{DUT=~\"$DUT\"} + 2 ^ 5",
+          "editorMode": "code",
+          "expr": "avg without (instance, pod) (sensata_acoustic_p2p{DUT=~\"$DUT\"} + 2 ^ 5)",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -303,8 +303,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
-          "expr": "sensata_accel_p2p{DUT=~\"$DUT\", instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "avg without (instance, pod) (sensata_accel_p2p{DUT=~\"$DUT\"})",
           "legendFormat": "{{axis}}",
           "range": true,
           "refId": "A"
@@ -370,9 +370,9 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sensata_DUT_total{instance=\"$instance\"}",
+          "expr": "avg without (instance, pod) (sensata_DUT_total)",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -400,7 +400,7 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "Cumulative time Mosquitto broker has been running on EC2",
+      "description": "Number of MQTT instances running",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -432,7 +432,7 @@
               }
             ]
           },
-          "unit": "s"
+          "unit": "nodes"
         },
         "overrides": []
       },
@@ -464,14 +464,14 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
-          "expr": "sum by() (broker_uptime)",
+          "editorMode": "code",
+          "expr": "avg by (namespace) (emqx_cluster_nodes_running)",
           "legendFormat": "{{sensata_broker_status}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Broker Uptime",
+      "title": "Broker Instances",
       "type": "stat"
     },
     {
@@ -534,7 +534,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "time() - sensata_broker_start{instance=\"10.42.39.5:8000\"}",
+          "expr": "avg without (instance, pod) (time() - sensata_broker_start{})",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -622,7 +622,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": true,
           "expr": "sum by(DUT) (sensata_msg_total{modality=\"all\"})",
           "interval": "",
@@ -783,9 +783,9 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(broker_messages_received)",
+          "expr": "avg without (instance, pod, service, job) (emqx_messages_received)",
           "interval": "",
           "legendFormat": "",
           "range": true,
@@ -847,8 +847,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
-          "expr": "avg(rate(broker_messages_received[1h]))",
+          "editorMode": "code",
+          "expr": "avg without (instance, pod) (rate(broker_messages_received[1h]))",
           "legendFormat": "Sent",
           "range": true,
           "refId": "A"
@@ -982,9 +982,9 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "sensata_temperature{instance=\"$instance\"}",
+          "expr": "avg without (instance, pod) (sensata_temperature{DUT=~\"$DUT\"})",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -1077,8 +1077,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
-          "expr": "sensata_accel_p2p{DUT=~\"$DUT\", instance=\"$instance\"}",
+          "editorMode": "code",
+          "expr": "avg without (instance, pod) (sensata_accel_p2p{DUT=~\"$DUT\"})",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -1171,8 +1171,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "builder",
-          "expr": "sensata_acoustic_p2p{DUT=~\"$DUT\", instance=\"$instance\"} + 2 ^ 5",
+          "editorMode": "code",
+          "expr": "avg without (instance, pod) (sensata_acoustic_p2p{DUT=~\"$DUT\"} + 2 ^ 5)",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
@@ -1224,10 +1224,10 @@
         "current": {
           "selected": true,
           "text": [
-            "outside"
+            "bedroom"
           ],
           "value": [
-            "outside"
+            "bedroom"
           ]
         },
         "datasource": {
@@ -1250,33 +1250,6 @@
         "regex": "",
         "skipUrlSync": false,
         "sort": 3,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "10.42.133.219:8000",
-          "value": "10.42.133.219:8000"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "definition": "label_values(sensata_msg_total, instance)",
-        "hide": 0,
-        "includeAll": false,
-        "label": "Instance",
-        "multi": false,
-        "name": "instance",
-        "options": [],
-        "query": {
-          "query": "label_values(sensata_msg_total, instance)",
-          "refId": "StandardVariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]

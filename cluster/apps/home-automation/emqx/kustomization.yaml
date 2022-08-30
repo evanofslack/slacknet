@@ -4,3 +4,12 @@ kind: Kustomization
 resources:
   - secret.sops.yaml
   - helm-release.yaml
+configMapGenerator:
+  - name: emqx-grafana-dashboards
+    files:
+      - dashboard/emqx.json
+      - dashboard/emqx-dashboard.json
+      - dashboard/emqx-vm.json
+    options:
+      labels:
+        grafana_dashboard: "1"
