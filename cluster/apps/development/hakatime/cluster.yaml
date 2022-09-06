@@ -1,0 +1,28 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-hakatime
+  namespace: development
+spec:
+  instances: 1
+  primaryUpdateStrategy: unsupervised
+
+  postgresql:
+    pg_hba:
+      - host all all all md5
+
+  bootstrap:
+    initdb:
+      database: hakatime
+      owner: hakatime
+      secret:
+        name: hakatime-user
+
+  storage:
+    size: 20Gi
+    storageClass: longhorn
+  superuserSecret:
+    name: postgres-superuser
+  monitoring:
+    enablePodMonitor: true
