@@ -31,7 +31,7 @@ spec:
       nameOverride: *app
     image:
       repository: mujx/hakatime
-      tag: 1.7.1
+      tag: latest
     env:
       HAKA_DB_HOST: postgres-hakatime-rw
       HAKA_DB_PORT: 5432
