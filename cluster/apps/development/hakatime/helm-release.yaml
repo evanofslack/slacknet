@@ -37,7 +37,7 @@ spec:
       HAKA_DB_PORT: 5432
       HAKA_DB_NAME: "hakatime"
       HAKA_DB_USER: "hakatime"
-      HAKA_DB_PASSWORD:
+      HAKA_DB_PASS:
         valueFrom:
           secretKeyRef:
             name: hakatime-user
