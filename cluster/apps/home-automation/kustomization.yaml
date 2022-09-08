@@ -6,6 +6,4 @@ resources:
   - secret.sops.yaml
   - emqx
   - home-assistant
-  # - mosquitto
-  # - mosquitto-exporter
   - sensata-exporter
