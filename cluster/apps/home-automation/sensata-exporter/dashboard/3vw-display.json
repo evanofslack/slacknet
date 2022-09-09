@@ -24,6 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
+  "id": 590,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -149,7 +150,7 @@
           "refId": "A"
         }
       ],
-      "title": "Temperature",
+      "title": "Temperature - $DUT ",
       "transformations": [
         {
           "id": "reduce",
@@ -170,53 +171,107 @@
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "",
+      "description": "3VW Temperature (TMP117)",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "#f2f2f2",
-            "mode": "fixed"
+            "mode": "thresholds",
+            "seriesBy": "last"
           },
-          "decimals": 3,
+          "custom": {
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 50,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 3,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": 300000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
           "mappings": [],
-          "max": 110,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "dark-blue",
                 "value": null
+              },
+              {
+                "color": "blue",
+                "value": -5
+              },
+              {
+                "color": "super-light-blue",
+                "value": 5
+              },
+              {
+                "color": "super-light-yellow",
+                "value": 10
+              },
+              {
+                "color": "light-orange",
+                "value": 20
+              },
+              {
+                "color": "dark-orange",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 35
+              },
+              {
+                "color": "dark-red",
+                "value": 40
               }
             ]
           },
-          "unit": "dB"
+          "unit": "celsius"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 5,
+        "w": 13,
         "x": 11,
         "y": 1
       },
-      "id": 78,
+      "id": 4,
       "options": {
-        "orientation": "auto",
-        "reduceOptions": {
+        "legend": {
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "right"
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false,
-        "text": {
-          "titleSize": 16
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
         }
       },
-      "pluginVersion": "9.0.5",
       "targets": [
         {
           "datasource": {
@@ -224,94 +279,15 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "avg without (instance, pod) (sensata_acoustic_p2p{DUT=~\"$DUT\"} + 2 ^ 5)",
+          "exemplar": false,
+          "expr": "avg without (instance, pod) (sensata_temperature)",
           "legendFormat": "{{DUT}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Noise",
-      "transformations": [
-        {
-          "id": "reduce",
-          "options": {
-            "reducers": [
-              "lastNotNull"
-            ]
-          }
-        }
-      ],
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "yellow",
-            "mode": "palette-classic"
-          },
-          "decimals": 3,
-          "mappings": [],
-          "max": 0.5,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "accG"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 8,
-        "x": 16,
-        "y": 1
-      },
-      "id": 77,
-      "options": {
-        "displayMode": "gradient",
-        "minVizHeight": 10,
-        "minVizWidth": 0,
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showUnfilled": true,
-        "text": {
-          "titleSize": 16
-        }
-      },
-      "pluginVersion": "9.0.5",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "expr": "avg without (instance, pod) (sensata_accel_p2p{DUT=~\"$DUT\"})",
-          "legendFormat": "{{axis}}",
-          "range": true,
-          "refId": "A"
-        }
-      ],
-      "title": "Vibration",
-      "type": "bargauge"
+      "title": "Temperature",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -437,7 +413,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 4,
         "x": 0,
         "y": 10
@@ -506,7 +482,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 4,
         "x": 4,
         "y": 10
@@ -598,7 +574,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
+        "h": 10,
         "w": 8,
         "x": 8,
         "y": 10
@@ -690,7 +666,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
+        "h": 10,
         "w": 8,
         "x": 16,
         "y": 10
@@ -757,7 +733,7 @@
         "h": 5,
         "w": 4,
         "x": 0,
-        "y": 16
+        "y": 15
       },
       "id": 17,
       "options": {
@@ -826,7 +802,7 @@
         "h": 5,
         "w": 4,
         "x": 4,
-        "y": 16
+        "y": 15
       },
       "id": 27,
       "options": {
@@ -859,124 +835,58 @@
       "type": "gauge"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 21
-      },
-      "id": 8,
-      "panels": [],
-      "title": "Modalities",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
       },
-      "description": "3VW Temperature (TMP117)",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds",
-            "seriesBy": "last"
+            "fixedColor": "yellow",
+            "mode": "palette-classic"
           },
-          "custom": {
-            "axisGridShow": true,
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 50,
-            "gradientMode": "opacity",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "smooth",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 3,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": 300000,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
+          "decimals": 3,
           "mappings": [],
+          "max": 0.5,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue",
-                "value": null
-              },
-              {
-                "color": "blue",
-                "value": -5
-              },
-              {
-                "color": "super-light-blue",
-                "value": 5
-              },
-              {
-                "color": "super-light-yellow",
-                "value": 10
-              },
-              {
-                "color": "light-orange",
-                "value": 20
-              },
-              {
-                "color": "dark-orange",
-                "value": 30
-              },
-              {
-                "color": "red",
-                "value": 35
-              },
-              {
-                "color": "dark-red",
-                "value": 40
+                "color": "green"
               }
             ]
           },
-          "unit": "celsius"
+          "unit": "accG"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 8,
         "x": 0,
-        "y": 22
+        "y": 20
       },
-      "id": 4,
+      "id": 77,
       "options": {
-        "legend": {
+        "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
           "calcs": [
             "lastNotNull"
           ],
-          "displayMode": "table",
-          "placement": "right"
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
+        "showUnfilled": true,
+        "text": {
+          "titleSize": 16
         }
       },
+      "pluginVersion": "9.0.5",
       "targets": [
         {
           "datasource": {
@@ -984,15 +894,14 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "avg without (instance, pod) (sensata_temperature)",
-          "legendFormat": "{{DUT}}",
+          "expr": "avg without (instance, pod) (sensata_accel_p2p{DUT=~\"$DUT\"})",
+          "legendFormat": "{{axis}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Temperature",
-      "type": "timeseries"
+      "title": "Vibration",
+      "type": "bargauge"
     },
     {
       "datasource": {
@@ -1039,8 +948,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1054,9 +962,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 30
+        "w": 16,
+        "x": 8,
+        "y": 20
       },
       "id": 13,
       "options": {
@@ -1087,6 +995,83 @@
       ],
       "title": "Vibration P2P",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#f2f2f2",
+            "mode": "fixed"
+          },
+          "decimals": 3,
+          "mappings": [],
+          "max": 110,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "dB"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 28
+      },
+      "id": 78,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": false,
+        "text": {
+          "titleSize": 16
+        }
+      },
+      "pluginVersion": "9.0.5",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "editorMode": "code",
+          "expr": "avg without (instance, pod) (sensata_acoustic_p2p{DUT=~\"$DUT\"} + 2 ^ 5)",
+          "legendFormat": "{{DUT}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Noise",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        }
+      ],
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -1133,8 +1118,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1148,9 +1132,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 30
+        "w": 16,
+        "x": 8,
+        "y": 28
       },
       "id": 23,
       "options": {
@@ -1181,14 +1165,25 @@
       ],
       "title": "Microphone",
       "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 8,
+      "panels": [],
+      "title": "Modalities",
+      "type": "row"
     }
   ],
   "refresh": "10s",
   "schemaVersion": 36,
   "style": "dark",
-  "tags": [
-    "3VW"
-  ],
+  "tags": [],
   "templating": {
     "list": [
       {
@@ -1261,8 +1256,8 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "3VW Monitor",
-  "uid": "gAaDofm4k",
+  "title": "3VW Monitor Copy",
+  "uid": "8eB_i-M4z",
   "version": 1,
   "weekStart": ""
 }
