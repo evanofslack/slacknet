@@ -24,7 +24,6 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 590,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -854,7 +853,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -948,7 +948,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1016,7 +1017,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1118,7 +1120,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1183,7 +1186,9 @@
   "refresh": "10s",
   "schemaVersion": 36,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "Sensata"
+  ],
   "templating": {
     "list": [
       {
@@ -1256,8 +1261,8 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "3VW Monitor Copy",
+  "title": "3VW Monitor",
   "uid": "8eB_i-M4z",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
