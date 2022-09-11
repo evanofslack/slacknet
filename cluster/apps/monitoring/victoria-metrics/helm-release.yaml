@@ -92,29 +92,24 @@ spec:
 
     ingress:
       enabled: true
-      ingressClassName: "nginx"
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/icon: "database"
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+
       hosts:
-        - host: "victoria.local.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
+        - name: "victoria.local.${SECRET_DOMAIN}"
+          path: /
+
       tls:
-        - hosts:
+        - secretName: victoria-metrics-tls
+          hosts:
             - "victoria.local.${SECRET_DOMAIN}"
-          secretName: "victoria-tls"
+      ingressClassName: nginx
+      pathType: Prefix
 
     service:
-      annotations: {}
-      labels: {}
-      clusterIP: ""
-      externalIPs: []
-      loadBalancerIP: ""
-      loadBalancerSourceRanges: []
       servicePort: 8428
       type: ClusterIP
 
