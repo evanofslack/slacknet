@@ -22,4 +22,5 @@ resources:
   - mongodb.yaml
   - prometheus-community.yaml
   - stakater.yaml
+  - victoria-metrics-charts.yaml
   - weaveworks-kured.yaml

@@ -10,3 +10,4 @@ resources:
   - speedtest-exporter
   - uptime-kuma
   - vpa
+  - victoria-metrics
