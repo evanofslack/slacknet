@@ -90,14 +90,6 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 10
 
-    startupProbe: {}
-      tcpSocket:
-        port: http
-      failureThreshold: 30
-      periodSeconds: 15
-      successThreshold: 1
-      timeoutSeconds: 5
-
     ingress:
       enabled: true
       ingressClassName: "nginx"
@@ -147,4 +139,4 @@ spec:
         scrape_configs:
           - job_name: victoriametrics
             static_configs:
-              - targets: [ "localhost:8428" ]
+              - targets: ["localhost:8428"]
