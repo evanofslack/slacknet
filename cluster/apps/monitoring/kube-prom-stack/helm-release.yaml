@@ -133,10 +133,10 @@ spec:
           - kubernetes.io/pvc-protection
 
     kubeApiServer:
-      enabled: true
+      enabled: false
 
     kubelet:
-      enabled: true
+      enabled: false
       serviceMonitor:
         metricRelabelings:
           - action: replace
@@ -145,20 +145,20 @@ spec:
             targetLabel: instance
 
     kubeControllerManager:
-      enabled: true
+      enabled: false
       endpoints:
         - 10.33.1.200
         - 10.33.1.201
         - 10.33.1.202
 
     coreDns:
-      enabled: true
+      enabled: false
 
     kubeDns:
       enabled: false
 
     kubeEtcd:
-      enabled: true
+      enabled: false
       endpoints:
         - 10.33.1.200
         - 10.33.1.201
@@ -169,14 +169,14 @@ spec:
         targetPort: 2381
 
     kubeScheduler:
-      enabled: true
+      enabled: false
       endpoints:
         - 10.33.1.200
         - 10.33.1.201
         - 10.33.1.202
 
     kubeProxy:
-      enabled: true
+      enabled: false
       endpoints:
         - 10.33.1.200
         - 10.33.1.201
@@ -293,6 +293,9 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
+        # remoteWrite:
+        #   - url: "htts://victoria.local.${SECRET_DOMAIN}/api/v1/write"
+        #     name: victoria-metrics
         additionalScrapeConfigs:
           - job_name: "raspi"
             scrape_interval: 1m
@@ -313,6 +316,12 @@ spec:
             params:
               module: [default]
               target: ["10.33.1.174"]
+          - job_name: "pc-workstation"
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets: [10.33.1.78:4445] # ohmgraphite
 
     thanosRuler:
       enabled: false
