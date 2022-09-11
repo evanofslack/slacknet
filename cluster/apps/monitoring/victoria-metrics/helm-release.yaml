@@ -90,8 +90,26 @@ spec:
       timeoutSeconds: 5
       failureThreshold: 10
 
+      ingress:
+        enabled: false
+        annotations: {}
+        #   kubernetes.io/ingress.class: nginx
+        #   kubernetes.io/tls-acme: 'true'
+        extraLabels: {}
+        hosts: []
+        #   - name: vmselect.local
+        #     path: /select
+        #     port: http
+        tls: []
+        #   - secretName: vmselect-ingress-tls
+        #     hosts:
+        #       - vmselect.local
+        ingressClassName: nginx
+        pathType: Prefix
+
     ingress:
       enabled: true
+      ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
@@ -101,12 +119,12 @@ spec:
       hosts:
         - name: "victoria.local.${SECRET_DOMAIN}"
           path: /
+          port: http
 
       tls:
         - secretName: victoria-metrics-tls
           hosts:
             - "victoria.local.${SECRET_DOMAIN}"
-      ingressClassName: nginx
       pathType: Prefix
 
     service:
