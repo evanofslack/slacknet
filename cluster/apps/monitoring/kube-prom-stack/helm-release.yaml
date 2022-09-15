@@ -282,7 +282,7 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
-        retention: 24h
+        retention: 7d
         retentionSize: "20GB"
         enableAdminAPI: true
         walCompression: true
