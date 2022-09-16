@@ -284,6 +284,59 @@ spec:
             - host: fileserver.local.${SECRET_DOMAIN}
               path: /
 
+      - name: radarr
+        enabled: true
+        ip: 10.33.1.23
+        port: 7878
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - radarr.local.${SECRET_DOMAIN}
+              secretName: "radarr-tls"
+          hosts:
+            - host: radarr.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: sonarr
+        enabled: true
+        ip: 10.33.1.23
+        port: 8989
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - sonarr.local.${SECRET_DOMAIN}
+              secretName: "sonarr-tls"
+          hosts:
+            - host: sonarr.local.${SECRET_DOMAIN}
+              path: /
+
+
+      - name: prowlarr
+        enabled: true
+        ip: 10.33.1.23
+        port: 9696
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - prowlar.local.${SECRET_DOMAIN}
+              secretName: "prowlar-tls"
+          hosts:
+            - host: prowlar.local.${SECRET_DOMAIN}
+              path: /
+
+
     ingressPort:
       http: 80
       tls: 443
