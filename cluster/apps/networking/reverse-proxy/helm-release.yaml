@@ -26,8 +26,9 @@ spec:
     controller:
       replicas: 3
 
+
     instances:
-      - name: proxmox
+      - name: pve-kepler
         enabled: true
         ip: 10.33.1.174
         port: 8006
@@ -36,7 +37,7 @@ spec:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
             hajimari.io/icon: "monitor-multiple"
-            hajimari.io/appName: "proxmox"
+            hajimari.io/appName: "pve-kepler"
             ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
@@ -55,11 +56,47 @@ spec:
               proxy_hide_header X-Powered-By;
           tls:
             - hosts:
-                - proxmox.local.${SECRET_DOMAIN}
-              secretName: "proxmox-tls"
+                - pve-kepler.local.${SECRET_DOMAIN}
+              secretName: "pve-kepler-tls"
           hosts:
-            - host: proxmox.local.${SECRET_DOMAIN}
+            - host: pve-kepler.local.${SECRET_DOMAIN}
               path: /
+
+      - name: pve-navi
+        enabled: true
+        ip: 10.33.1.175
+        port: 8006
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "monitor-multiple"
+            hajimari.io/appName: "pve-navi"
+            ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
+              X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
+              Connection $connection_upgrade;      "
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+            nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+            nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
+            nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/server-snippet: |-
+              client_max_body_size 100G;
+              server_tokens off;
+              proxy_hide_header X-Powered-By;
+          tls:
+            - hosts:
+                - pve-navi.local.${SECRET_DOMAIN}
+              secretName: "pve-navi-tls"
+          hosts:
+            - host: pve-navi.local.${SECRET_DOMAIN}
+              path: /
+
+
       - name: adguard
         enabled: true
         ip: 10.33.1.98
@@ -169,6 +206,82 @@ spec:
               secretName: "portainer-tls"
           hosts:
             - host: portainer.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: jellyfin
+        enabled: true
+        ip: 10.33.1.252
+        port: 8096
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "jellyfish"
+            hajimari.io/appName: "jellyfin"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - jellyfin.local.${SECRET_DOMAIN}
+              secretName: "jellyfin-tls"
+          hosts:
+            - host: jellyfin.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: transmission
+        enabled: true
+        ip: 10.33.1.23
+        port: 8080
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "home-flood"
+            hajimari.io/appName: "transmission"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - transmission.local.${SECRET_DOMAIN}
+              secretName: "transmission-tls"
+          hosts:
+            - host: transmission.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: jellyseerr
+        enabled: true
+        ip: 10.33.1.23
+        port: 5055
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "magnify-expand"
+            hajimari.io/appName: "jellyseerr"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - jellyseerr.local.${SECRET_DOMAIN}
+              secretName: "jellyseerr-tls"
+          hosts:
+            - host: jellyseerr.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: fileserver
+        enabled: true
+        ip: 10.33.1.234
+        port: 12321
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "file-document-edit-outline"
+            hajimari.io/appName: "fileserver"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - fileserver.local.${SECRET_DOMAIN}
+              secretName: "fileserver-tls"
+          hosts:
+            - host: fileserver.local.${SECRET_DOMAIN}
               path: /
 
     ingressPort:
