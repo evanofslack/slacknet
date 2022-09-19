@@ -87,7 +87,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "pve_uptime_seconds{id=\"node/host1\"}",
+          "expr": "pve_uptime_seconds{id=\"node/kepler\"}",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -271,7 +271,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "pve_cpu_usage_ratio{instance=\"$instance\", id=\"node/host1\"} ",
+          "expr": "pve_cpu_usage_ratio{instance=\"$instance\", id=\"node/kepler\"} ",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -454,7 +454,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "pve_memory_usage_bytes{instance=\"$instance\", id=\"node/host1\"}  / pve_memory_size_bytes and on(id) pve_node_info",
+          "expr": "pve_memory_usage_bytes{instance=\"$instance\", id=\"node/kepler\"}  / pve_memory_size_bytes and on(id) pve_node_info",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -796,7 +796,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -895,7 +896,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "transparent"
+                "color": "transparent",
+                "value": null
               }
             ]
           },
@@ -972,7 +974,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -1076,7 +1079,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1201,7 +1205,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
