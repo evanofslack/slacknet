@@ -63,13 +63,12 @@ spec:
       size: 20Gi
 
     resources:
-      {}
-      # limits:
-      #   cpu: 500m
-      #   memory: 512Mi
-      # requests:
-      #   cpu: 500m
-      #   memory: 512Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 500m
+        memory: 512Mi
 
     readinessProbe:
       httpGet:
@@ -89,23 +88,6 @@ spec:
       periodSeconds: 30
       timeoutSeconds: 5
       failureThreshold: 10
-
-      ingress:
-        enabled: false
-        annotations: {}
-        #   kubernetes.io/ingress.class: nginx
-        #   kubernetes.io/tls-acme: 'true'
-        extraLabels: {}
-        hosts: []
-        #   - name: vmselect.local
-        #     path: /select
-        #     port: http
-        tls: []
-        #   - secretName: vmselect-ingress-tls
-        #     hosts:
-        #       - vmselect.local
-        ingressClassName: nginx
-        pathType: Prefix
 
     ingress:
       enabled: true
