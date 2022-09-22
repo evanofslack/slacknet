@@ -35,7 +35,7 @@ spec:
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
-            hajimari.io/enable: "true"
+            hajimari.io/enable: "false"
             hajimari.io/icon: "monitor-multiple"
             hajimari.io/appName: "pve-kepler"
             ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
@@ -69,7 +69,7 @@ spec:
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
-            hajimari.io/enable: "true"
+            hajimari.io/enable: "false"
             hajimari.io/icon: "monitor-multiple"
             hajimari.io/appName: "pve-navi"
             ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
