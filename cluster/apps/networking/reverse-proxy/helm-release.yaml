@@ -417,6 +417,25 @@ spec:
             - host: embystat.local.${SECRET_DOMAIN}
               path: /
 
+      - name: gitea
+        enabled: true
+        ip: 10.33.1.114
+        port: 3331
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "git"
+            hajimari.io/appName: "gitea"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - git.local.${SECRET_DOMAIN}
+              secretName: "gitea-tls"
+          hosts:
+            - host: git.local.${SECRET_DOMAIN}
+              path: /
+
 
     ingressPort:
       http: 80
