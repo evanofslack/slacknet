@@ -418,6 +418,24 @@ spec:
             - host: git.local.${SECRET_DOMAIN}
               path: /
 
+      - name: nextcloud
+        enabled: true
+        ip: 10.33.1.114
+        port: 8080
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "cloud-sync-outline"
+            hajimari.io/appName: "nextcloud"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - cloud.local.${SECRET_DOMAIN}
+              secretName: "nextcloud-tls"
+          hosts:
+            - host: cloud.local.${SECRET_DOMAIN}
+              path: /
 
     ingressPort:
       http: 80
