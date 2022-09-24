@@ -321,7 +321,7 @@ spec:
             scrape_timeout: 10s
             honor_timestamps: true
             static_configs:
-              - targets: ['10.33.1.20:9221']
+              - targets: ['10.33.1.114:9221']
             metrics_path: '/pve'
             params:
               module: [default]
