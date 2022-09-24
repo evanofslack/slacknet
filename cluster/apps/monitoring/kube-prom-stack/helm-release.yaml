@@ -326,6 +326,13 @@ spec:
             params:
               module: [default]
               target: ["10.33.1.175"]
+          - job_name: "pve-navi-node-exporter"
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - 10.33.1.114:9100
           - job_name: "pc-workstation"
             scrape_interval: 1m
             scrape_timeout: 10s
