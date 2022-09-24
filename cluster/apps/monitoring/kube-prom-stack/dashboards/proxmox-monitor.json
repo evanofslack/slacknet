@@ -86,10 +86,12 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
+          "editorMode": "builder",
           "exemplar": true,
-          "expr": "pve_uptime_seconds{id=\"node/kepler\"}",
+          "expr": "max(pve_uptime_seconds{job=\"$job\"})",
           "interval": "",
           "legendFormat": "",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -185,7 +187,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "((pve_cpu_usage_ratio{instance=\"$instance\"} / pve_cpu_usage_limit) * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "((pve_cpu_usage_ratio{job=\"$job\"} / pve_cpu_usage_limit) * on(id, job) group_left(name, type) pve_guest_info) and on(id, job) pve_up == 1",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 4,
@@ -270,8 +272,8 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "editorMode": "code",
-          "expr": "pve_cpu_usage_ratio{instance=\"$instance\", id=\"node/kepler\"} ",
+          "editorMode": "builder",
+          "expr": "pve_cpu_usage_ratio{job=\"$job\", id=~\"node/.*\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -370,7 +372,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "(pve_memory_usage_bytes{instance=\"$instance\"} / pve_memory_size_bytes * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "(pve_memory_usage_bytes{job=\"$job\"} / pve_memory_size_bytes * on(id, job) group_left(name, type) pve_guest_info) and on(id, job) pve_up == 1",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 4,
@@ -454,7 +456,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "pve_memory_usage_bytes{instance=\"$instance\", id=\"node/kepler\"}  / pve_memory_size_bytes and on(id) pve_node_info",
+          "expr": "pve_memory_usage_bytes{job=\"$job\", id!=\"node/.*\"}  / pve_memory_size_bytes and on(id) pve_node_info",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -689,7 +691,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (id, name, type) (pve_guest_info{instance=\"$instance\",template!=\"1\"})",
+          "expr": "sum by (id, name, type) (pve_guest_info{job=\"$job\",template!=\"1\"})",
           "format": "table",
           "instant": true,
           "intervalFactor": 1,
@@ -701,7 +703,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (id) (pve_up{instance=\"$instance\",template!=\"1\"} and on (id, instance) pve_guest_info)",
+          "expr": "sum by (id) (pve_up{job=\"$job\",template!=\"1\"} and on (id, job) pve_guest_info)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -714,7 +716,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (id) (pve_cpu_usage_limit{instance=\"$instance\",template!=\"1\"} and on (id, instance) pve_guest_info)",
+          "expr": "sum by (id) (pve_cpu_usage_limit{job=\"$job\",template!=\"1\"} and on (id, job) pve_guest_info)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -727,7 +729,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (id) (pve_memory_size_bytes{instance=\"$instance\",template!=\"1\"} and on (id, instance) pve_guest_info)",
+          "expr": "sum by (id) (pve_memory_size_bytes{job=\"$job\",template!=\"1\"} and on (id, job) pve_guest_info)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -740,7 +742,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (id) (pve_memory_usage_bytes{instance=\"$instance\",template!=\"1\"} / pve_memory_size_bytes and on (id, instance) pve_guest_info)",
+          "expr": "sum by (id) (pve_memory_usage_bytes{job=\"$job\",template!=\"1\"} / pve_memory_size_bytes and on (id, job) pve_guest_info)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -753,7 +755,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (id) (pve_disk_size_bytes{instance=\"$instance\",template!=\"1\"} and on (id, instance) pve_guest_info)",
+          "expr": "sum by (id) (pve_disk_size_bytes{job=\"$job\",template!=\"1\"} and on (id, job) pve_guest_info)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -766,7 +768,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "sum by (id) (pve_disk_usage_bytes{instance=\"$instance\",template!=\"1\"} / pve_disk_size_bytes and on (id, instance) pve_guest_info)",
+          "expr": "sum by (id) (pve_disk_usage_bytes{job=\"$job\",template!=\"1\"} / pve_disk_size_bytes and on (id, job) pve_guest_info)",
           "format": "table",
           "instant": true,
           "interval": "",
@@ -839,7 +841,7 @@
             "uid": "prometheus"
           },
           "exemplar": false,
-          "expr": "pve_disk_size_bytes{instance=\"$instance\", id=~\"storage/.+\"} * on (id, instance) group_left(storage) pve_storage_info",
+          "expr": "pve_disk_size_bytes{job=\"$job\", id=~\"storage/.+\"} * on (id, job) group_left(storage) pve_storage_info",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -935,7 +937,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "pve_disk_usage_bytes{instance=\"$instance\"} / pve_disk_size_bytes{instance=\"$instance\"} * on (id, instance) group_left(name, type) pve_guest_info",
+          "expr": "pve_disk_usage_bytes{job=\"$job\"} / pve_disk_size_bytes{job=\"$job\"} * on (id, job) group_left(name, type) pve_guest_info",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1021,7 +1023,7 @@
             "uid": "prometheus"
           },
           "exemplar": false,
-          "expr": "pve_disk_usage_bytes{instance=\"$instance\", id=~\"storage/.+\"} / pve_disk_size_bytes * on (id, instance) group_left(storage) pve_storage_info",
+          "expr": "pve_disk_usage_bytes{job=\"$job\", id=~\"storage/.+\"} / pve_disk_size_bytes * on (id, job) group_left(storage) pve_storage_info",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -1135,7 +1137,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "(rate(pve_network_receive_bytes{instance=\"$instance\"}[5m]) * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "(rate(pve_network_receive_bytes{job=\"$job\"}[5m]) * on(id, job) group_left(name, type) pve_guest_info) and on(id, job) pve_up == 1",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 3,
@@ -1250,7 +1252,7 @@
             "uid": "prometheus"
           },
           "exemplar": true,
-          "expr": "((rate(pve_disk_write_bytes{instance=\"$instance\"}[5m]) + rate(pve_disk_read_bytes[5m])) * on(id, instance) group_left(name, type) pve_guest_info) and on(id, instance) pve_up == 1",
+          "expr": "((rate(pve_disk_write_bytes{job=\"$job\"}[5m]) + rate(pve_disk_read_bytes[5m])) * on(id, job) group_left(name, type) pve_guest_info) and on(id, job) pve_up == 1",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 2,
@@ -1273,32 +1275,25 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "10.33.1.20:9221",
-          "value": "10.33.1.20:9221"
+          "selected": true,
+          "text": "pve-navi",
+          "value": "pve-navi"
         },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "definition": "label_values(pve_node_info, instance)",
+        "definition": "label_values(pve_node_info, job)",
         "hide": 0,
         "includeAll": false,
         "multi": false,
-        "name": "instance",
+        "name": "job",
         "options": [],
         "query": {
-          "query": "label_values(pve_node_info, instance)",
-          "refId": "Prometheus-instance-Variable-Query"
+          "query": "label_values(pve_node_info, job)",
+          "refId": "StandardVariableQuery"
         },
-        "refresh": 2,
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
