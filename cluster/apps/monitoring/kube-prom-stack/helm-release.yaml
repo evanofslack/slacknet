@@ -306,7 +306,7 @@ spec:
                   - 10.33.1.98:9090 # raspi prometheus
                   # - 10.33.1.98:9100 # raspi node-exporter
                   # - 10.33.1.98:8080 # raspi cadvisor
-          - job_name: "proxmox"
+          - job_name: "pve-kepler"
             scrape_interval: 1m
             scrape_timeout: 10s
             honor_timestamps: true
@@ -316,6 +316,16 @@ spec:
             params:
               module: [default]
               target: ["10.33.1.174"]
+          - job_name: "pve-navi"
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets: ['10.33.1.20:9221']
+            metrics_path: '/pve'
+            params:
+              module: [default]
+              target: ["10.33.1.175"]
           - job_name: "pc-workstation"
             scrape_interval: 1m
             scrape_timeout: 10s
