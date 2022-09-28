@@ -14,7 +14,7 @@ spec:
     server: "${SECRET_NFS_IP}"
     path: /mnt/share/apps/minio
   mountOptions:
-    - nfsvers=4.0
+    - nfsvers=3
     - nconnect=8
     - hard
     - noatime
