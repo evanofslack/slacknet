@@ -6,7 +6,7 @@ metadata:
 provisioner: nfs.csi.k8s.io
 parameters:
   server: "${SECRET_NFS_IP}"
-  share: /share/apps/PVCs
+  share: /mnt/share/apps/PVCs
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
 mountOptions:
