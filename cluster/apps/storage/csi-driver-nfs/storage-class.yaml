@@ -9,5 +9,5 @@ parameters:
   share: /mnt/share/apps/PVCs
 reclaimPolicy: Delete
 volumeBindingMode: Immediate
-mountOptions:
-  - nfsvers=3
+# mountOptions:
+#   - nfsvers=4.1
