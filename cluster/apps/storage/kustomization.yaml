@@ -6,3 +6,4 @@ resources:
   # - csi-driver-nfs
   - longhorn
   # - minio
+  - nfs-subdir-external-provisioner
