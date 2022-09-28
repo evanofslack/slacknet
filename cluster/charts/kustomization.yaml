@@ -22,6 +22,7 @@ resources:
   - metrics-server.yaml
   - minio-charts.yaml
   - mongodb.yaml
+  - nfs-subdir-external-provisioner-charts.yaml
   - prometheus-community.yaml
   - stakater.yaml
   - victoria-metrics-charts.yaml
