@@ -11,13 +11,10 @@ spec:
   storageClassName: minio-nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: "${SECRET_NFS_IP}"
+    server: 10.33.1.234
     path: /mnt/share/apps/minio
   mountOptions:
     - nfsvers=3
-    - nconnect=8
-    - hard
-    - noatime
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
