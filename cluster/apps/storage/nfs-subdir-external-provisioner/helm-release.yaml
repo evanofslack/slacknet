@@ -27,21 +27,17 @@ spec:
     nfs:
       server: "${SECRET_NFS_IP}"
       path: /mnt/share/apps/PVCs
-      # mountOptions:
-        # - nfsvers=3
-        # - nconnect=8
-        # - hard
     storageClass:
       defaultClass: false
-    # affinity:
-    #   podAntiAffinity:
-    #     preferredDuringSchedulingIgnoredDuringExecution:
-    #       - weight: 100
-    #         podAffinityTerm:
-    #           labelSelector:
-    #             matchExpressions:
-    #               - key: app
-    #                 operator: In
-    #                 values:
-    #                   - nfs-subdir-external-provisioner
-    #           topologyKey: kubernetes.io/hostname
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - nfs-subdir-external-provisioner
+              topologyKey: kubernetes.io/hostname

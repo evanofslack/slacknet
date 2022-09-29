@@ -55,7 +55,7 @@ spec:
         nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
       path: /
       hosts:
-        - &host-console "minio.${SECRET_DOMAIN}"
+        - &host-console "minio.local.${SECRET_DOMAIN}"
       tls:
         - secretName: minio-console-tls
           hosts:
@@ -66,7 +66,7 @@ spec:
       MINIO_UPDATE: "off"
       # MINIO_PROMETHEUS_JOB_ID: "minio"
       # MINIO_PROMETHEUS_URL: "http://thanos-query.monitoring:9090"
-      MINIO_SERVER_URL: "https://s3.${SECRET_DOMAIN}"
+      MINIO_SERVER_URL: "https://s3.local.${SECRET_DOMAIN}"
     metrics:
       serviceMonitor:
         enabled: true
