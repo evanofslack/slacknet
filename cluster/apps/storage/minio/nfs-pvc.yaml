@@ -5,7 +5,7 @@ metadata:
   name: minio-nfs
   namespace: storage
 spec:
-  storageClassName: minio-nfs
+  storageClassName: nfs-client
   accessModes:
     - ReadWriteMany
   resources:
