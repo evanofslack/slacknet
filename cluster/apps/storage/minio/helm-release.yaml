@@ -43,7 +43,8 @@ spec:
       hosts:
         - &host-api "s3.${SECRET_DOMAIN}"
       tls:
-        - hosts:
+        - secretName: minio-tls
+          hosts:
             - *host-api
 
     consoleIngress:
@@ -56,7 +57,8 @@ spec:
       hosts:
         - &host-console "minio.${SECRET_DOMAIN}"
       tls:
-        - hosts:
+        - secretName: minio-console-tls
+          hosts:
             - *host-console
     users: []
     environment:
