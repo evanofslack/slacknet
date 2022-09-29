@@ -74,8 +74,8 @@ spec:
     environment:
       TZ: "${TIMEZONE}"
       MINIO_UPDATE: "off"
-      MINIO_SERVER_URL: "https://s3.local.${SECRET_DOMAIN}"
-      MINIO_BROWSER_REDIRECT_URL: "https://minio.local.${SECRET_DOMAIN}"
+      # MINIO_SERVER_URL: "https://s3.local.${SECRET_DOMAIN}"
+      # MINIO_BROWSER_REDIRECT_URL: "https://minio.local.${SECRET_DOMAIN}"
     metrics:
       serviceMonitor:
         enabled: true
