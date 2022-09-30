@@ -5,4 +5,4 @@ resources:
   - namespace.yaml
   - longhorn
   - minio
-  - nfs-subdir-external-provisioner
+  # - nfs-subdir-external-provisioner
