@@ -1,13 +1,27 @@
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: minio-nfs
+#   namespace: storage
+# spec:
+#   storageClassName: nfs-client
+#   accessModes:
+#     - ReadWriteMany
+#   resources:
+#     requests:
+#       storage: 250Gi
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: minio-nfs
+  name: minio
   namespace: storage
 spec:
-  storageClassName: nfs-client
+  storageClassName: longhorn
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 250Gi
+      storage: 20Gi

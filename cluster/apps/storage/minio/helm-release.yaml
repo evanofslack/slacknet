@@ -32,7 +32,7 @@ spec:
     replicas: 1
     persistence:
       enabled: true
-      existingClaim: minio-nfs
+      existingClaim: minio
     ingress:
       enabled: true
       ingressClassName: nginx
@@ -43,7 +43,7 @@ spec:
         nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
         nginx.ingress.kubernetes.io/configuration-snippet: |
           chunked_transfer_encoding off;
-        # nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
       path: /
       hosts:
         - &host-api "s3.local.${SECRET_DOMAIN}"
@@ -62,7 +62,7 @@ spec:
         nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
         nginx.ingress.kubernetes.io/configuration-snippet: |
           chunked_transfer_encoding off;
-        # nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
       path: /
       hosts:
         - &host-console "minio.local.${SECRET_DOMAIN}"
