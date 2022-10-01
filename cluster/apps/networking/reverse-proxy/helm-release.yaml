@@ -362,6 +362,23 @@ spec:
             - host: sonarr.local.${SECRET_DOMAIN}
               path: /
 
+      - name: lidarr
+        enabled: true
+        ip: 10.33.1.23
+        port: 8686
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - lidarr.local.${SECRET_DOMAIN}
+              secretName: "lidarr-tls"
+          hosts:
+            - host: lidarr.local.${SECRET_DOMAIN}
+              path: /
+
 
       - name: prowlarr
         enabled: true
