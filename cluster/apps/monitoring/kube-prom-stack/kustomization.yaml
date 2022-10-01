@@ -8,6 +8,7 @@ configMapGenerator:
   - name: custom-grafana-dashboards
     files:
       - dashboards/proxmox-monitor.json
+      - dashboards/exportarr.json
     options:
       labels:
         grafana_dashboard: "1"
