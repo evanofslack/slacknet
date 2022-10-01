@@ -24,14 +24,13 @@
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
-    "id": 628,
     "links": [],
     "liveNow": false,
     "panels": [
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -90,7 +89,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_system_status",
@@ -106,7 +105,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -164,7 +163,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_episode_missing_total",
@@ -181,7 +180,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -240,7 +239,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "radarr_system_status",
@@ -256,7 +255,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -304,7 +303,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "radarr_movie_missing_total",
@@ -320,7 +319,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -379,7 +378,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "radarr_system_status",
@@ -395,7 +394,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -453,7 +452,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_songs_missing_total",
@@ -483,7 +482,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -542,7 +541,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_system_status",
@@ -558,7 +557,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -612,7 +611,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_series_filesize_bytes",
@@ -628,7 +627,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -682,7 +681,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_rootfolder_freespace_bytes",
@@ -698,7 +697,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "description": "",
         "fieldConfig": {
@@ -753,7 +752,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_episode_total",
@@ -769,7 +768,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -827,7 +826,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_episode_missing_total",
@@ -844,7 +843,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "description": "",
         "fieldConfig": {
@@ -899,7 +898,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sum(increase(sonarr_episode_downloaded_total[30d]))",
@@ -915,7 +914,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -969,7 +968,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sum(increase(sonarr_episode_downloaded_total[7d]))",
@@ -985,7 +984,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1039,7 +1038,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_season_total",
@@ -1056,7 +1055,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1110,7 +1109,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_season_monitored_total",
@@ -1127,7 +1126,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "description": "",
         "fieldConfig": {
@@ -1182,7 +1181,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sum(increase(sonarr_season_downloaded_total[30d]))",
@@ -1198,7 +1197,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1252,7 +1251,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sum(increase(sonarr_season_downloaded_total[7d]))",
@@ -1268,7 +1267,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1322,7 +1321,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_series_total",
@@ -1339,7 +1338,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1393,7 +1392,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sonarr_series_monitored_total",
@@ -1410,7 +1409,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "description": "",
         "fieldConfig": {
@@ -1465,7 +1464,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sum(increase(sonarr_series_downloaded_total[30d]))",
@@ -1481,7 +1480,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -1535,7 +1534,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sum(increase(sonarr_series_downloaded_total[7d]))",
@@ -1561,7 +1560,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -1619,7 +1618,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "radarr_system_status",
@@ -1635,7 +1634,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -1688,7 +1687,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "radarr_movie_filesize_total",
@@ -1704,7 +1703,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -1757,7 +1756,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "radarr_rootfolder_freespace_bytes",
@@ -1773,7 +1772,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -1820,7 +1819,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "radarr_movie_missing_total",
@@ -1836,7 +1835,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -1879,7 +1878,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "radarr_movie_wanted_total",
@@ -1895,7 +1894,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "description": "",
             "fieldConfig": {
@@ -1949,7 +1948,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "sum(increase(radarr_movie_download_total[30d]))",
@@ -1965,7 +1964,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -2018,7 +2017,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "sum(increase(radarr_movie_download_total[7d]))",
@@ -2034,7 +2033,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -2077,7 +2076,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "radarr_movie_total",
@@ -2093,7 +2092,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -2136,7 +2135,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "expr": "radarr_movie_monitored_total",
@@ -2152,7 +2151,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "fieldConfig": {
               "defaults": {
@@ -2200,7 +2199,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "fmMKqssGk"
+                  "uid": "prometheus"
                 },
                 "editorMode": "code",
                 "exemplar": false,
@@ -2235,7 +2234,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2294,7 +2293,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "radarr_system_status",
@@ -2310,7 +2309,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2364,7 +2363,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_artists_filesize_bytes",
@@ -2380,7 +2379,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2434,7 +2433,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_rootfolder_freespace_bytes",
@@ -2450,7 +2449,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2469,8 +2468,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 }
               ]
             },
@@ -2504,7 +2502,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_songs_total",
@@ -2521,7 +2519,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2540,8 +2538,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 },
                 {
                   "color": "semi-dark-red",
@@ -2579,7 +2576,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_songs_missing_total",
@@ -2596,7 +2593,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "description": "",
         "fieldConfig": {
@@ -2616,8 +2613,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 }
               ]
             },
@@ -2651,7 +2647,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sum(increase(lidarr_songs_downloaded_total[30d]))",
@@ -2667,7 +2663,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2686,8 +2682,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 }
               ]
             },
@@ -2721,7 +2716,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "sum(increase(lidarr_songs_downloaded_total[7d]))",
@@ -2737,7 +2732,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2756,8 +2751,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 }
               ]
             },
@@ -2791,7 +2785,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_albums_total",
@@ -2808,7 +2802,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2827,8 +2821,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 },
                 {
                   "color": "semi-dark-red",
@@ -2866,7 +2859,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_queue_total",
@@ -2883,7 +2876,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2902,8 +2895,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 }
               ]
             },
@@ -2937,7 +2929,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_artists_total",
@@ -2954,7 +2946,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -2973,8 +2965,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 }
               ]
             },
@@ -3008,7 +2999,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "expr": "lidarr_artists_monitored_total",
@@ -3025,7 +3016,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "fmMKqssGk"
+          "uid": "prometheus"
         },
         "fieldConfig": {
           "defaults": {
@@ -3039,8 +3030,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green",
-                  "value": null
+                  "color": "semi-dark-green"
                 }
               ]
             },
@@ -3074,7 +3064,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "fmMKqssGk"
+              "uid": "prometheus"
             },
             "editorMode": "code",
             "exemplar": false,
