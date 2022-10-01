@@ -374,10 +374,10 @@ spec:
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - prowlar.local.${SECRET_DOMAIN}
-              secretName: "prowlar-tls"
+                - prowlarr.local.${SECRET_DOMAIN}
+              secretName: "prowlarr-tls"
           hosts:
-            - host: prowlar.local.${SECRET_DOMAIN}
+            - host: prowlarr.local.${SECRET_DOMAIN}
               path: /
 
       - name: autobrr
