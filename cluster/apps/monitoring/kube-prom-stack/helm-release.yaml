@@ -304,8 +304,6 @@ spec:
             static_configs:
               - targets:
                   - 10.33.1.98:9090 # raspi prometheus
-                  # - 10.33.1.98:9100 # raspi node-exporter
-                  # - 10.33.1.98:8080 # raspi cadvisor
           - job_name: "pve-kepler"
             scrape_interval: 1m
             scrape_timeout: 10s
@@ -339,6 +337,14 @@ spec:
             honor_timestamps: true
             static_configs:
               - targets: [10.33.1.78:4445] # ohmgraphite
+          - job_name: "exportarr"
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - 10.33.1.23:9707
+                  - 10.33.1.23:9708
 
     thanosRuler:
       enabled: false
