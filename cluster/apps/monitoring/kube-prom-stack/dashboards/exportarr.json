@@ -43,7 +43,314 @@
                     "text": "DOWN"
                   },
                   "1": {
-                    "color": "green",
+                    "color": "semi-dark-green",
+                    "index": 1,
+                    "text": "UP"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(255, 194, 48)",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 0,
+          "y": 0
+        },
+        "id": 27,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.0.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "radarr_system_status",
+            "format": "time_series",
+            "instant": true,
+            "legendFormat": "__auto",
+            "refId": "A"
+          }
+        ],
+        "title": "Radarr Status",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "semi-dark-green",
+              "mode": "fixed"
+            },
+            "mappings": [
+              {
+                "from": "",
+                "id": 1,
+                "operator": "",
+                "text": "0",
+                "to": "",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(255, 194, 48)",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 4,
+          "y": 0
+        },
+        "id": 14,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.0.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "radarr_movie_filesize_total",
+            "format": "table",
+            "instant": true,
+            "legendFormat": "__auto",
+            "refId": "A"
+          }
+        ],
+        "title": "Movies File Size",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 62,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "smooth",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "movies"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "semi-dark-green",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "shows"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "semi-dark-blue",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "music"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "orange",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 16,
+          "x": 8,
+          "y": 0
+        },
+        "id": 40,
+        "options": {
+          "legend": {
+            "calcs": [
+              "last"
+            ],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "radarr_movie_filesize_total",
+            "legendFormat": "movies",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sonarr_series_filesize_bytes",
+            "hide": false,
+            "legendFormat": "shows",
+            "range": true,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "lidarr_artists_filesize_bytes",
+            "hide": false,
+            "legendFormat": "music",
+            "range": true,
+            "refId": "C"
+          }
+        ],
+        "title": "Media Storage",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "color": "red",
+                    "index": 0,
+                    "text": "DOWN"
+                  },
+                  "1": {
+                    "color": "semi-dark-blue",
                     "index": 1,
                     "text": "UP"
                   }
@@ -67,11 +374,11 @@
           "h": 3,
           "w": 4,
           "x": 0,
-          "y": 0
+          "y": 3
         },
         "id": 25,
         "options": {
-          "colorMode": "value",
+          "colorMode": "background",
           "graphMode": "area",
           "justifyMode": "center",
           "orientation": "auto",
@@ -126,14 +433,10 @@
                 {
                   "color": "blue",
                   "value": null
-                },
-                {
-                  "color": "semi-dark-red",
-                  "value": 1
                 }
               ]
             },
-            "unit": "locale"
+            "unit": "decbytes"
           },
           "overrides": []
         },
@@ -141,88 +444,12 @@
           "h": 3,
           "w": 4,
           "x": 4,
-          "y": 0
+          "y": 3
         },
-        "id": 34,
+        "id": 14,
         "options": {
-          "colorMode": "value",
+          "colorMode": "background",
           "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sonarr_episode_missing_total",
-            "format": "table",
-            "instant": true,
-            "intervalFactor": 1,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Episodes Missing",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "options": {
-                  "0": {
-                    "color": "red",
-                    "index": 0,
-                    "text": "DOWN"
-                  },
-                  "1": {
-                    "color": "green",
-                    "index": 1,
-                    "text": "UP"
-                  }
-                },
-                "type": "value"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgb(255, 194, 48)",
-                  "value": null
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 4,
-          "x": 8,
-          "y": 0
-        },
-        "id": 27,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "area",
           "justifyMode": "center",
           "orientation": "auto",
           "reduceOptions": {
@@ -242,78 +469,14 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "radarr_system_status",
-            "format": "time_series",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Radarr Status",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgb(255, 194, 48)",
-                  "value": null
-                },
-                {
-                  "color": "semi-dark-red",
-                  "value": 1
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 4,
-          "x": 12,
-          "y": 0
-        },
-        "id": 35,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "radarr_movie_missing_total",
+            "expr": "sonarr_series_filesize_bytes",
             "format": "table",
             "instant": true,
             "legendFormat": "__auto",
             "refId": "A"
           }
         ],
-        "title": "Movies Missing",
+        "title": "Shows File Size",
         "type": "stat"
       },
       {
@@ -323,6 +486,9 @@
         },
         "fieldConfig": {
           "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
             "mappings": [
               {
                 "options": {
@@ -332,7 +498,7 @@
                     "text": "DOWN"
                   },
                   "1": {
-                    "color": "green",
+                    "color": "orange",
                     "index": 1,
                     "text": "UP"
                   }
@@ -355,12 +521,12 @@
         "gridPos": {
           "h": 3,
           "w": 4,
-          "x": 16,
-          "y": 0
+          "x": 0,
+          "y": 6
         },
         "id": 28,
         "options": {
-          "colorMode": "value",
+          "colorMode": "background",
           "graphMode": "area",
           "justifyMode": "center",
           "orientation": "auto",
@@ -398,6 +564,10 @@
         },
         "fieldConfig": {
           "defaults": {
+            "color": {
+              "fixedColor": "orange",
+              "mode": "fixed"
+            },
             "mappings": [
               {
                 "from": "",
@@ -409,6 +579,210 @@
                 "value": "null"
               }
             ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "semi-dark-green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 4,
+          "x": 4,
+          "y": 6
+        },
+        "id": 14,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.0.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "lidarr_artists_filesize_bytes",
+            "format": "table",
+            "instant": true,
+            "legendFormat": "__auto",
+            "refId": "A"
+          }
+        ],
+        "title": "Songs File Size",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "id": 16,
+        "panels": [],
+        "title": "Radarr",
+        "type": "row"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "semi-dark-green",
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(255, 194, 48)",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "locale"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 0,
+          "y": 10
+        },
+        "id": 36,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.0.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "radarr_movie_total",
+            "format": "table",
+            "instant": true,
+            "legendFormat": "__auto",
+            "refId": "A"
+          }
+        ],
+        "title": "Movies",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "orange",
+              "mode": "palette-classic"
+            },
+            "links": [],
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "#ffc230",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "locale"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 19,
+          "x": 5,
+          "y": 10
+        },
+        "id": 13,
+        "options": {
+          "displayMode": "lcd",
+          "minVizHeight": 15,
+          "minVizWidth": 0,
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": false
+        },
+        "pluginVersion": "9.0.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sort_desc(sum(radarr_movie_quality_total) by (quality))",
+            "format": "time_series",
+            "instant": true,
+            "legendFormat": "{{quality}}",
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "title": "Movies Quality",
+        "type": "bargauge"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
             "thresholds": {
               "mode": "absolute",
               "steps": [
@@ -427,12 +801,12 @@
           "overrides": []
         },
         "gridPos": {
-          "h": 3,
-          "w": 4,
-          "x": 20,
-          "y": 0
+          "h": 4,
+          "w": 5,
+          "x": 0,
+          "y": 14
         },
-        "id": 38,
+        "id": 5,
         "options": {
           "colorMode": "value",
           "graphMode": "none",
@@ -455,15 +829,89 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "lidarr_songs_missing_total",
+            "expr": "radarr_movie_missing_total",
             "format": "table",
             "instant": true,
-            "intervalFactor": 1,
             "legendFormat": "__auto",
             "refId": "A"
           }
         ],
-        "title": "Songs Missing",
+        "title": "Movies Missing",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "fixedColor": "semi-dark-green",
+              "mode": "fixed"
+            },
+            "mappings": [
+              {
+                "from": "",
+                "id": 1,
+                "operator": "",
+                "text": "0",
+                "to": "",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(255, 194, 48)",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "locale"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 0,
+          "y": 18
+        },
+        "id": 8,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "last"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "textMode": "auto"
+        },
+        "pluginVersion": "9.0.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum(increase(radarr_movie_download_total[30d]))",
+            "format": "table",
+            "instant": true,
+            "legendFormat": "__auto",
+            "refId": "A"
+          }
+        ],
+        "title": "DL Past Month",
         "type": "stat"
       },
       {
@@ -472,227 +920,12 @@
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 3
+          "y": 22
         },
         "id": 16,
         "panels": [],
         "title": "Sonarr",
         "type": "row"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "options": {
-                  "0": {
-                    "color": "red",
-                    "index": 0,
-                    "text": "DOWN"
-                  },
-                  "1": {
-                    "color": "green",
-                    "index": 1,
-                    "text": "UP"
-                  }
-                },
-                "type": "value"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 12,
-          "x": 0,
-          "y": 4
-        },
-        "id": 2,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "lidarr_system_status",
-            "format": "time_series",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Status",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "decbytes"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 12,
-          "y": 4
-        },
-        "id": 14,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sonarr_series_filesize_bytes",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Total file size",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "decbytes"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 18,
-          "y": 4
-        },
-        "id": 21,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sonarr_rootfolder_freespace_bytes",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Free space",
-        "type": "stat"
       },
       {
         "datasource": {
@@ -728,9 +961,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
+          "w": 4,
           "x": 0,
-          "y": 7
+          "y": 23
         },
         "id": 4,
         "options": {
@@ -787,7 +1020,7 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "blue",
+                  "color": "semi-dark-blue",
                   "value": null
                 },
                 {
@@ -802,9 +1035,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
-          "x": 6,
-          "y": 7
+          "w": 4,
+          "x": 4,
+          "y": 23
         },
         "id": 22,
         "options": {
@@ -845,55 +1078,74 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "description": "",
         "fieldConfig": {
           "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
+            "color": {
+              "fixedColor": "semi-dark-blue",
+              "mode": "fixed"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 56,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "smooth",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "spanNulls": true,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
               }
-            ],
+            },
+            "mappings": [],
             "thresholds": {
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "blue",
+                  "color": "green",
                   "value": null
                 }
               ]
             },
-            "unit": "locale"
+            "unit": "none"
           },
           "overrides": []
         },
         "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 12,
-          "y": 7
+          "h": 9,
+          "w": 16,
+          "x": 8,
+          "y": 23
         },
-        "id": 23,
+        "id": 42,
         "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
+          "legend": {
             "calcs": [
               "last"
             ],
-            "fields": "",
-            "values": false
+            "displayMode": "hidden",
+            "placement": "right"
           },
-          "textMode": "auto"
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
         },
-        "pluginVersion": "9.0.5",
         "targets": [
           {
             "datasource": {
@@ -901,15 +1153,14 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "sum(increase(sonarr_episode_downloaded_total[30d]))",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
+            "expr": "sonarr_episode_total",
+            "legendFormat": "movies",
+            "range": true,
             "refId": "A"
           }
         ],
-        "title": "Episodes DL Past Month",
-        "type": "stat"
+        "title": "Episodes",
+        "type": "timeseries"
       },
       {
         "datasource": {
@@ -944,79 +1195,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
-          "x": 18,
-          "y": 7
-        },
-        "id": 24,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sum(increase(sonarr_episode_downloaded_total[7d]))",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Episodes DL Past Week",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
+          "w": 4,
           "x": 0,
-          "y": 10
+          "y": 26
         },
         "id": 17,
         "options": {
@@ -1057,77 +1238,6 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 6,
-          "y": 10
-        },
-        "id": 18,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sonarr_season_monitored_total",
-            "format": "table",
-            "instant": true,
-            "intervalFactor": 1,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Seasons Monitored",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1157,9 +1267,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
-          "x": 12,
-          "y": 10
+          "w": 4,
+          "x": 4,
+          "y": 26
         },
         "id": 19,
         "options": {
@@ -1201,6 +1311,10 @@
         },
         "fieldConfig": {
           "defaults": {
+            "color": {
+              "fixedColor": "semi-dark-blue",
+              "mode": "fixed"
+            },
             "mappings": [
               {
                 "from": "",
@@ -1227,79 +1341,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
-          "x": 18,
-          "y": 10
-        },
-        "id": 20,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sum(increase(sonarr_season_downloaded_total[7d]))",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Seasons DL Past Week",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
+          "w": 4,
           "x": 0,
-          "y": 13
+          "y": 29
         },
         "id": 6,
         "options": {
@@ -1340,77 +1384,6 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 6,
-          "y": 13
-        },
-        "id": 10,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sonarr_series_monitored_total",
-            "format": "table",
-            "instant": true,
-            "intervalFactor": 1,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Series Monitored",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1440,9 +1413,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
-          "x": 12,
-          "y": 13
+          "w": 4,
+          "x": 4,
+          "y": 29
         },
         "id": 8,
         "options": {
@@ -1478,753 +1451,12 @@
         "type": "stat"
       },
       {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 18,
-          "y": 13
-        },
-        "id": 7,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sum(increase(sonarr_series_downloaded_total[7d]))",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Series DL Past Week",
-        "type": "stat"
-      },
-      {
-        "collapsed": true,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 16
-        },
-        "id": 16,
-        "panels": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [
-                  {
-                    "options": {
-                      "0": {
-                        "color": "red",
-                        "index": 0,
-                        "text": "DOWN"
-                      },
-                      "1": {
-                        "color": "green",
-                        "index": 1,
-                        "text": "UP"
-                      }
-                    },
-                    "type": "value"
-                  }
-                ],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    }
-                  ]
-                }
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 12,
-              "x": 0,
-              "y": 5
-            },
-            "id": 2,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "area",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "last"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "radarr_system_status",
-                "format": "time_series",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "Status",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [
-                  {
-                    "from": "",
-                    "id": 1,
-                    "operator": "",
-                    "text": "0",
-                    "to": "",
-                    "type": 1,
-                    "value": "null"
-                  }
-                ],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    }
-                  ]
-                },
-                "unit": "decbytes"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 6,
-              "x": 12,
-              "y": 5
-            },
-            "id": 14,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "last"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "radarr_movie_filesize_total",
-                "format": "table",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "Total file size",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [
-                  {
-                    "from": "",
-                    "id": 1,
-                    "operator": "",
-                    "text": "0",
-                    "to": "",
-                    "type": 1,
-                    "value": "null"
-                  }
-                ],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    }
-                  ]
-                },
-                "unit": "decbytes"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 6,
-              "x": 18,
-              "y": 5
-            },
-            "id": 26,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "last"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "radarr_rootfolder_freespace_bytes",
-                "format": "table",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "Free space",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    },
-                    {
-                      "color": "semi-dark-red",
-                      "value": 1
-                    }
-                  ]
-                },
-                "unit": "locale"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 6,
-              "x": 0,
-              "y": 8
-            },
-            "id": 5,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "lastNotNull"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "radarr_movie_missing_total",
-                "format": "table",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "Movies Missing",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    }
-                  ]
-                },
-                "unit": "locale"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 6,
-              "x": 6,
-              "y": 8
-            },
-            "id": 3,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "last"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "radarr_movie_wanted_total",
-                "format": "table",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "Movies Wanted",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "description": "",
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [
-                  {
-                    "from": "",
-                    "id": 1,
-                    "operator": "",
-                    "text": "0",
-                    "to": "",
-                    "type": 1,
-                    "value": "null"
-                  }
-                ],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    }
-                  ]
-                },
-                "unit": "locale"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 6,
-              "x": 12,
-              "y": 8
-            },
-            "id": 8,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "last"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "sum(increase(radarr_movie_download_total[30d]))",
-                "format": "table",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "DL Past Month",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [
-                  {
-                    "from": "",
-                    "id": 1,
-                    "operator": "",
-                    "text": "0",
-                    "to": "",
-                    "type": 1,
-                    "value": "null"
-                  }
-                ],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    }
-                  ]
-                },
-                "unit": "locale"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 6,
-              "x": 18,
-              "y": 8
-            },
-            "id": 7,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "last"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "sum(increase(radarr_movie_download_total[7d]))",
-                "format": "table",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "DL Past Week",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    }
-                  ]
-                },
-                "unit": "locale"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 6,
-              "x": 0,
-              "y": 11
-            },
-            "id": 36,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "last"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "radarr_movie_total",
-                "format": "table",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "Movies",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "mappings": [],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "rgb(255, 194, 48)"
-                    }
-                  ]
-                },
-                "unit": "locale"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 3,
-              "w": 6,
-              "x": 6,
-              "y": 11
-            },
-            "id": 37,
-            "options": {
-              "colorMode": "value",
-              "graphMode": "none",
-              "justifyMode": "center",
-              "orientation": "auto",
-              "reduceOptions": {
-                "calcs": [
-                  "last"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "textMode": "auto"
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "expr": "radarr_movie_monitored_total",
-                "format": "table",
-                "instant": true,
-                "legendFormat": "__auto",
-                "refId": "A"
-              }
-            ],
-            "title": "Movies Monitored",
-            "type": "stat"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "fieldConfig": {
-              "defaults": {
-                "color": {
-                  "fixedColor": "orange",
-                  "mode": "thresholds"
-                },
-                "links": [],
-                "mappings": [],
-                "thresholds": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "#ffc230"
-                    }
-                  ]
-                },
-                "unit": "locale"
-              },
-              "overrides": []
-            },
-            "gridPos": {
-              "h": 7,
-              "w": 24,
-              "x": 0,
-              "y": 14
-            },
-            "id": 13,
-            "options": {
-              "displayMode": "basic",
-              "minVizHeight": 10,
-              "minVizWidth": 0,
-              "orientation": "vertical",
-              "reduceOptions": {
-                "calcs": [
-                  "lastNotNull"
-                ],
-                "fields": "",
-                "values": false
-              },
-              "showUnfilled": false
-            },
-            "pluginVersion": "9.0.0",
-            "targets": [
-              {
-                "datasource": {
-                  "type": "prometheus",
-                  "uid": "prometheus"
-                },
-                "editorMode": "code",
-                "exemplar": false,
-                "expr": "sort_desc(sum(radarr_movie_quality_total) by (quality))",
-                "format": "time_series",
-                "instant": true,
-                "legendFormat": "{{quality}}",
-                "range": false,
-                "refId": "A"
-              }
-            ],
-            "title": "Movies by quality",
-            "type": "bargauge"
-          }
-        ],
-        "title": "Radarr",
-        "type": "row"
-      },
-      {
         "collapsed": false,
         "gridPos": {
           "h": 1,
           "w": 24,
           "x": 0,
-          "y": 17
+          "y": 32
         },
         "id": 16,
         "panels": [],
@@ -2240,81 +1472,6 @@
           "defaults": {
             "mappings": [
               {
-                "options": {
-                  "0": {
-                    "color": "red",
-                    "index": 0,
-                    "text": "DOWN"
-                  },
-                  "1": {
-                    "color": "green",
-                    "index": 1,
-                    "text": "UP"
-                  }
-                },
-                "type": "value"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "rgb(255, 194, 48)",
-                  "value": null
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 12,
-          "x": 0,
-          "y": 18
-        },
-        "id": 2,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "radarr_system_status",
-            "format": "time_series",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Status",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
                 "from": "",
                 "id": 1,
                 "operator": "",
@@ -2330,145 +1487,6 @@
                 {
                   "color": "semi-dark-green",
                   "value": null
-                }
-              ]
-            },
-            "unit": "decbytes"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 12,
-          "y": 18
-        },
-        "id": 14,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "lidarr_artists_filesize_bytes",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Total file size",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "semi-dark-green",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "decbytes"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 18,
-          "y": 18
-        },
-        "id": 29,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "lidarr_rootfolder_freespace_bytes",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Free space",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "semi-dark-green"
                 }
               ]
             },
@@ -2478,9 +1496,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
+          "w": 4,
           "x": 0,
-          "y": 21
+          "y": 33
         },
         "id": 6,
         "options": {
@@ -2523,6 +1541,73 @@
         },
         "fieldConfig": {
           "defaults": {
+            "color": {
+              "fixedColor": "orange",
+              "mode": "thresholds"
+            },
+            "links": [],
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "semi-dark-green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "locale"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 20,
+          "x": 4,
+          "y": 33
+        },
+        "id": 13,
+        "options": {
+          "displayMode": "basic",
+          "minVizHeight": 10,
+          "minVizWidth": 0,
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": false
+        },
+        "pluginVersion": "9.0.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "sort_desc(sum(lidarr_artists_genres_total) by (genre))",
+            "format": "time_series",
+            "instant": true,
+            "legendFormat": "{{quality}}",
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "title": "Artists by genre",
+        "type": "bargauge"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
             "mappings": [
               {
                 "from": "",
@@ -2538,7 +1623,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green"
+                  "color": "semi-dark-green",
+                  "value": null
                 },
                 {
                   "color": "semi-dark-red",
@@ -2552,9 +1638,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
-          "x": 6,
-          "y": 21
+          "w": 4,
+          "x": 0,
+          "y": 36
         },
         "id": 10,
         "options": {
@@ -2595,7 +1681,6 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "description": "",
         "fieldConfig": {
           "defaults": {
             "mappings": [
@@ -2613,7 +1698,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green"
+                  "color": "semi-dark-green",
+                  "value": null
                 }
               ]
             },
@@ -2623,147 +1709,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
-          "x": 12,
-          "y": 21
-        },
-        "id": 8,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sum(increase(lidarr_songs_downloaded_total[30d]))",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Songs DL Past Month",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "semi-dark-green"
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 18,
-          "y": 21
-        },
-        "id": 7,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sum(increase(lidarr_songs_downloaded_total[7d]))",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Songs DL Past Week",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "semi-dark-green"
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
+          "w": 4,
           "x": 0,
-          "y": 24
+          "y": 39
         },
         "id": 33,
         "options": {
@@ -2821,11 +1769,8 @@
               "mode": "absolute",
               "steps": [
                 {
-                  "color": "semi-dark-green"
-                },
-                {
-                  "color": "semi-dark-red",
-                  "value": 1
+                  "color": "semi-dark-green",
+                  "value": null
                 }
               ]
             },
@@ -2835,79 +1780,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 6,
-          "x": 6,
-          "y": 24
-        },
-        "id": 32,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "lidarr_queue_total",
-            "format": "table",
-            "instant": true,
-            "intervalFactor": 1,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Queued",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "semi-dark-green"
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 12,
-          "y": 24
+          "w": 4,
+          "x": 0,
+          "y": 42
         },
         "id": 30,
         "options": {
@@ -2942,142 +1817,6 @@
         ],
         "title": "Artists",
         "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "semi-dark-green"
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 6,
-          "x": 18,
-          "y": 24
-        },
-        "id": 31,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "lidarr_artists_monitored_total",
-            "format": "table",
-            "instant": true,
-            "intervalFactor": 1,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Artists Monitored",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "orange",
-              "mode": "thresholds"
-            },
-            "links": [],
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "semi-dark-green"
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 7,
-          "w": 24,
-          "x": 0,
-          "y": 27
-        },
-        "id": 13,
-        "options": {
-          "displayMode": "basic",
-          "minVizHeight": 10,
-          "minVizWidth": 0,
-          "orientation": "horizontal",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "showUnfilled": false
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "exemplar": false,
-            "expr": "sort_desc(sum(lidarr_artists_genres_total) by (genre))",
-            "format": "time_series",
-            "instant": true,
-            "legendFormat": "{{quality}}",
-            "range": false,
-            "refId": "A"
-          }
-        ],
-        "title": "Artists by genre",
-        "type": "bargauge"
       }
     ],
     "refresh": "1m",
@@ -3088,13 +1827,13 @@
       "list": []
     },
     "time": {
-      "from": "now-24h",
+      "from": "now-30m",
       "to": "now"
     },
     "timepicker": {},
     "timezone": "",
-    "title": "Radarr / Sonarr / Lidarr",
+    "title": "Exportarr",
     "uid": "A8iPssjZu",
-    "version": 1,
+    "version": 2,
     "weekStart": ""
-  }
+  }d
