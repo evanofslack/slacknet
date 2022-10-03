@@ -911,7 +911,7 @@
             "refId": "A"
           }
         ],
-        "title": "DL Past Month",
+        "title": "Movies DL Past Month",
         "type": "stat"
       },
       {
@@ -965,7 +965,7 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 4,
+          "w": 5,
           "x": 0,
           "y": 20
         },
@@ -1009,6 +1009,93 @@
         },
         "fieldConfig": {
           "defaults": {
+            "color": {
+              "fixedColor": "semi-dark-blue",
+              "mode": "palette-classic"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 19,
+          "x": 5,
+          "y": 20
+        },
+        "id": 42,
+        "options": {
+          "displayMode": "gradient",
+          "minVizHeight": 10,
+          "minVizWidth": 0,
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true
+        },
+        "pluginVersion": "9.0.5",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sonarr_episode_total",
+            "legendFormat": "movies",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sonarr_season_total",
+            "hide": false,
+            "legendFormat": "seasons",
+            "range": true,
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sonarr_series_total",
+            "hide": false,
+            "legendFormat": "series",
+            "range": true,
+            "refId": "B"
+          }
+        ],
+        "title": "Episodes",
+        "type": "bargauge"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
             "mappings": [
               {
                 "from": "",
@@ -1039,9 +1126,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 4,
-          "x": 4,
-          "y": 20
+          "w": 5,
+          "x": 0,
+          "y": 23
         },
         "id": 22,
         "options": {
@@ -1082,170 +1169,6 @@
           "type": "prometheus",
           "uid": "prometheus"
         },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "semi-dark-blue",
-              "mode": "fixed"
-            },
-            "custom": {
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 56,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "lineInterpolation": "smooth",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "never",
-              "spanNulls": true,
-              "stacking": {
-                "group": "A",
-                "mode": "normal"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "none"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 9,
-          "w": 16,
-          "x": 8,
-          "y": 20
-        },
-        "id": 42,
-        "options": {
-          "legend": {
-            "calcs": [
-              "last"
-            ],
-            "displayMode": "hidden",
-            "placement": "right"
-          },
-          "tooltip": {
-            "mode": "single",
-            "sort": "none"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sonarr_episode_total",
-            "legendFormat": "movies",
-            "range": true,
-            "refId": "A"
-          }
-        ],
-        "title": "Episodes",
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "semi-dark-blue",
-              "mode": "fixed"
-            },
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 4,
-          "x": 0,
-          "y": 23
-        },
-        "id": 17,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sonarr_season_total",
-            "format": "table",
-            "instant": true,
-            "intervalFactor": 1,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Seasons",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -1279,9 +1202,9 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 4,
-          "x": 4,
-          "y": 23
+          "w": 5,
+          "x": 0,
+          "y": 26
         },
         "id": 19,
         "options": {
@@ -1306,164 +1229,14 @@
               "uid": "prometheus"
             },
             "editorMode": "code",
-            "expr": "sum(increase(sonarr_season_downloaded_total[30d]))",
+            "expr": "floor(sum(increase(sonarr_episode_downloaded_total[30d])))",
             "format": "table",
             "instant": true,
             "legendFormat": "__auto",
             "refId": "A"
           }
         ],
-        "title": "Seasons DL Past Month",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "semi-dark-blue",
-              "mode": "fixed"
-            },
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 4,
-          "x": 0,
-          "y": 26
-        },
-        "id": 6,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sonarr_series_total",
-            "format": "table",
-            "instant": true,
-            "intervalFactor": 1,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Series",
-        "type": "stat"
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "prometheus"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "fixedColor": "semi-dark-blue",
-              "mode": "fixed"
-            },
-            "mappings": [
-              {
-                "from": "",
-                "id": 1,
-                "operator": "",
-                "text": "0",
-                "to": "",
-                "type": 1,
-                "value": "null"
-              }
-            ],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "blue",
-                  "value": null
-                }
-              ]
-            },
-            "unit": "locale"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 3,
-          "w": 4,
-          "x": 4,
-          "y": 26
-        },
-        "id": 8,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "none",
-          "justifyMode": "center",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "last"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "9.0.5",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "prometheus"
-            },
-            "editorMode": "code",
-            "expr": "sum(increase(sonarr_series_downloaded_total[30d]))",
-            "format": "table",
-            "instant": true,
-            "legendFormat": "__auto",
-            "refId": "A"
-          }
-        ],
-        "title": "Series DL Past Month",
+        "title": "Episodes DL Past Month",
         "type": "stat"
       },
       {
@@ -1516,7 +1289,7 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 4,
+          "w": 5,
           "x": 0,
           "y": 30
         },
@@ -1582,8 +1355,8 @@
         },
         "gridPos": {
           "h": 12,
-          "w": 20,
-          "x": 4,
+          "w": 19,
+          "x": 5,
           "y": 30
         },
         "id": 13,
@@ -1658,7 +1431,7 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 4,
+          "w": 5,
           "x": 0,
           "y": 33
         },
@@ -1733,7 +1506,7 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 4,
+          "w": 5,
           "x": 0,
           "y": 36
         },
@@ -1808,7 +1581,7 @@
         },
         "gridPos": {
           "h": 3,
-          "w": 4,
+          "w": 5,
           "x": 0,
           "y": 39
         },
