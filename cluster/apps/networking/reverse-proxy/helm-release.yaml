@@ -482,10 +482,29 @@ spec:
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - photos.local.${SECRET_DOMAIN}
+                - photoprism.local.${SECRET_DOMAIN}
               secretName: "photoprism-tls"
           hosts:
-            - host: photos.local.${SECRET_DOMAIN}
+            - host: photoprism.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: navidrome
+        enabled: true
+        ip: 10.33.1.114
+        port: 4533
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "music-box-multiple-outline"
+            hajimari.io/appName: "navidrome"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - navidrome.local.${SECRET_DOMAIN}
+              secretName: "navidrome-tls"
+          hosts:
+            - host: navidrome.local.${SECRET_DOMAIN}
               path: /
 
     ingressPort:
