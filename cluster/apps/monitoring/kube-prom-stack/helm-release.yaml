@@ -346,6 +346,13 @@ spec:
                   - 10.33.1.23:9707
                   - 10.33.1.23:9708
                   - 10.33.1.23:9709
+          - job_name: "transmission-exporter"
+            scrape_interval: 1m
+            scrape_timeout: 10s
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - 10.33.1.23:19091
 
     thanosRuler:
       enabled: false
