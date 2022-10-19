@@ -25,7 +25,9 @@ spec:
   values:
     image:
       repository: ghcr.io/toboshii/hajimari
-      tag: 0.3.1
+      pullPolicy: IfNotPresent
+      tag: v0.3.1
+
     hajimari:
       defaultEnable: false
       namespaceSelector:
