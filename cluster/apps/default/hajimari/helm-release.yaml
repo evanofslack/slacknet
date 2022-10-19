@@ -24,8 +24,8 @@ spec:
       retries: 5
   values:
     image:
-      repository: evanofslack/hajimari
-      tag: 0.2.0
+      repository: ghcr.io/toboshii/hajimari
+      tag: 0.3.1
     hajimari:
       defaultEnable: false
       namespaceSelector:
@@ -38,6 +38,20 @@ spec:
           - development
           - security
       name: "Evan"
+      title: Hajimari
+      lightTheme: gazette
+      darkTheme: horizon
+      customThemes:
+        - name: danger
+          backgroundColor: '#0c0e0c'
+          primaryColor: '#eaebea'
+          accentColor: '#d8323c'
+      showGreeting: true
+      showAppGroups: false
+      showAppUrls: false
+      showAppStatus: true
+      showBookmarkGroups: false
+      alwaysTargetBlank: true
       customApps: {}
       groups:
         - name: ""
