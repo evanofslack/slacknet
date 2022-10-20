@@ -507,6 +507,25 @@ spec:
             - host: navidrome.local.${SECRET_DOMAIN}
               path: /
 
+      - name: firefly
+        enabled: true
+        ip: 10.33.1.114
+        port: 9876
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "dashicons:money-alt"
+            hajimari.io/appName: "firefly"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - firefly.local.${SECRET_DOMAIN}
+              secretName: "firefly-tls"
+          hosts:
+            - host: firefly.local.${SECRET_DOMAIN}
+              path: /
+
     ingressPort:
       http: 80
       tls: 443
