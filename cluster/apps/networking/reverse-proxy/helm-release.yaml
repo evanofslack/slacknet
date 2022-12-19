@@ -26,7 +26,6 @@ spec:
     controller:
       replicas: 3
 
-
     instances:
       - name: pve-kepler
         enabled: true
@@ -38,7 +37,8 @@ spec:
             hajimari.io/enable: "false"
             hajimari.io/icon: "monitor-multiple"
             hajimari.io/appName: "pve-kepler"
-            ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
+            ingress.kubernetes.io/configuration-snippet:
+              "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
@@ -72,7 +72,8 @@ spec:
             hajimari.io/enable: "false"
             hajimari.io/icon: "monitor-multiple"
             hajimari.io/appName: "pve-navi"
-            ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
+            ingress.kubernetes.io/configuration-snippet:
+              "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
@@ -96,6 +97,40 @@ spec:
             - host: pve-navi.local.${SECRET_DOMAIN}
               path: /
 
+      - name: pbs
+        enabled: true
+        ip: 10.33.1.250
+        port: 8007
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            hajimari.io/icon: "monitor-multiple"
+            hajimari.io/appName: "pbs"
+            ingress.kubernetes.io/configuration-snippet:
+              "proxy_set_header Host $http_host;\nproxy_set_header
+              X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
+              Connection $connection_upgrade;      "
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+            nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+            nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
+            nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/server-snippet: |-
+              client_max_body_size 100G;
+              server_tokens off;
+              proxy_hide_header X-Powered-By;
+          tls:
+            - hosts:
+                - pbs.local.${SECRET_DOMAIN}
+              secretName: "pbs-tls"
+          hosts:
+            - host: pbs.local.${SECRET_DOMAIN}
+              path: /
 
       - name: adguard
         enabled: true
@@ -148,7 +183,6 @@ spec:
           hosts:
             - host: raspi-grafana.local.${SECRET_DOMAIN}
               path: /
-
 
       - name: your-spotify-client
         enabled: true
@@ -270,7 +304,8 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "false"
-            ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
+            ingress.kubernetes.io/configuration-snippet:
+              "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
@@ -304,7 +339,8 @@ spec:
             hajimari.io/enable: "true"
             hajimari.io/icon: "file-document-edit-outline"
             hajimari.io/appName: "fileserver"
-            ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
+            ingress.kubernetes.io/configuration-snippet:
+              "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
@@ -378,7 +414,6 @@ spec:
           hosts:
             - host: lidarr.local.${SECRET_DOMAIN}
               path: /
-
 
       - name: prowlarr
         enabled: true
