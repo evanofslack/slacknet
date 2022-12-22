@@ -485,6 +485,25 @@ spec:
             - host: git.local.${SECRET_DOMAIN}
               path: /
 
+      - name: vaultwarden
+        enabled: true
+        ip: 10.33.1.114
+        port: 8069
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "shield-half-full"
+            hajimari.io/appName: "vaultwarden"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - vaultwarden.local.${SECRET_DOMAIN}
+              secretName: "vaultwardenrs-tls"
+          hosts:
+            - host: vaultwarden.local.${SECRET_DOMAIN}
+              path: /
+
       - name: nextcloud
         enabled: true
         ip: 10.33.1.114
