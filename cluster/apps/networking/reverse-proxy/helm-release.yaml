@@ -132,6 +132,74 @@ spec:
             - host: pbs.local.${SECRET_DOMAIN}
               path: /
 
+      - name: fileserver
+        enabled: true
+        ip: 10.33.1.234
+        port: 443
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            ingress.kubernetes.io/configuration-snippet:
+              "proxy_set_header Host $http_host;\nproxy_set_header
+              X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
+              Connection $connection_upgrade;      "
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+            nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+            nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
+            nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/server-snippet: |-
+              client_max_body_size 100G;
+              server_tokens off;
+              proxy_hide_header X-Powered-By;
+          tls:
+            - hosts:
+                - fileserver.local.${SECRET_DOMAIN}
+              secretName: "fileserver-tls"
+          hosts:
+            - host: fileserver.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: fileserver-ui
+        enabled: true
+        ip: 10.33.1.234
+        port: 12321
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "file-document-edit-outline"
+            hajimari.io/appName: "fileserver"
+            ingress.kubernetes.io/configuration-snippet:
+              "proxy_set_header Host $http_host;\nproxy_set_header
+              X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
+              Connection $connection_upgrade;      "
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+            nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+            nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
+            nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+            nginx.ingress.kubernetes.io/server-snippet: |-
+              client_max_body_size 100G;
+              server_tokens off;
+              proxy_hide_header X-Powered-By;
+          tls:
+            - hosts:
+                - fileserver-ui.local.${SECRET_DOMAIN}
+              secretName: "fileserver-ui-tls"
+          hosts:
+            - host: fileserver-ui.local.${SECRET_DOMAIN}
+              path: /
+
       - name: adguard
         enabled: true
         ip: 10.33.1.98
@@ -296,72 +364,23 @@ spec:
             - host: jellyseerr.local.${SECRET_DOMAIN}
               path: /
 
-      - name: fileserver
+      - name: metube
         enabled: true
-        ip: 10.33.1.234
-        port: 443
-        ingress:
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
-            hajimari.io/enable: "false"
-            ingress.kubernetes.io/configuration-snippet:
-              "proxy_set_header Host $http_host;\nproxy_set_header
-              X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
-              Connection $connection_upgrade;      "
-            kubernetes.io/tls-acme: "true"
-            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
-            nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-            nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
-            nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE
-            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-            nginx.ingress.kubernetes.io/enable-cors: "true"
-            nginx.ingress.kubernetes.io/proxy-body-size: "0"
-            nginx.ingress.kubernetes.io/server-snippet: |-
-              client_max_body_size 100G;
-              server_tokens off;
-              proxy_hide_header X-Powered-By;
-          tls:
-            - hosts:
-                - fileserver.local.${SECRET_DOMAIN}
-              secretName: "fileserver-tls"
-          hosts:
-            - host: fileserver.local.${SECRET_DOMAIN}
-              path: /
-
-      - name: fileserver-ui
-        enabled: true
-        ip: 10.33.1.234
-        port: 12321
+        ip: 10.33.1.23
+        port: 8081
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
-            hajimari.io/icon: "file-document-edit-outline"
-            hajimari.io/appName: "fileserver"
-            ingress.kubernetes.io/configuration-snippet:
-              "proxy_set_header Host $http_host;\nproxy_set_header
-              X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
-              Connection $connection_upgrade;      "
-            kubernetes.io/tls-acme: "true"
+            hajimari.io/icon: "ri:video-download-line"
+            hajimari.io/appName: "metube"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
-            nginx.ingress.kubernetes.io/backend-protocol: HTTPS
-            nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
-            nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS, DELETE
-            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-            nginx.ingress.kubernetes.io/enable-cors: "true"
-            nginx.ingress.kubernetes.io/proxy-body-size: "0"
-            nginx.ingress.kubernetes.io/server-snippet: |-
-              client_max_body_size 100G;
-              server_tokens off;
-              proxy_hide_header X-Powered-By;
           tls:
             - hosts:
-                - fileserver-ui.local.${SECRET_DOMAIN}
-              secretName: "fileserver-ui-tls"
+                - metube.local.${SECRET_DOMAIN}
+              secretName: "metube-tls"
           hosts:
-            - host: fileserver-ui.local.${SECRET_DOMAIN}
+            - host: metube.local.${SECRET_DOMAIN}
               path: /
 
       - name: radarr
@@ -449,21 +468,23 @@ spec:
             - host: autobrr.local.${SECRET_DOMAIN}
               path: /
 
-      - name: embystat
+      - name: navidrome
         enabled: true
         ip: 10.33.1.23
-        port: 6555
+        port: 4533
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
-            hajimari.io/enable: "false"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "music-box-multiple-outline"
+            hajimari.io/appName: "navidrome"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - embystat.local.${SECRET_DOMAIN}
-              secretName: "embystat-tls"
+                - navidrome.local.${SECRET_DOMAIN}
+              secretName: "navidrome-tls"
           hosts:
-            - host: embystat.local.${SECRET_DOMAIN}
+            - host: navidrome.local.${SECRET_DOMAIN}
               path: /
 
       - name: gitea
@@ -561,23 +582,23 @@ spec:
             - host: send.local.${SECRET_DOMAIN}
               path: /
 
-      - name: navidrome
+      - name: linkding
         enabled: true
-        ip: 10.33.1.23
-        port: 4533
+        ip: 10.33.1.114
+        port: 9090
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
-            hajimari.io/icon: "music-box-multiple-outline"
-            hajimari.io/appName: "navidrome"
+            hajimari.io/icon: "icon-park:link"
+            hajimari.io/appName: "linkding"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - navidrome.local.${SECRET_DOMAIN}
-              secretName: "navidrome-tls"
+                - linkding.local.${SECRET_DOMAIN}
+              secretName: "linkding-tls"
           hosts:
-            - host: navidrome.local.${SECRET_DOMAIN}
+            - host: linkding.local.${SECRET_DOMAIN}
               path: /
 
       - name: firefly
