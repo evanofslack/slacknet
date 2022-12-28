@@ -468,6 +468,25 @@ spec:
             - host: autobrr.local.${SECRET_DOMAIN}
               path: /
 
+      - name: tdarr
+        enabled: true
+        ip: 10.33.1.23
+        port: 8265
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "icon-park-outline:play-cycle"
+            hajimari.io/appName: "tdarr"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - tdarr.local.${SECRET_DOMAIN}
+              secretName: "tdarr-tls"
+          hosts:
+            - host: tdarr.local.${SECRET_DOMAIN}
+              path: /
+
       - name: navidrome
         enabled: true
         ip: 10.33.1.23
@@ -485,6 +504,25 @@ spec:
               secretName: "navidrome-tls"
           hosts:
             - host: navidrome.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: openbooks
+        enabled: true
+        ip: 10.33.1.23
+        port: 8071
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "material-symbols:menu-book-outline"
+            hajimari.io/appName: "openbooks"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - openbooks.local.${SECRET_DOMAIN}
+              secretName: "openbooks-tls"
+          hosts:
+            - host: openbooks.local.${SECRET_DOMAIN}
               path: /
 
       - name: gitea
@@ -590,7 +628,7 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
-            hajimari.io/icon: "icon-park:link"
+            hajimari.io/icon: "mdi:link-variant"
             hajimari.io/appName: "linkding"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
