@@ -263,10 +263,10 @@ spec:
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - gateway-npm.local.${SECRET_DOMAIN}
+                - npm.local.${SECRET_DOMAIN}
               secretName: "gateway-npm-tls"
           hosts:
-            - host: gateway-npm.local.${SECRET_DOMAIN}
+            - host: npm.local.${SECRET_DOMAIN}
               path: /
 
       - name: your-spotify-client
@@ -835,6 +835,42 @@ spec:
               secretName: "dozzle-nubuntu-tls"
           hosts:
             - host: dozzle-nubuntu.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: shlink-server
+        enabled: true
+        ip: 10.33.1.114
+        port: 8410
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - shlink-server.local.${SECRET_DOMAIN}
+              secretName: "shlink-server-tls"
+          hosts:
+            - host: shlink-server.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: shlink
+        enabled: true
+        ip: 10.33.1.114
+        port: 8411
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "game-icons:fragmented-sword"
+            hajimari.io/appName: "shlink"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - shlink.local.${SECRET_DOMAIN}
+              secretName: "shlink-tls"
+          hosts:
+            - host: shlink.local.${SECRET_DOMAIN}
               path: /
 
     ingressPort:
