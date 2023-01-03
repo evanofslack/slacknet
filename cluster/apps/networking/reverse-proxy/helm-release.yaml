@@ -259,7 +259,9 @@ spec:
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
-            hajimari.io/enable: "false"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "cib:nginx"
+            hajimari.io/appName: "nginx"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
@@ -455,7 +457,7 @@ spec:
             - host: stash.local.${SECRET_DOMAIN}
               path: /
 
-      - name: dozzle-nubuntu
+      - name: dozzle-torrr
         enabled: true
         ip: 10.33.1.23
         port: 8675
