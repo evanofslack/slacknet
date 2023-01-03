@@ -252,6 +252,23 @@ spec:
             - host: raspi-grafana.local.${SECRET_DOMAIN}
               path: /
 
+      - name: gateway-npm
+        enabled: true
+        ip: 10.33.1.24
+        port: 81
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - gateway-npm.local.${SECRET_DOMAIN}
+              secretName: "gateway-npm-tls"
+          hosts:
+            - host: gateway-npm.local.${SECRET_DOMAIN}
+              path: /
+
       - name: your-spotify-client
         enabled: true
         ip: 10.33.1.20
