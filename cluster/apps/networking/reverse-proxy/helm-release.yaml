@@ -875,6 +875,25 @@ spec:
             - host: shlink.local.${SECRET_DOMAIN}
               path: /
 
+      - name: scrutiny
+        enabled: true
+        ip: 10.33.1.114
+        port: 8040
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "ion:glasses-outline"
+            hajimari.io/appName: "scrutiny"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - scrutiny.local.${SECRET_DOMAIN}
+              secretName: "scrutiny-tls"
+          hosts:
+            - host: scrutiny.local.${SECRET_DOMAIN}
+              path: /
+
     ingressPort:
       http: 80
       tls: 443
