@@ -309,7 +309,7 @@ spec:
 
       - name: portainer
         enabled: true
-        ip: 10.33.1.20
+        ip: 10.33.1.114
         port: 9000
         ingress:
           annotations:
