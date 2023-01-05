@@ -875,23 +875,42 @@ spec:
             - host: shlink.local.${SECRET_DOMAIN}
               path: /
 
-      - name: scrutiny
+      - name: excalidraw
         enabled: true
         ip: 10.33.1.114
-        port: 8040
+        port: 7645
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
-            hajimari.io/icon: "ion:glasses-outline"
-            hajimari.io/appName: "scrutiny"
+            hajimari.io/icon: "mdi:draw"
+            hajimari.io/appName: "excalidraw"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - scrutiny.local.${SECRET_DOMAIN}
-              secretName: "scrutiny-tls"
+                - draw.local.${SECRET_DOMAIN}
+              secretName: "excalidraw-tls"
           hosts:
-            - host: scrutiny.local.${SECRET_DOMAIN}
+            - host: draw.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: diagrams.net
+        enabled: true
+        ip: 10.33.1.114
+        port: 8219
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "bi:diagram-2"
+            hajimari.io/appName: "diagrams.net"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - diagrams.local.${SECRET_DOMAIN}
+              secretName: "diagrams-tls"
+          hosts:
+            - host: diagrams.local.${SECRET_DOMAIN}
               path: /
 
     ingressPort:
