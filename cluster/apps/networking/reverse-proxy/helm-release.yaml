@@ -894,7 +894,7 @@ spec:
             - host: draw.local.${SECRET_DOMAIN}
               path: /
 
-      - name: diagrams.net
+      - name: diagrams
         enabled: true
         ip: 10.33.1.114
         port: 8219
