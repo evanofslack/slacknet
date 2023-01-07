@@ -26,4 +26,5 @@ resources:
   - prometheus-community.yaml
   - stakater.yaml
   - victoria-metrics-charts.yaml
+  - weave-gitops.yaml
   - weaveworks-kured.yaml
