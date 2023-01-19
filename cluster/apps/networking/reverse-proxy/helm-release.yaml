@@ -32,23 +32,23 @@ spec:
         port: 8006
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            hajimari.io/icon: 'monitor-multiple'
-            hajimari.io/appName: 'pve-kepler'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            hajimari.io/icon: "monitor-multiple"
+            hajimari.io/appName: "pve-kepler"
             ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
-            kubernetes.io/tls-acme: 'true'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
             nginx.ingress.kubernetes.io/backend-protocol: HTTPS
             nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
             nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS,
               DELETE
-            nginx.ingress.kubernetes.io/cors-allow-origin: '*'
-            nginx.ingress.kubernetes.io/enable-cors: 'true'
-            nginx.ingress.kubernetes.io/proxy-body-size: '0'
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
             nginx.ingress.kubernetes.io/server-snippet: |-
               client_max_body_size 100G;
               server_tokens off;
@@ -56,7 +56,7 @@ spec:
           tls:
             - hosts:
                 - pve-kepler.local.${SECRET_DOMAIN}
-              secretName: 'pve-kepler-tls'
+              secretName: "pve-kepler-tls"
           hosts:
             - host: pve-kepler.local.${SECRET_DOMAIN}
               path: /
@@ -67,23 +67,23 @@ spec:
         port: 8006
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            hajimari.io/icon: 'monitor-multiple'
-            hajimari.io/appName: 'pve-navi'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            hajimari.io/icon: "monitor-multiple"
+            hajimari.io/appName: "pve-navi"
             ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
-            kubernetes.io/tls-acme: 'true'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
             nginx.ingress.kubernetes.io/backend-protocol: HTTPS
             nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
             nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS,
               DELETE
-            nginx.ingress.kubernetes.io/cors-allow-origin: '*'
-            nginx.ingress.kubernetes.io/enable-cors: 'true'
-            nginx.ingress.kubernetes.io/proxy-body-size: '0'
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
             nginx.ingress.kubernetes.io/server-snippet: |-
               client_max_body_size 100G;
               server_tokens off;
@@ -91,7 +91,7 @@ spec:
           tls:
             - hosts:
                 - pve-navi.local.${SECRET_DOMAIN}
-              secretName: 'pve-navi-tls'
+              secretName: "pve-navi-tls"
           hosts:
             - host: pve-navi.local.${SECRET_DOMAIN}
               path: /
@@ -102,23 +102,23 @@ spec:
         port: 8007
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            hajimari.io/icon: 'monitor-multiple'
-            hajimari.io/appName: 'pbs'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            hajimari.io/icon: "monitor-multiple"
+            hajimari.io/appName: "pbs"
             ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
-            kubernetes.io/tls-acme: 'true'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
             nginx.ingress.kubernetes.io/backend-protocol: HTTPS
             nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
             nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS,
               DELETE
-            nginx.ingress.kubernetes.io/cors-allow-origin: '*'
-            nginx.ingress.kubernetes.io/enable-cors: 'true'
-            nginx.ingress.kubernetes.io/proxy-body-size: '0'
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
             nginx.ingress.kubernetes.io/server-snippet: |-
               client_max_body_size 100G;
               server_tokens off;
@@ -126,7 +126,7 @@ spec:
           tls:
             - hosts:
                 - pbs.local.${SECRET_DOMAIN}
-              secretName: 'pbs-tls'
+              secretName: "pbs-tls"
           hosts:
             - host: pbs.local.${SECRET_DOMAIN}
               path: /
@@ -137,21 +137,21 @@ spec:
         port: 443
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
             ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
-            kubernetes.io/tls-acme: 'true'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
             nginx.ingress.kubernetes.io/backend-protocol: HTTPS
             nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
             nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS,
               DELETE
-            nginx.ingress.kubernetes.io/cors-allow-origin: '*'
-            nginx.ingress.kubernetes.io/enable-cors: 'true'
-            nginx.ingress.kubernetes.io/proxy-body-size: '0'
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
             nginx.ingress.kubernetes.io/server-snippet: |-
               client_max_body_size 100G;
               server_tokens off;
@@ -159,7 +159,7 @@ spec:
           tls:
             - hosts:
                 - fileserver.local.${SECRET_DOMAIN}
-              secretName: 'fileserver-tls'
+              secretName: "fileserver-tls"
           hosts:
             - host: fileserver.local.${SECRET_DOMAIN}
               path: /
@@ -170,23 +170,23 @@ spec:
         port: 12321
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'file-document-edit-outline'
-            hajimari.io/appName: 'fileserver'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "file-document-edit-outline"
+            hajimari.io/appName: "fileserver"
             ingress.kubernetes.io/configuration-snippet: "proxy_set_header Host $http_host;\nproxy_set_header
               X-Real-IP $remote_addr;\nproxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
               \     \nproxy_http_version 1.1;\nproxy_set_header Upgrade $http_upgrade;\nproxy_set_header
               Connection $connection_upgrade;      "
-            kubernetes.io/tls-acme: 'true'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
             nginx.ingress.kubernetes.io/backend-protocol: HTTPS
             nginx.ingress.kubernetes.io/cors-allow-headers: Authorization
             nginx.ingress.kubernetes.io/cors-allow-methods: PUT, GET, POST, OPTIONS,
               DELETE
-            nginx.ingress.kubernetes.io/cors-allow-origin: '*'
-            nginx.ingress.kubernetes.io/enable-cors: 'true'
-            nginx.ingress.kubernetes.io/proxy-body-size: '0'
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            nginx.ingress.kubernetes.io/enable-cors: "true"
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
             nginx.ingress.kubernetes.io/server-snippet: |-
               client_max_body_size 100G;
               server_tokens off;
@@ -194,7 +194,7 @@ spec:
           tls:
             - hosts:
                 - fileserver-ui.local.${SECRET_DOMAIN}
-              secretName: 'fileserver-ui-tls'
+              secretName: "fileserver-ui-tls"
           hosts:
             - host: fileserver-ui.local.${SECRET_DOMAIN}
               path: /
@@ -205,15 +205,15 @@ spec:
         port: 80
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'shield-check-outline'
-            hajimari.io/appName: 'adguard'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "shield-check-outline"
+            hajimari.io/appName: "adguard"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - adguard.local.${SECRET_DOMAIN}
-              secretName: 'adguard-tls'
+              secretName: "adguard-tls"
           hosts:
             - host: adguard.local.${SECRET_DOMAIN}
               path: /
@@ -224,12 +224,12 @@ spec:
         port: 80
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - adguard-2.local.${SECRET_DOMAIN}
-              secretName: 'adguard-2-tls'
+              secretName: "adguard-2-tls"
           hosts:
             - host: adguard-2.local.${SECRET_DOMAIN}
               path: /
@@ -240,13 +240,13 @@ spec:
         port: 3000
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - raspi-grafana.local.${SECRET_DOMAIN}
-              secretName: 'raspi-grafana-tls'
+              secretName: "raspi-grafana-tls"
           hosts:
             - host: raspi-grafana.local.${SECRET_DOMAIN}
               path: /
@@ -257,15 +257,15 @@ spec:
         port: 81
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'cib:nginx'
-            hajimari.io/appName: 'nginx'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "cib:nginx"
+            hajimari.io/appName: "nginx"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - npm.local.${SECRET_DOMAIN}
-              secretName: 'gateway-npm-tls'
+              secretName: "gateway-npm-tls"
           hosts:
             - host: npm.local.${SECRET_DOMAIN}
               path: /
@@ -276,15 +276,15 @@ spec:
         port: 3001
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'spotify'
-            hajimari.io/appName: 'spotify-stats'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "spotify"
+            hajimari.io/appName: "spotify-stats"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - spotify.local.${SECRET_DOMAIN}
-              secretName: 'spotify-client-tls'
+              secretName: "spotify-client-tls"
           hosts:
             - host: spotify.local.${SECRET_DOMAIN}
               path: /
@@ -295,13 +295,13 @@ spec:
         port: 8080
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - api.spotify.local.${SECRET_DOMAIN}
-              secretName: 'spotify-server-tls'
+              secretName: "spotify-server-tls"
           hosts:
             - host: api.spotify.local.${SECRET_DOMAIN}
               path: /
@@ -312,15 +312,15 @@ spec:
         port: 9000
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'docker'
-            hajimari.io/appName: 'portainer'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "docker"
+            hajimari.io/appName: "portainer"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - portainer.local.${SECRET_DOMAIN}
-              secretName: 'portainer-tls'
+              secretName: "portainer-tls"
           hosts:
             - host: portainer.local.${SECRET_DOMAIN}
               path: /
@@ -331,15 +331,15 @@ spec:
         port: 8096
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'jellyfish'
-            hajimari.io/appName: 'jellyfin'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "jellyfish"
+            hajimari.io/appName: "jellyfin"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - jellyfin.local.${SECRET_DOMAIN}
-              secretName: 'jellyfin-tls'
+              secretName: "jellyfin-tls"
           hosts:
             - host: jellyfin.local.${SECRET_DOMAIN}
               path: /
@@ -350,15 +350,15 @@ spec:
         port: 8080
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'home-flood'
-            hajimari.io/appName: 'transmission'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "home-flood"
+            hajimari.io/appName: "transmission"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - transmission.local.${SECRET_DOMAIN}
-              secretName: 'transmission-tls'
+              secretName: "transmission-tls"
           hosts:
             - host: transmission.local.${SECRET_DOMAIN}
               path: /
@@ -369,15 +369,15 @@ spec:
         port: 5055
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'magnify-expand'
-            hajimari.io/appName: 'jellyseerr'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "magnify-expand"
+            hajimari.io/appName: "jellyseerr"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - jellyseerr.local.${SECRET_DOMAIN}
-              secretName: 'jellyseerr-tls'
+              secretName: "jellyseerr-tls"
           hosts:
             - host: jellyseerr.local.${SECRET_DOMAIN}
               path: /
@@ -388,15 +388,15 @@ spec:
         port: 4533
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'music-box-multiple-outline'
-            hajimari.io/appName: 'navidrome'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "music-box-multiple-outline"
+            hajimari.io/appName: "navidrome"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - navidrome.local.${SECRET_DOMAIN}
-              secretName: 'navidrome-tls'
+              secretName: "navidrome-tls"
           hosts:
             - host: navidrome.local.${SECRET_DOMAIN}
               path: /
@@ -407,15 +407,15 @@ spec:
         port: 8071
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'material-symbols:menu-book-outline'
-            hajimari.io/appName: 'openbooks'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "material-symbols:menu-book-outline"
+            hajimari.io/appName: "openbooks"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - openbooks.local.${SECRET_DOMAIN}
-              secretName: 'openbooks-tls'
+              secretName: "openbooks-tls"
           hosts:
             - host: openbooks.local.${SECRET_DOMAIN}
               path: /
@@ -426,15 +426,15 @@ spec:
         port: 8081
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'ri:video-download-line'
-            hajimari.io/appName: 'metube'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "ri:video-download-line"
+            hajimari.io/appName: "metube"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - metube.local.${SECRET_DOMAIN}
-              secretName: 'metube-tls'
+              secretName: "metube-tls"
           hosts:
             - host: metube.local.${SECRET_DOMAIN}
               path: /
@@ -445,13 +445,13 @@ spec:
         port: 9999
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - stash.local.${SECRET_DOMAIN}
-              secretName: 'stash-tls'
+              secretName: "stash-tls"
           hosts:
             - host: stash.local.${SECRET_DOMAIN}
               path: /
@@ -462,13 +462,13 @@ spec:
         port: 8675
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - dozzle-torrr.local.${SECRET_DOMAIN}
-              secretName: 'dozzle-torrr-tls'
+              secretName: "dozzle-torrr-tls"
           hosts:
             - host: dozzle-torrr.local.${SECRET_DOMAIN}
               path: /
@@ -479,13 +479,13 @@ spec:
         port: 7878
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - radarr.local.${SECRET_DOMAIN}
-              secretName: 'radarr-tls'
+              secretName: "radarr-tls"
           hosts:
             - host: radarr.local.${SECRET_DOMAIN}
               path: /
@@ -496,13 +496,13 @@ spec:
         port: 8989
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - sonarr.local.${SECRET_DOMAIN}
-              secretName: 'sonarr-tls'
+              secretName: "sonarr-tls"
           hosts:
             - host: sonarr.local.${SECRET_DOMAIN}
               path: /
@@ -513,13 +513,13 @@ spec:
         port: 8686
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - lidarr.local.${SECRET_DOMAIN}
-              secretName: 'lidarr-tls'
+              secretName: "lidarr-tls"
           hosts:
             - host: lidarr.local.${SECRET_DOMAIN}
               path: /
@@ -530,13 +530,13 @@ spec:
         port: 9696
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - prowlarr.local.${SECRET_DOMAIN}
-              secretName: 'prowlarr-tls'
+              secretName: "prowlarr-tls"
           hosts:
             - host: prowlarr.local.${SECRET_DOMAIN}
               path: /
@@ -547,13 +547,13 @@ spec:
         port: 7474
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - autobrr.local.${SECRET_DOMAIN}
-              secretName: 'autobrr-tls'
+              secretName: "autobrr-tls"
           hosts:
             - host: autobrr.local.${SECRET_DOMAIN}
               path: /
@@ -564,15 +564,15 @@ spec:
         port: 8265
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'icon-park-outline:play-cycle'
-            hajimari.io/appName: 'tdarr'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "icon-park-outline:play-cycle"
+            hajimari.io/appName: "tdarr"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - tdarr.local.${SECRET_DOMAIN}
-              secretName: 'tdarr-tls'
+              secretName: "tdarr-tls"
           hosts:
             - host: tdarr.local.${SECRET_DOMAIN}
               path: /
@@ -583,13 +583,13 @@ spec:
         port: 6969
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - whisparr.local.${SECRET_DOMAIN}
-              secretName: 'whisparr-tls'
+              secretName: "whisparr-tls"
           hosts:
             - host: whisparr.local.${SECRET_DOMAIN}
               path: /
@@ -600,15 +600,15 @@ spec:
         port: 3331
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'git'
-            hajimari.io/appName: 'gitea'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "git"
+            hajimari.io/appName: "gitea"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - git.local.${SECRET_DOMAIN}
-              secretName: 'gitea-tls'
+              secretName: "gitea-tls"
           hosts:
             - host: git.local.${SECRET_DOMAIN}
               path: /
@@ -619,15 +619,15 @@ spec:
         port: 8069
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'shield-half-full'
-            hajimari.io/appName: 'vaultwarden'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "shield-half-full"
+            hajimari.io/appName: "vaultwarden"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - vaultwarden.local.${SECRET_DOMAIN}
-              secretName: 'vaultwardenrs-tls'
+              secretName: "vaultwardenrs-tls"
           hosts:
             - host: vaultwarden.local.${SECRET_DOMAIN}
               path: /
@@ -638,15 +638,15 @@ spec:
         port: 8080
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'cloud-sync-outline'
-            hajimari.io/appName: 'nextcloud'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "cloud-sync-outline"
+            hajimari.io/appName: "nextcloud"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - cloud.local.${SECRET_DOMAIN}
-              secretName: 'nextcloud-tls'
+              secretName: "nextcloud-tls"
           hosts:
             - host: cloud.local.${SECRET_DOMAIN}
               path: /
@@ -657,15 +657,15 @@ spec:
         port: 2342
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'image-multiple'
-            hajimari.io/appName: 'photoprism'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "image-multiple"
+            hajimari.io/appName: "photoprism"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - photoprism.local.${SECRET_DOMAIN}
-              secretName: 'photoprism-tls'
+              secretName: "photoprism-tls"
           hosts:
             - host: photoprism.local.${SECRET_DOMAIN}
               path: /
@@ -676,15 +676,15 @@ spec:
         port: 1234
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'mdi:cloud-arrow-up-outline'
-            hajimari.io/appName: 'send'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:cloud-arrow-up-outline"
+            hajimari.io/appName: "send"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - send.local.${SECRET_DOMAIN}
-              secretName: 'send-tls'
+              secretName: "send-tls"
           hosts:
             - host: send.local.${SECRET_DOMAIN}
               path: /
@@ -695,15 +695,15 @@ spec:
         port: 9090
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'mdi:link-variant'
-            hajimari.io/appName: 'linkding'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:link-variant"
+            hajimari.io/appName: "linkding"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - linkding.local.${SECRET_DOMAIN}
-              secretName: 'linkding-tls'
+              secretName: "linkding-tls"
           hosts:
             - host: linkding.local.${SECRET_DOMAIN}
               path: /
@@ -714,16 +714,16 @@ spec:
         port: 9876
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'dashicons:money-alt'
-            hajimari.io/appName: 'firefly'
-            kubernetes.io/tls-acme: 'true'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "dashicons:money-alt"
+            hajimari.io/appName: "firefly"
+            kubernetes.io/tls-acme: "true"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - firefly.local.${SECRET_DOMAIN}
-              secretName: 'firefly-tls'
+              secretName: "firefly-tls"
           hosts:
             - host: firefly.local.${SECRET_DOMAIN}
               path: /
@@ -734,15 +734,15 @@ spec:
         port: 5100
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'ri:lock-password-line'
-            hajimari.io/appName: 'password-pusher'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "ri:lock-password-line"
+            hajimari.io/appName: "password-pusher"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - pw.local.${SECRET_DOMAIN}
-              secretName: 'password-pusher-tls'
+              secretName: "password-pusher-tls"
           hosts:
             - host: pw.local.${SECRET_DOMAIN}
               path: /
@@ -753,15 +753,15 @@ spec:
         port: 9999
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'mingcute:radar-line'
-            hajimari.io/appName: 'snapdrop'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mingcute:radar-line"
+            hajimari.io/appName: "snapdrop"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - snapdrop.local.${SECRET_DOMAIN}
-              secretName: 'snapdrop-tls'
+              secretName: "snapdrop-tls"
           hosts:
             - host: snapdrop.local.${SECRET_DOMAIN}
               path: /
@@ -772,13 +772,13 @@ spec:
         port: 3456
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - vikunja-api.local.${SECRET_DOMAIN}
-              secretName: 'vikunja-api-tls'
+              secretName: "vikunja-api-tls"
           hosts:
             - host: vikunja-api.local.${SECRET_DOMAIN}
               path: /
@@ -789,15 +789,15 @@ spec:
         port: 3455
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'icon-park-outline:list-success'
-            hajimari.io/appName: 'vikunja'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "icon-park-outline:list-success"
+            hajimari.io/appName: "vikunja"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - vikunja.local.${SECRET_DOMAIN}
-              secretName: 'vikunja-tls'
+              secretName: "vikunja-tls"
           hosts:
             - host: vikunja.local.${SECRET_DOMAIN}
               path: /
@@ -808,15 +808,15 @@ spec:
         port: 5000
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'ant-design:monitor-outlined'
-            hajimari.io/appName: 'changedetection'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "ant-design:monitor-outlined"
+            hajimari.io/appName: "changedetection"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - change.local.${SECRET_DOMAIN}
-              secretName: 'changedetection-tls'
+              secretName: "changedetection-tls"
           hosts:
             - host: change.local.${SECRET_DOMAIN}
               path: /
@@ -827,13 +827,13 @@ spec:
         port: 8675
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - dozzle-nubuntu.local.${SECRET_DOMAIN}
-              secretName: 'dozzle-nubuntu-tls'
+              secretName: "dozzle-nubuntu-tls"
           hosts:
             - host: dozzle-nubuntu.local.${SECRET_DOMAIN}
               path: /
@@ -844,13 +844,13 @@ spec:
         port: 8410
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'false'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - shlink-server.local.${SECRET_DOMAIN}
-              secretName: 'shlink-server-tls'
+              secretName: "shlink-server-tls"
           hosts:
             - host: shlink-server.local.${SECRET_DOMAIN}
               path: /
@@ -861,15 +861,15 @@ spec:
         port: 8411
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'game-icons:fragmented-sword'
-            hajimari.io/appName: 'shlink'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "game-icons:fragmented-sword"
+            hajimari.io/appName: "shlink"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - shlink.local.${SECRET_DOMAIN}
-              secretName: 'shlink-tls'
+              secretName: "shlink-tls"
           hosts:
             - host: shlink.local.${SECRET_DOMAIN}
               path: /
@@ -880,15 +880,15 @@ spec:
         port: 7645
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'mdi:draw'
-            hajimari.io/appName: 'excalidraw'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:draw"
+            hajimari.io/appName: "excalidraw"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - draw.local.${SECRET_DOMAIN}
-              secretName: 'excalidraw-tls'
+              secretName: "excalidraw-tls"
           hosts:
             - host: draw.local.${SECRET_DOMAIN}
               path: /
@@ -899,15 +899,15 @@ spec:
         port: 8219
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'bi:diagram-2'
-            hajimari.io/appName: 'diagrams.net'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "bi:diagram-2"
+            hajimari.io/appName: "diagrams.net"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - diagrams.local.${SECRET_DOMAIN}
-              secretName: 'diagrams-tls'
+              secretName: "diagrams-tls"
           hosts:
             - host: diagrams.local.${SECRET_DOMAIN}
               path: /
@@ -918,15 +918,15 @@ spec:
         port: 3977
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'fluent:circle-half-fill-12-regular'
-            hajimari.io/appName: 'umami'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "fluent:circle-half-fill-12-regular"
+            hajimari.io/appName: "umami"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - umami.local.${SECRET_DOMAIN}
-              secretName: 'umami-tls'
+              secretName: "umami-tls"
           hosts:
             - host: umami.local.${SECRET_DOMAIN}
               path: /
@@ -937,17 +937,36 @@ spec:
         port: 8040
         ingress:
           annotations:
-            cert-manager.io/cluster-issuer: 'letsencrypt-production'
-            hajimari.io/enable: 'true'
-            hajimari.io/icon: 'ion:glasses-outline'
-            hajimari.io/appName: 'scrutiny'
-            nginx.ingress.kubernetes.io/whitelist-source-range: '10.0.0.0/8,172.16.0.0/12,192.168.0.0/16'
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "ion:glasses-outline"
+            hajimari.io/appName: "scrutiny"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
                 - scrutiny.local.${SECRET_DOMAIN}
-              secretName: 'scrutiny-tls'
+              secretName: "scrutiny-tls"
           hosts:
             - host: scrutiny.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: miniflux
+        enabled: true
+        ip: 10.33.1.114
+        port: 8481
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "bi:rss"
+            hajimari.io/appName: "miniflux"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - miniflux.local.${SECRET_DOMAIN}
+              secretName: "miniflux-tls"
+          hosts:
+            - host: miniflux.local.${SECRET_DOMAIN}
               path: /
               #
     ingressPort:
