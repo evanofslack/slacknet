@@ -969,7 +969,7 @@ spec:
             - host: miniflux.local.${SECRET_DOMAIN}
               path: /
               #
-      - name: pastebn
+      - name: pastebnn
         enabled: true
         ip: 10.33.1.114
         port: 8993
