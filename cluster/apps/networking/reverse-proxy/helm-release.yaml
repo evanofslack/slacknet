@@ -969,6 +969,61 @@ spec:
             - host: miniflux.local.${SECRET_DOMAIN}
               path: /
               #
+      - name: nomie
+        enabled: true
+        ip: 10.33.1.114
+        port: 5482
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "calendar-clock-outline"
+            hajimari.io/appName: "miniflux"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - nomie.local.${SECRET_DOMAIN}
+              secretName: "nomie-tls"
+          hosts:
+            - host: nomie.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: nomie-db
+        enabled: true
+        ip: 10.33.1.114
+        port: 5984
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - nomie-db.local.${SECRET_DOMAIN}
+              secretName: "nomie-db-tls"
+          hosts:
+            - host: nomie-db.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: pastebnn
+        enabled: true
+        ip: 10.33.1.114
+        port: 8993
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "text-box-multiple-outline"
+            hajimari.io/appName: "pastebnn"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - bin.local.${SECRET_DOMAIN}
+              secretName: "pastebnn-tls"
+          hosts:
+            - host: bnn.local.${SECRET_DOMAIN}
+              path: /
+              #
     ingressPort:
       http: 80
       tls: 443
