@@ -594,6 +594,25 @@ spec:
             - host: whisparr.local.${SECRET_DOMAIN}
               path: /
       #
+      - name: audiobookshelf
+        enabled: true
+        ip: 10.33.1.23
+        port: 13378
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:podcast"
+            hajimari.io/appName: "audiobookshelf"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - audiobookshelf.local.${SECRET_DOMAIN}
+              secretName: "audiobookshelf-tls"
+          hosts:
+            - host: audiobookshelf.local.${SECRET_DOMAIN}
+              path: /
+              #
       - name: gitea
         enabled: true
         ip: 10.33.1.114
@@ -1005,23 +1024,136 @@ spec:
             - host: nomie-db.local.${SECRET_DOMAIN}
               path: /
               #
-      - name: audiobookshelf
+      - name: paperless
         enabled: true
         ip: 10.33.1.114
-        port: 13378
+        port: 8028
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
-            hajimari.io/icon: "mdi:podcast"
-            hajimari.io/appName: "audiobookshelf"
+            hajimari.io/icon: "bx:leaf"
+            hajimari.io/appName: "paperless"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - audiobookshelf.local.${SECRET_DOMAIN}
-              secretName: "audiobookshelf-tls"
+                - paperless.local.${SECRET_DOMAIN}
+              secretName: "paperless-tls"
           hosts:
-            - host: audiobookshelf.local.${SECRET_DOMAIN}
+            - host: paperless.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: actual-server
+        enabled: true
+        ip: 10.33.1.114
+        port: 5006
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:piggy-bank-outline"
+            hajimari.io/appName: "actual-server"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - actual.local.${SECRET_DOMAIN}
+              secretName: "actual-tls"
+          hosts:
+            - host: actual.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: emulatorjs
+        enabled: true
+        ip: 10.33.1.114
+        port: 3080
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:controller-variant-outline"
+            hajimari.io/appName: "emulatorjs"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - emulatorjs.local.${SECRET_DOMAIN}
+              secretName: "emulatorjs-tls"
+          hosts:
+            - host: emulatorjs.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: emulatorjs-management
+        enabled: true
+        ip: 10.33.1.114
+        port: 3079
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            hajimari.io/appName: "emulatorjs-management"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - emulatorjs-management.local.${SECRET_DOMAIN}
+              secretName: "emulatorjs-management-tls"
+          hosts:
+            - host: emulatorjs-management.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: archivebox
+        enabled: true
+        ip: 10.33.1.114
+        port: 8007
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "material-symbols:archive"
+            hajimari.io/appName: "archivebox"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - archivebox.local.${SECRET_DOMAIN}
+              secretName: "archivebox-tls"
+          hosts:
+            - host: archivebox.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: expanse
+        enabled: true
+        ip: 10.33.1.114
+        port: 1301
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "ph:reddit-logo-bold"
+            hajimari.io/appName: "expanse"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - expanse.local.${SECRET_DOMAIN}
+              secretName: "expanse-tls"
+          hosts:
+            - host: expanse.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: pastebnn
+        enabled: true
+        ip: 10.33.1.114
+        port: 8993
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "ic:outline-content-paste"
+            hajimari.io/appName: "pastebnn"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - bin.local.${SECRET_DOMAIN}
+              secretName: "pastebnn-tls"
+          hosts:
+            - host: bin.local.${SECRET_DOMAIN}
               path: /
               #
     ingressPort:
