@@ -1175,6 +1175,63 @@ spec:
             - host: healthchecks.local.${SECRET_DOMAIN}
               path: /
               #
+      - name: apprise
+        enabled: true
+        ip: 10.33.1.114
+        port: 8175
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "ion:megaphone-outline"
+            hajimari.io/appName: "apprise"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - apprise.local.${SECRET_DOMAIN}
+              secretName: "apprise-tls"
+          hosts:
+            - host: apprise.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: kasm
+        enabled: true
+        ip: 10.33.1.114
+        port: 443
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:remote-desktop"
+            hajimari.io/appName: "kasm"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - kasm.local.${SECRET_DOMAIN}
+              secretName: "kasm-tls"
+          hosts:
+            - host: kasm.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: speedtest-tracker
+        enabled: true
+        ip: 10.33.1.114
+        port: 8173
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "material-symbols:network-check-sharp"
+            hajimari.io/appName: "speedtest-tracker"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - speedtest-tracker.local.${SECRET_DOMAIN}
+              secretName: "speedtest-tracker-tls"
+          hosts:
+            - host: speedtest-tracker.local.${SECRET_DOMAIN}
+              path: /
+              #
     ingressPort:
       http: 80
       tls: 443
