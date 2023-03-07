@@ -1232,6 +1232,23 @@ spec:
             - host: speedtest-tracker.local.${SECRET_DOMAIN}
               path: /
               #
+      - name: wizzar
+        enabled: true
+        ip: 10.33.1.23
+        port: 5690
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - wizzar.local.${SECRET_DOMAIN}
+              secretName: "wizzar-tls"
+          hosts:
+            - host: wizzar.local.${SECRET_DOMAIN}
+              path: /
+              #
     ingressPort:
       http: 80
       tls: 443
