@@ -1268,6 +1268,62 @@ spec:
             - host: speedtest-tracker.local.${SECRET_DOMAIN}
               path: /
               #
+      - name: pialert
+        enabled: true
+        ip: 10.33.1.114
+        port: 20211
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:local-area-network-pending"
+            hajimari.io/appName: "pialert"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - pialert.local.${SECRET_DOMAIN}
+              secretName: "pialert-tls"
+          hosts:
+            - host: pialert.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: upsnap
+        enabled: true
+        ip: 10.33.1.114
+        port: 8090
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "material-symbols:power-rounded"
+            hajimari.io/appName: "upsnap"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - upsnap.local.${SECRET_DOMAIN}
+              secretName: "upsnap-tls"
+          hosts:
+            - host: upsnap.local.${SECRET_DOMAIN}
+              path: /
+              #
+      - name: whats-up-docker
+        enabled: true
+        ip: 10.33.1.114
+        port: 3579
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:docker"
+            hajimari.io/appName: "wud"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - wud.local.${SECRET_DOMAIN}
+              secretName: "wud-tls"
+          hosts:
+            - host: wud.local.${SECRET_DOMAIN}
+              path: /
     ingressPort:
       http: 80
       tls: 443
