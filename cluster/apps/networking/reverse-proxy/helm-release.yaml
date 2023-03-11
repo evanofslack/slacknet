@@ -1240,6 +1240,7 @@ spec:
             hajimari.io/enable: "true"
             hajimari.io/icon: "mdi:remote-desktop"
             hajimari.io/appName: "kasm"
+            nginx.ingress.kubernetes.io/backend-protocol: HTTPS
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
@@ -1333,7 +1334,7 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
-            hajimari.io/icon: "simple-icons:node-red"
+            hajimari.io/icon: "carbon:flow-logs-vpc"
             hajimari.io/appName: "node-red"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
