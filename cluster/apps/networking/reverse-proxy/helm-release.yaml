@@ -1004,7 +1004,7 @@ spec:
           hosts:
             - host: scrutiny.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: miniflux
         enabled: true
         ip: 10.33.1.114
@@ -1023,7 +1023,7 @@ spec:
           hosts:
             - host: miniflux.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: nomie
         enabled: true
         ip: 10.33.1.114
@@ -1042,7 +1042,7 @@ spec:
           hosts:
             - host: nomie.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: nomie-db
         enabled: true
         ip: 10.33.1.114
@@ -1059,7 +1059,7 @@ spec:
           hosts:
             - host: nomie-db.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: paperless
         enabled: true
         ip: 10.33.1.114
@@ -1078,8 +1078,8 @@ spec:
           hosts:
             - host: paperless.local.${SECRET_DOMAIN}
               path: /
-              #
-      - name: actual-server
+      #
+      - name: actual
         enabled: true
         ip: 10.33.1.114
         port: 5006
@@ -1088,7 +1088,7 @@ spec:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
             hajimari.io/icon: "mdi:piggy-bank-outline"
-            hajimari.io/appName: "actual-server"
+            hajimari.io/appName: "actual"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
@@ -1097,7 +1097,7 @@ spec:
           hosts:
             - host: actual.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: emulatorjs
         enabled: true
         ip: 10.33.1.114
@@ -1116,7 +1116,7 @@ spec:
           hosts:
             - host: emulatorjs.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: emulatorjs-management
         enabled: true
         ip: 10.33.1.114
@@ -1134,7 +1134,7 @@ spec:
           hosts:
             - host: emulatorjs-management.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: archivebox
         enabled: true
         ip: 10.33.1.114
@@ -1153,7 +1153,7 @@ spec:
           hosts:
             - host: archivebox.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: expanse
         enabled: true
         ip: 10.33.1.114
@@ -1172,7 +1172,7 @@ spec:
           hosts:
             - host: expanse.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: pastebnn
         enabled: true
         ip: 10.33.1.114
@@ -1191,7 +1191,7 @@ spec:
           hosts:
             - host: bin.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: healthchecks
         enabled: true
         ip: 10.33.1.114
@@ -1210,7 +1210,7 @@ spec:
           hosts:
             - host: healthchecks.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: apprise
         enabled: true
         ip: 10.33.1.114
@@ -1229,7 +1229,7 @@ spec:
           hosts:
             - host: apprise.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: kasm
         enabled: true
         ip: 10.33.1.114
@@ -1248,7 +1248,7 @@ spec:
           hosts:
             - host: kasm.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: speedtest-tracker
         enabled: true
         ip: 10.33.1.114
@@ -1267,7 +1267,7 @@ spec:
           hosts:
             - host: speedtest-tracker.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: pialert
         enabled: true
         ip: 10.33.1.114
@@ -1286,7 +1286,7 @@ spec:
           hosts:
             - host: pialert.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: upsnap
         enabled: true
         ip: 10.33.1.114
@@ -1305,7 +1305,7 @@ spec:
           hosts:
             - host: upsnap.local.${SECRET_DOMAIN}
               path: /
-              #
+      #
       - name: whats-up-docker
         enabled: true
         ip: 10.33.1.114
@@ -1324,6 +1324,64 @@ spec:
           hosts:
             - host: wud.local.${SECRET_DOMAIN}
               path: /
+      #
+      - name: node-red
+        enabled: true
+        ip: 10.33.1.114
+        port: 1880
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "simple-icons:node-red"
+            hajimari.io/appName: "node-red"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - node-red.local.${SECRET_DOMAIN}
+              secretName: "node-red-tls"
+          hosts:
+            - host: node-red.local.${SECRET_DOMAIN}
+              path: /
+      #
+      - name: mage
+        enabled: true
+        ip: 10.33.1.114
+        port: 6789
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:magic-staff"
+            hajimari.io/appName: "mage"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - mage.local.${SECRET_DOMAIN}
+              secretName: "mage-tls"
+          hosts:
+            - host: mage.local.${SECRET_DOMAIN}
+              path: /
+      #
+      - name: immich
+        enabled: true
+        ip: 10.33.1.114
+        port: 2283
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "material-symbols:add-a-photo-outline"
+            hajimari.io/appName: "immich"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - immich.local.${SECRET_DOMAIN}
+              secretName: "immich-tls"
+          hosts:
+            - host: immich.local.${SECRET_DOMAIN}
+              path: /
+              #
     ingressPort:
       http: 80
       tls: 443
