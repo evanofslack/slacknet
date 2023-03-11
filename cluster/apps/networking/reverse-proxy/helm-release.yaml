@@ -1079,7 +1079,7 @@ spec:
             - host: paperless.local.${SECRET_DOMAIN}
               path: /
       #
-      - name: actual
+      - name: actual-server
         enabled: true
         ip: 10.33.1.114
         port: 5006
