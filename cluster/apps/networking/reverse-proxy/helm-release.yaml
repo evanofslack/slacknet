@@ -1400,7 +1400,7 @@ spec:
             - host: postgres.local.${SECRET_DOMAIN}
               path: /
       #
-      - name: databend-http
+      - name: databend
         enabled: true
         ip: 10.33.1.142
         port: 8888
