@@ -1383,10 +1383,10 @@ spec:
             - host: immich.local.${SECRET_DOMAIN}
               path: /
       #
-      - name: databend
+      - name: postgres-ved
         enabled: true
         ip: 10.33.1.142
-        port: 8888
+        port: 5432
         ingress:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
@@ -1394,10 +1394,10 @@ spec:
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - databend.local.${SECRET_DOMAIN}
-              secretName: "databend-tls"
+                - postgres.local.${SECRET_DOMAIN}
+              secretName: "postgres-tls"
           hosts:
-            - host: databend.local.${SECRET_DOMAIN}
+            - host: postgres.local.${SECRET_DOMAIN}
               path: /
       #
       - name: qdrant
@@ -1425,7 +1425,7 @@ spec:
           annotations:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
-            hajimari.io/icon: "graph"
+            hajimari.io/icon: "fluent:desktop-flow-24-regular"
             hajimari.io/appName: "dagster"
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
@@ -1434,6 +1434,25 @@ spec:
               secretName: "dagster-tls"
           hosts:
             - host: dagster.local.${SECRET_DOMAIN}
+              path: /
+      #
+      - name: redash
+        enabled: true
+        ip: 10.33.1.142
+        port: 5000
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "carbon:dashboard"
+            hajimari.io/appName: "redash"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - redash.local.${SECRET_DOMAIN}
+              secretName: "redash-tls"
+          hosts:
+            - host: redash.local.${SECRET_DOMAIN}
               path: /
               #
     ingressPort:
