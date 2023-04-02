@@ -1471,6 +1471,25 @@ spec:
           hosts:
             - host: redash.local.${SECRET_DOMAIN}
               path: /
+      #
+      - name: airbyte
+        enabled: true
+        ip: 10.33.1.142
+        port: 8000
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "simple-icons:airbyte"
+            hajimari.io/appName: "airbyte"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - airbyte.local.${SECRET_DOMAIN}
+              secretName: "airbyte-tls"
+          hosts:
+            - host: airbyte.local.${SECRET_DOMAIN}
+              path: /
               #
     ingressPort:
       http: 80
