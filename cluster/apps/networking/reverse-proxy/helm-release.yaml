@@ -1382,6 +1382,59 @@ spec:
           hosts:
             - host: immich.local.${SECRET_DOMAIN}
               path: /
+      #
+      - name: databend
+        enabled: true
+        ip: 10.33.1.142
+        port: 8888
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - databend.local.${SECRET_DOMAIN}
+              secretName: "databend-tls"
+          hosts:
+            - host: databend.local.${SECRET_DOMAIN}
+              path: /
+      #
+      - name: qdrant
+        enabled: true
+        ip: 10.33.1.142
+        port: 6333
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - qdrant.local.${SECRET_DOMAIN}
+              secretName: "qdrant-tls"
+          hosts:
+            - host: qdrant.local.${SECRET_DOMAIN}
+              path: /
+      #
+      - name: dagster
+        enabled: true
+        ip: 10.33.1.142
+        port: 3300
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "graph"
+            hajimari.io/appName: "dagster"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - dagster.local.${SECRET_DOMAIN}
+              secretName: "dagster-tls"
+          hosts:
+            - host: dagster.local.${SECRET_DOMAIN}
+              path: /
               #
     ingressPort:
       http: 80
