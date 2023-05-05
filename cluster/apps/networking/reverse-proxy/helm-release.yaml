@@ -306,25 +306,6 @@ spec:
             - host: api.spotify.local.${SECRET_DOMAIN}
               path: /
       #
-      - name: portainer
-        enabled: true
-        ip: 10.33.1.114
-        port: 9000
-        ingress:
-          annotations:
-            cert-manager.io/cluster-issuer: "letsencrypt-production"
-            hajimari.io/enable: "true"
-            hajimari.io/icon: "docker"
-            hajimari.io/appName: "portainer"
-            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
-          tls:
-            - hosts:
-                - portainer.local.${SECRET_DOMAIN}
-              secretName: "portainer-tls"
-          hosts:
-            - host: portainer.local.${SECRET_DOMAIN}
-              path: /
-      #
       - name: jellyfin
         enabled: true
         ip: 10.33.1.23
@@ -1381,6 +1362,44 @@ spec:
               secretName: "immich-tls"
           hosts:
             - host: immich.local.${SECRET_DOMAIN}
+              path: /
+      #
+      - name: portainer
+        enabled: true
+        ip: 10.33.1.114
+        port: 9000
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "docker"
+            hajimari.io/appName: "portainer"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - portainer.local.${SECRET_DOMAIN}
+              secretName: "portainer-tls"
+          hosts:
+            - host: portainer.local.${SECRET_DOMAIN}
+              path: /
+      #
+      - name: hakatime
+        enabled: true
+        ip: 10.33.1.114
+        port: 8201
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "file-code-outline"
+            hajimari.io/appName: "hakatime"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - hakatime.local.${SECRET_DOMAIN}
+              secretName: "hakatime-tls"
+          hosts:
+            - host: hakatime.local.${SECRET_DOMAIN}
               path: /
       #
       - name: postgres-ved
