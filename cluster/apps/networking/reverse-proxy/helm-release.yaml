@@ -1401,7 +1401,64 @@ spec:
           hosts:
             - host: hakatime.local.${SECRET_DOMAIN}
               path: /
-      #
+
+      - name: prometheus
+        enabled: true
+        ip: 10.33.1.212
+        port: 9090
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "database"
+            hajimari.io/appName: "prometheus"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - prometheus.local.${SECRET_DOMAIN}
+              secretName: "prometheus-tls"
+          hosts:
+            - host: prometheus.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: alertmanager
+        enabled: true
+        ip: 10.33.1.212
+        port: 9093
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "alert-circle-outline"
+            hajimari.io/appName: "alertmanager"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - alertmanager.local.${SECRET_DOMAIN}
+              secretName: "alertmanager-tls"
+          hosts:
+            - host: alertmanager.local.${SECRET_DOMAIN}
+              path: /
+
+      - name: grafana
+        enabled: true
+        ip: 10.33.1.212
+        port: 3000
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "chart-areaspline"
+            hajimari.io/appName: "grafana"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - grafana.local.${SECRET_DOMAIN}
+              secretName: "grafana-tls"
+          hosts:
+            - host: grafana.local.${SECRET_DOMAIN}
+              path: /
+
       - name: postgres-ved
         enabled: true
         ip: 10.33.1.142
