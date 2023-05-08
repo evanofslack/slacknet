@@ -28,28 +28,28 @@ spec:
       create: true
       rules:
         alertmanager: true
-        etcd: false
+        etcd: true
         configReloaders: true
         general: true
         k8s: true
-        kubeApiserverAvailability: false
-        kubeApiserverBurnrate: false
-        kubeApiserverHistogram: false
-        kubeApiserverSlos: false
-        kubeControllerManager: false
-        kubelet: false
-        kubeProxy: false
-        kubePrometheusGeneral: false
-        kubePrometheusNodeRecording: false
-        kubernetesApps: false
-        kubernetesResources: false
+        kubeApiserverAvailability: true
+        kubeApiserverBurnrate: true
+        kubeApiserverHistogram: true
+        kubeApiserverSlos: true
+        kubeControllerManager: true
+        kubelet: true
+        kubeProxy: true
+        kubePrometheusGeneral: true
+        kubePrometheusNodeRecording: true
+        kubernetesApps: true
+        kubernetesResources: true
         kubernetesStorage: true
-        kubernetesSystem: false
-        kubeScheduler: false
-        kubeStateMetrics: false
-        network: false
+        kubernetesSystem: true
+        kubeScheduler: true
+        kubeStateMetrics: true
+        network: true
         node: true
-        nodeExporterAlerting: false
+        nodeExporterAlerting: true
         nodeExporterRecording: true
         prometheus: true
         prometheusOperator: true
@@ -63,16 +63,16 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "true"
+          hajimari.io/enable: "false"
           hajimari.io/appName: "alertmanager"
           hajimari.io/icon: "alert-circle-outline"
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
-          - 'alertmanager.local.${SECRET_DOMAIN}'
+          - 'alertmanager-k8s.local.${SECRET_DOMAIN}'
         tls:
-          - secretName: alertmanager-tls
+          - secretName: alertmanager-k8s-tls
             hosts:
-              - alertmanager.local.${SECRET_DOMAIN}
+              - alertmanager-k8s.local.${SECRET_DOMAIN}
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
@@ -97,16 +97,16 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "true"
+          hajimari.io/enable: "false"
           hajimari.io/appName: "grafana"
           hajimari.io/icon: "chart-areaspline"
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
-          - 'grafana.local.${SECRET_DOMAIN}'
+          - 'grafana-k8s.local.${SECRET_DOMAIN}'
         tls:
-          - secretName: grafana-tls
+          - secretName: grafana-k8s-tls
             hosts:
-              - grafana.local.${SECRET_DOMAIN}
+              - grafana-k8s.local.${SECRET_DOMAIN}
 
       sidecar:
         dashboards:
@@ -121,7 +121,7 @@ spec:
             etcd:
               enabled: true
           provider:
-            allowUiUpdates: false
+            allowUiUpdates: true
       persistence:
         enabled: true
         type: pvc
@@ -133,10 +133,10 @@ spec:
           - kubernetes.io/pvc-protection
 
     kubeApiServer:
-      enabled: false
+      enabled: true
 
     kubelet:
-      enabled: false
+      enabled: true
       serviceMonitor:
         metricRelabelings:
           - action: replace
@@ -145,20 +145,20 @@ spec:
             targetLabel: instance
 
     kubeControllerManager:
-      enabled: false
+      enabled: true
       endpoints:
         - 10.33.1.200
         - 10.33.1.201
         - 10.33.1.202
 
     coreDns:
-      enabled: false
+      enabled: true
 
     kubeDns:
-      enabled: false
+      enabled: true
 
     kubeEtcd:
-      enabled: false
+      enabled: true
       endpoints:
         - 10.33.1.200
         - 10.33.1.201
@@ -169,14 +169,14 @@ spec:
         targetPort: 2381
 
     kubeScheduler:
-      enabled: false
+      enabled: true
       endpoints:
         - 10.33.1.200
         - 10.33.1.201
         - 10.33.1.202
 
     kubeProxy:
-      enabled: false
+      enabled: true
       endpoints:
         - 10.33.1.200
         - 10.33.1.201
@@ -265,16 +265,16 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "true"
+          hajimari.io/enable: "false"
           hajimari.io/appName: "prometheus"
           hajimari.io/icon: "database"
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
-          - 'prometheus.local.${SECRET_DOMAIN}'
+          - 'prometheus-k8s.local.${SECRET_DOMAIN}'
         tls:
-          - secretName: prometheus-tls
+          - secretName: prometheus-k8s-tls
             hosts:
-              - prometheus.local.${SECRET_DOMAIN}
+              - prometheus-k8s.local.${SECRET_DOMAIN}
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"
@@ -296,63 +296,6 @@ spec:
         # remoteWrite:
         #   - url: "htts://victoria.local.${SECRET_DOMAIN}/api/v1/write"
         #     name: victoria-metrics
-        additionalScrapeConfigs:
-          - job_name: "raspi"
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - 10.33.1.98:9090 # raspi prometheus
-          - job_name: "pve-kepler"
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets: ['10.33.1.20:9221']
-            metrics_path: '/pve'
-            params:
-              module: [default]
-              target: ["10.33.1.174"]
-          - job_name: "pve-navi"
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets: ['10.33.1.114:9221']
-            metrics_path: '/pve'
-            params:
-              module: [default]
-              target: ["10.33.1.175"]
-          - job_name: "pve-navi-node-exporter"
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - 10.33.1.114:9100
-          - job_name: "pc-workstation"
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets: [10.33.1.78:4445] # ohmgraphite
-          - job_name: "exportarr"
-            scrape_interval: 5m
-            scrape_timeout: 30s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - 10.33.1.23:9707
-                  - 10.33.1.23:9708
-                  - 10.33.1.23:9709
-          - job_name: "transmission-exporter"
-            scrape_interval: 1m
-            scrape_timeout: 10s
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - 10.33.1.23:19091
 
     thanosRuler:
       enabled: false
