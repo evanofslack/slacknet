@@ -4,12 +4,3 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - helm-release.yaml
-configMapGenerator:
-  - name: custom-grafana-dashboards
-    files:
-      - dashboards/proxmox-monitor.json
-      - dashboards/exportarr.json
-      - dashboards/transmission.json
-    options:
-      labels:
-        grafana_dashboard: "1"
