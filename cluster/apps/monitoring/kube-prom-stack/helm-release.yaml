@@ -63,9 +63,6 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "false"
-          hajimari.io/appName: "alertmanager"
-          hajimari.io/icon: "alert-circle-outline"
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
           - 'alertmanager-k8s.local.${SECRET_DOMAIN}'
@@ -97,9 +94,6 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "false"
-          hajimari.io/appName: "grafana"
-          hajimari.io/icon: "chart-areaspline"
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
           - 'grafana-k8s.local.${SECRET_DOMAIN}'
@@ -265,9 +259,6 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "false"
-          hajimari.io/appName: "prometheus"
-          hajimari.io/icon: "database"
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
         hosts:
           - 'prometheus-k8s.local.${SECRET_DOMAIN}'
