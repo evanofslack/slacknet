@@ -293,9 +293,9 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-        # remoteWrite:
-        #   - url: "htts://victoria.local.${SECRET_DOMAIN}/api/v1/write"
-        #     name: victoria-metrics
+        remoteWrite:
+          - url: "https://mimir.local.${SECRET_DOMAIN}/api/v1/push"
+            name: mimir
 
     thanosRuler:
       enabled: false
