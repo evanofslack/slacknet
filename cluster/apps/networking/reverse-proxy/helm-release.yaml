@@ -1421,6 +1421,25 @@ spec:
             - host: prometheus.local.${SECRET_DOMAIN}
               path: /
 
+      - name: mimir
+        enabled: true
+        ip: 10.33.1.212
+        port: 9009
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "mdi:database-clock-outline"
+            hajimari.io/appName: "mimir"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - mimir.local.${SECRET_DOMAIN}
+              secretName: "mimir-tls"
+          hosts:
+            - host: mimir.local.${SECRET_DOMAIN}
+              path: /
+
       - name: alertmanager
         enabled: true
         ip: 10.33.1.212
