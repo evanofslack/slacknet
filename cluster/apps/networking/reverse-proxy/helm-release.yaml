@@ -234,7 +234,7 @@ spec:
             - host: adguard-2.local.${SECRET_DOMAIN}
               path: /
       #
-      - name: raspi-grafana
+      - name: grafana-raspi
         enabled: true
         ip: 10.33.1.98
         port: 3000
@@ -245,10 +245,10 @@ spec:
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           tls:
             - hosts:
-                - raspi-grafana.local.${SECRET_DOMAIN}
-              secretName: "raspi-grafana-tls"
+                - grafana-raspi.local.${SECRET_DOMAIN}
+              secretName: "grafana-raspi-tls"
           hosts:
-            - host: raspi-grafana.local.${SECRET_DOMAIN}
+            - host: grafana-raspi.local.${SECRET_DOMAIN}
               path: /
       #
       - name: gateway-npm
