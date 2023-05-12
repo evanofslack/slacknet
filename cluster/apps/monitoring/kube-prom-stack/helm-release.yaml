@@ -285,7 +285,8 @@ spec:
                 requests:
                   storage: 20Gi
         remoteWrite:
-          - url: "https://mimir.local.${SECRET_DOMAIN}/api/v1/push"
+          # - url: "https://mimir.local.${SECRET_DOMAIN}/api/v1/push"
+          - url: 10.33.1.212:9009/api/v1/push
             name: mimir
 
     thanosRuler:
