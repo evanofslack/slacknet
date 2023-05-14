@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  node_exporter:
+    image: prompve/prometheus-pve-exporter:latest
+    container_name: "pve-exporter"
+    restart: unless-stopped
+    ports:
+      - 9221:9221
+    volumes:
+      - './config/pve.yaml:/etc/pve.yml'
