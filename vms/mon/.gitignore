@@ -1,0 +1,4 @@
+alertmanager/config/alertmanager.yaml
+loki/loki
+loki/config/loki.yaml
+mimir/config/mimir.yaml

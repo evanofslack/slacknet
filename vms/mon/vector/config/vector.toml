@@ -1,0 +1,73 @@
+[api]
+enabled = true
+address = "0.0.0.0:8686"
+playground = true
+
+[sources.agent_docker]
+type = "vector"
+address = "0.0.0.0:8687"
+version = "2"
+
+[sources.agent_syslog]
+type = "vector"
+address = "0.0.0.0:8688"
+version = "2"
+
+[sources.agent_metrics]
+type = "vector"
+address = "0.0.0.0:8689"
+version = "2"
+
+[transforms.parse_docker]
+type = "remap"
+inputs = ["agent_docker"]
+source = '''
+. |= parse_key_value!(.message)
+'''
+
+[transforms.parse_syslog]
+type = "remap"
+inputs = ["agent_syslog"]
+source = '''
+. = parse_syslog!(string!(.message))
+'''
+
+[sinks.loki_docker]
+type = "loki"
+inputs = [ "parse_docker" ]
+endpoint = "http://loki:3100"
+path = "/loki/api/v1/push"
+encoding.codec = "json"
+out_of_order_action = "drop"
+remove_timestamp = true
+[sinks.loki_docker.labels]
+forwarder = "vector"
+domain = 'vms'
+level = '{{level}}'
+hostname = '{{hostname}}'
+source_type = '{{source_type}}'
+stream = '{{stream}}'
+container_name = '{{container_name}}'
+image = '{{image}}'
+
+[sinks.loki_syslog]
+type = "loki"
+inputs = [ "parse_syslog" ]
+endpoint = "http://loki:3100"
+path = "/loki/api/v1/push"
+encoding.codec = "json"
+out_of_order_action = "drop"
+remove_timestamp = true
+[sinks.loki_syslog.labels]
+forwarder = "vector"
+source_type = 'file'
+domain = 'vms'
+hostname = '{{hostname}}'
+appname = '{{appname}}'
+
+[sinks.prom]
+type = "prometheus_exporter"
+inputs = [ "agent_metrics" ]
+address = "0.0.0.0:9598"
+flush_period_secs = 60
+

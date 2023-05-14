@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  vector:
+    image: timberio/vector:latest-alpine
+    restart: unless-stopped
+    container_name: vector
+    ports:
+      - 8686:8686 # playground
+      - 8687:8687 # docker agents
+      - 8688:8688 # syslog agents
+      - 8689:8689 # metrics agents
+      - 9598:9598 # prom exporter
+    environment:
+      - LOG=info
+    volumes:
+      - ./config/vector.toml:/etc/vector/vector.toml:ro
+
+networks:
+  default:
+    external: true
+    name: mon
+

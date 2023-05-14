@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana-oss:latest
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana.ini:/etc/grafana/grafana.ini
+      - ./config/provisioning/datasources.yaml:/etc/grafana/provisioning/datasources/provisioning-datasources.yaml
+      - ./config/provisioning/dashboards.yaml:/etc/grafana/provisioning/dashboards/provisioning-dashboards.yaml
+      - ./config/provisioning/dashboards:/var/lib/grafana/dashboards
+
+volumes:
+  grafana-data:
+
+networks:
+  default:
+    external: true
+    name: mon
+

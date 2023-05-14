@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  vector-agent:
+    image: timberio/vector:latest-alpine
+    container_name: vector-agent
+    restart: unless-stopped
+    environment:
+      - LOG=info
+      - HOSTNAME=mon
+    volumes:
+      - ./config/vector.toml:/etc/vector/vector.toml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log:/host
+
+networks:
+  default:
+    external: true
+    name: mon

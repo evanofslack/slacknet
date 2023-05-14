@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    restart: unless-stopped
+    ports:
+      - 9093:9093
+    volumes:
+      - ./config:/config
+      - alertmanager-data:/data
+    command: --config.file=/config/alertmanager.yaml --log.level=info
+
+volumes:
+  alertmanager-data:
+
+networks:
+  default:
+    external: true
+    name: mon
+
+
