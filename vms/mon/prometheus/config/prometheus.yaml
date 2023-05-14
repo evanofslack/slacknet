@@ -83,13 +83,6 @@ scrape_configs:
     - targets:
         - 10.33.1.114:9100
 
-- job_name: "workstation"
-  scrape_interval: 1m
-  scrape_timeout: 10s
-  static_configs:
-    - targets:
-        - 10.33.1.78:4445
-
 - job_name: "exportarr"
   scrape_interval: 1m
   scrape_timeout: 10s
