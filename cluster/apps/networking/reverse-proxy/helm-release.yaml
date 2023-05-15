@@ -1478,6 +1478,25 @@ spec:
             - host: grafana.local.${SECRET_DOMAIN}
               path: /
 
+      - name: karma
+        enabled: true
+        ip: 10.33.1.212
+        port: 9094
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "material-symbols:add-alert-outline-rounded"
+            hajimari.io/appName: "karma"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - karma.local.${SECRET_DOMAIN}
+              secretName: "karma-tls"
+          hosts:
+            - host: karma.local.${SECRET_DOMAIN}
+              path: /
+
       - name: postgres-ved
         enabled: true
         ip: 10.33.1.142
