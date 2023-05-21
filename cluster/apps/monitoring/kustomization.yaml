@@ -8,6 +8,5 @@ resources:
   - kube-prom-stack
   - loki
   - speedtest-exporter
-  - uptime-kuma
   - vpa
   - victoria-metrics
