@@ -50,7 +50,8 @@ spec:
     rbac:
       create: true
       impersonationResourceNames: ["admin"]
-
+    podAnnotations:
+      secret.reloader.stakater.com/reload: weave-gitops
   valuesFrom:
     - kind: Secret
       name: weave-gitops
