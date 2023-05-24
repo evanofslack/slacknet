@@ -38,7 +38,7 @@ spec:
         hajimari.io/icon: mdi:sawtooth-wave
         hajimari.io/appName: "gitops"
       hosts:
-        - host: &host "gitops.local.${SECRET_CLUSTER_DOMAIN}"
+        - host: &host "gitops.local.${SECRET_DOMAIN}"
           paths:
             - path: /
               pathType: Prefix
