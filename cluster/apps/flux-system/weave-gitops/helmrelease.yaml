@@ -47,6 +47,9 @@ spec:
             - *host
     metrics:
       enabled: true
+    rbac:
+      create: true
+      impersonationResourceNames: ["admin"]
 
   valuesFrom:
     - kind: Secret
