@@ -10,10 +10,10 @@ spec:
     spec:
       chart: weave-gitops
       version: 4.0.21
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: weave-gitops
+        namespace: flux-system
   maxHistory: 3
   install:
     createNamespace: true
@@ -45,6 +45,9 @@ spec:
       tls:
         - hosts:
             - *host
+    metrics:
+      enabled: true
+
   valuesFrom:
     - kind: Secret
       name: weave-gitops
