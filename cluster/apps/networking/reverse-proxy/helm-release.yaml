@@ -270,24 +270,24 @@ spec:
             - host: npm.local.${SECRET_DOMAIN}
               path: /
 
-      # - name: your-spotify
-      #   enabled: true
-      #   ip: 10.33.1.114
-      #   port: 3917
-      #   ingress:
-      #     annotations:
-      #       cert-manager.io/cluster-issuer: "letsencrypt-production"
-      #       hajimari.io/enable: "true"
-      #       hajimari.io/icon: "spotify"
-      #       hajimari.io/appName: "spotify-stats"
-      #       nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
-      #     tls:
-      #       - hosts:
-      #           - spotify.local.${SECRET_DOMAIN}
-      #         secretName: "spotify-client-tls"
-      #     hosts:
-      #       - host: spotify.local.${SECRET_DOMAIN}
-      #         path: /
+      - name: your-spotify
+        enabled: true
+        ip: 10.33.1.114
+        port: 3917
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "spotify"
+            hajimari.io/appName: "spotify-stats"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - spotify.local.${SECRET_DOMAIN}
+              secretName: "spotify-client-tls"
+          hosts:
+            - host: spotify.local.${SECRET_DOMAIN}
+              path: /
 
       - name: jellyfin
         enabled: true
