@@ -25,7 +25,7 @@ spec:
     controller:
       replicas: 3
     instances:
-      #
+
       - name: pve-kepler
         enabled: true
         ip: 10.33.1.174
@@ -60,7 +60,7 @@ spec:
           hosts:
             - host: pve-kepler.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: pve-navi
         enabled: true
         ip: 10.33.1.175
@@ -95,7 +95,7 @@ spec:
           hosts:
             - host: pve-navi.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: pbs
         enabled: true
         ip: 10.33.1.250
@@ -130,7 +130,7 @@ spec:
           hosts:
             - host: pbs.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: fileserver
         enabled: true
         ip: 10.33.1.234
@@ -163,7 +163,7 @@ spec:
           hosts:
             - host: fileserver.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: fileserver-ui
         enabled: true
         ip: 10.33.1.234
@@ -198,7 +198,7 @@ spec:
           hosts:
             - host: fileserver-ui.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: adguard
         enabled: true
         ip: 10.33.1.98
@@ -217,7 +217,7 @@ spec:
           hosts:
             - host: adguard.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: adguard-2 # redundant DNS on raspi zero
         enabled: true
         ip: 10.33.1.219
@@ -233,7 +233,7 @@ spec:
           hosts:
             - host: adguard-2.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: grafana-raspi
         enabled: true
         ip: 10.33.1.98
@@ -250,7 +250,7 @@ spec:
           hosts:
             - host: grafana-raspi.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: gateway-npm
         enabled: true
         ip: 10.33.1.24
@@ -269,7 +269,7 @@ spec:
           hosts:
             - host: npm.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: your-spotify-client
         enabled: true
         ip: 10.33.1.20
@@ -288,7 +288,7 @@ spec:
           hosts:
             - host: spotify.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: your-spotify-server
         enabled: true
         ip: 10.33.1.20
@@ -305,7 +305,7 @@ spec:
           hosts:
             - host: api.spotify.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: jellyfin
         enabled: true
         ip: 10.33.1.23
@@ -324,7 +324,7 @@ spec:
           hosts:
             - host: jellyfin.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: wizzar
         enabled: true
         ip: 10.33.1.23
@@ -341,7 +341,7 @@ spec:
           hosts:
             - host: wizzar.local.${SECRET_DOMAIN}
               path: /
-              #
+
       - name: transmission
         enabled: true
         ip: 10.33.1.23
@@ -360,7 +360,7 @@ spec:
           hosts:
             - host: transmission.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: jellyseerr
         enabled: true
         ip: 10.33.1.23
@@ -379,7 +379,7 @@ spec:
           hosts:
             - host: jellyseerr.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: navidrome
         enabled: true
         ip: 10.33.1.23
@@ -398,7 +398,7 @@ spec:
           hosts:
             - host: navidrome.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: openbooks
         enabled: true
         ip: 10.33.1.23
@@ -417,7 +417,7 @@ spec:
           hosts:
             - host: openbooks.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: metube
         enabled: true
         ip: 10.33.1.23
@@ -436,7 +436,7 @@ spec:
           hosts:
             - host: metube.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: stash
         enabled: true
         ip: 10.33.1.23
@@ -453,7 +453,7 @@ spec:
           hosts:
             - host: stash.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: dozzle-torrr
         enabled: true
         ip: 10.33.1.23
@@ -470,7 +470,7 @@ spec:
           hosts:
             - host: dozzle-torrr.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: radarr
         enabled: true
         ip: 10.33.1.23
@@ -487,7 +487,7 @@ spec:
           hosts:
             - host: radarr.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: sonarr
         enabled: true
         ip: 10.33.1.23
@@ -504,7 +504,7 @@ spec:
           hosts:
             - host: sonarr.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: lidarr
         enabled: true
         ip: 10.33.1.23
@@ -521,7 +521,7 @@ spec:
           hosts:
             - host: lidarr.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: prowlarr
         enabled: true
         ip: 10.33.1.23
@@ -538,7 +538,7 @@ spec:
           hosts:
             - host: prowlarr.local.${SECRET_DOMAIN}
               path: /
-      #
+              
       - name: autobrr
         enabled: true
         ip: 10.33.1.23
@@ -555,7 +555,7 @@ spec:
           hosts:
             - host: autobrr.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: tdarr
         enabled: true
         ip: 10.33.1.23
@@ -574,7 +574,7 @@ spec:
           hosts:
             - host: tdarr.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: whisparr
         enabled: true
         ip: 10.33.1.23
@@ -591,7 +591,7 @@ spec:
           hosts:
             - host: whisparr.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: audiobookshelf
         enabled: true
         ip: 10.33.1.23
@@ -610,7 +610,7 @@ spec:
           hosts:
             - host: audiobookshelf.local.${SECRET_DOMAIN}
               path: /
-              #
+
       - name: podgrab
         enabled: true
         ip: 10.33.1.23
@@ -629,7 +629,7 @@ spec:
           hosts:
             - host: podgrab.local.${SECRET_DOMAIN}
               path: /
-              #
+
       - name: gitea
         enabled: true
         ip: 10.33.1.114
@@ -648,7 +648,7 @@ spec:
           hosts:
             - host: git.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: vaultwarden
         enabled: true
         ip: 10.33.1.114
@@ -667,7 +667,7 @@ spec:
           hosts:
             - host: vaultwarden.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: nextcloud
         enabled: true
         ip: 10.33.1.114
@@ -686,7 +686,7 @@ spec:
           hosts:
             - host: cloud.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: photoprism
         enabled: true
         ip: 10.33.1.114
@@ -705,7 +705,7 @@ spec:
           hosts:
             - host: photoprism.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: send
         enabled: true
         ip: 10.33.1.114
@@ -724,7 +724,7 @@ spec:
           hosts:
             - host: send.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: linkding
         enabled: true
         ip: 10.33.1.114
@@ -743,7 +743,7 @@ spec:
           hosts:
             - host: linkding.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: firefly
         enabled: true
         ip: 10.33.1.114
@@ -763,7 +763,7 @@ spec:
           hosts:
             - host: firefly.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: password-pusher
         enabled: true
         ip: 10.33.1.114
@@ -782,7 +782,7 @@ spec:
           hosts:
             - host: pw.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: snapdrop
         enabled: true
         ip: 10.33.1.114
@@ -801,7 +801,7 @@ spec:
           hosts:
             - host: snapdrop.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: vikunja-api
         enabled: true
         ip: 10.33.1.114
@@ -818,7 +818,7 @@ spec:
           hosts:
             - host: vikunja-api.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: vikunja
         enabled: true
         ip: 10.33.1.114
@@ -837,7 +837,7 @@ spec:
           hosts:
             - host: vikunja.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: changedetection
         enabled: true
         ip: 10.33.1.114
@@ -856,7 +856,7 @@ spec:
           hosts:
             - host: change.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: dozzle-nubuntu
         enabled: true
         ip: 10.33.1.114
@@ -873,7 +873,7 @@ spec:
           hosts:
             - host: dozzle-nubuntu.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: shlink-server
         enabled: true
         ip: 10.33.1.114
@@ -890,7 +890,7 @@ spec:
           hosts:
             - host: shlink-server.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: shlink
         enabled: true
         ip: 10.33.1.114
@@ -909,7 +909,7 @@ spec:
           hosts:
             - host: shlink.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: excalidraw
         enabled: true
         ip: 10.33.1.114
@@ -928,7 +928,7 @@ spec:
           hosts:
             - host: draw.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: diagrams
         enabled: true
         ip: 10.33.1.114
@@ -947,7 +947,7 @@ spec:
           hosts:
             - host: diagrams.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: umami
         enabled: true
         ip: 10.33.1.114
@@ -966,7 +966,7 @@ spec:
           hosts:
             - host: umami.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: scrutiny
         enabled: true
         ip: 10.33.1.114
@@ -985,7 +985,7 @@ spec:
           hosts:
             - host: scrutiny.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: miniflux
         enabled: true
         ip: 10.33.1.114
@@ -1004,7 +1004,7 @@ spec:
           hosts:
             - host: miniflux.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: nomie
         enabled: true
         ip: 10.33.1.114
@@ -1023,7 +1023,7 @@ spec:
           hosts:
             - host: nomie.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: nomie-db
         enabled: true
         ip: 10.33.1.114
@@ -1040,7 +1040,7 @@ spec:
           hosts:
             - host: nomie-db.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: paperless
         enabled: true
         ip: 10.33.1.114
@@ -1059,7 +1059,7 @@ spec:
           hosts:
             - host: paperless.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: actual-server
         enabled: true
         ip: 10.33.1.114
@@ -1078,7 +1078,7 @@ spec:
           hosts:
             - host: actual.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: emulatorjs
         enabled: true
         ip: 10.33.1.114
@@ -1097,7 +1097,7 @@ spec:
           hosts:
             - host: emulatorjs.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: emulatorjs-management
         enabled: true
         ip: 10.33.1.114
@@ -1115,7 +1115,7 @@ spec:
           hosts:
             - host: emulatorjs-management.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: archivebox
         enabled: true
         ip: 10.33.1.114
@@ -1134,7 +1134,7 @@ spec:
           hosts:
             - host: archivebox.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: expanse
         enabled: true
         ip: 10.33.1.114
@@ -1153,7 +1153,7 @@ spec:
           hosts:
             - host: expanse.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: pastebnn
         enabled: true
         ip: 10.33.1.114
@@ -1172,7 +1172,7 @@ spec:
           hosts:
             - host: bin.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: healthchecks
         enabled: true
         ip: 10.33.1.114
@@ -1191,7 +1191,7 @@ spec:
           hosts:
             - host: healthchecks.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: apprise
         enabled: true
         ip: 10.33.1.114
@@ -1210,7 +1210,7 @@ spec:
           hosts:
             - host: apprise.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: kasm
         enabled: true
         ip: 10.33.1.114
@@ -1230,7 +1230,7 @@ spec:
           hosts:
             - host: kasm.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: speedtest-tracker
         enabled: true
         ip: 10.33.1.114
@@ -1249,7 +1249,7 @@ spec:
           hosts:
             - host: speedtest-tracker.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: pialert
         enabled: true
         ip: 10.33.1.114
@@ -1268,7 +1268,7 @@ spec:
           hosts:
             - host: pialert.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: upsnap
         enabled: true
         ip: 10.33.1.114
@@ -1287,7 +1287,7 @@ spec:
           hosts:
             - host: upsnap.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: whats-up-docker
         enabled: true
         ip: 10.33.1.114
@@ -1306,7 +1306,7 @@ spec:
           hosts:
             - host: wud.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: node-red
         enabled: true
         ip: 10.33.1.114
@@ -1325,7 +1325,7 @@ spec:
           hosts:
             - host: node-red.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: mage
         enabled: true
         ip: 10.33.1.114
@@ -1344,7 +1344,7 @@ spec:
           hosts:
             - host: mage.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: immich
         enabled: true
         ip: 10.33.1.114
@@ -1363,7 +1363,7 @@ spec:
           hosts:
             - host: immich.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: portainer
         enabled: true
         ip: 10.33.1.114
@@ -1382,7 +1382,7 @@ spec:
           hosts:
             - host: portainer.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: hakatime
         enabled: true
         ip: 10.33.1.114
@@ -1513,7 +1513,7 @@ spec:
           hosts:
             - host: postgres.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: databend
         enabled: true
         ip: 10.33.1.142
@@ -1530,7 +1530,7 @@ spec:
           hosts:
             - host: databend.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: databend-clickhouse
         enabled: true
         ip: 10.33.1.142
@@ -1547,7 +1547,7 @@ spec:
           hosts:
             - host: databend-ch.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: qdrant
         enabled: true
         ip: 10.33.1.142
@@ -1564,7 +1564,7 @@ spec:
           hosts:
             - host: qdrant.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: dagster
         enabled: true
         ip: 10.33.1.142
@@ -1583,7 +1583,7 @@ spec:
           hosts:
             - host: dagster.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: redash
         enabled: true
         ip: 10.33.1.142
@@ -1602,7 +1602,7 @@ spec:
           hosts:
             - host: redash.local.${SECRET_DOMAIN}
               path: /
-      #
+
       - name: airbyte
         enabled: true
         ip: 10.33.1.142
@@ -1621,7 +1621,26 @@ spec:
           hosts:
             - host: airbyte.local.${SECRET_DOMAIN}
               path: /
-              #
+
+      - name: windwill
+        enabled: true
+        ip: 10.33.1.142
+        port: 9999
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            hajimari.io/icon: "icon-park-outline:windmill"
+            hajimari.io/appName: "windmill"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - windmill.local.${SECRET_DOMAIN}
+              secretName: "windmill-tls"
+          hosts:
+            - host: windmill.local.${SECRET_DOMAIN}
+              path: /
+
     ingressPort:
       http: 80
       tls: 443
