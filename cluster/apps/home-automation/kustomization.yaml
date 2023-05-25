@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - secret.sops.yaml
-  - emqx
   - home-assistant
