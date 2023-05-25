@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - goldilocks
-  # - kube-prom-stack
+  - kube-prom-stack
   - loki
   - speedtest-exporter
   - vpa
