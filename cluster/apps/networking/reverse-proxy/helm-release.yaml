@@ -1385,6 +1385,23 @@ spec:
             - host: hakatime.local.${SECRET_DOMAIN}
               path: /
 
+      - name: factorio
+        enabled: true
+        ip: 10.33.1.114
+        port: 34197
+        ingress:
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "false"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+          tls:
+            - hosts:
+                - factorio.local.${SECRET_DOMAIN}
+              secretName: "factorio-tls"
+          hosts:
+            - host: factorio.local.${SECRET_DOMAIN}
+              path: /
+
       - name: prometheus
         enabled: true
         ip: 10.33.1.212
