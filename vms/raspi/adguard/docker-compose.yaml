@@ -19,3 +19,8 @@ services:
       - 443:443/tcp
       - 443:443/udp
       - 3001:3000/tcp
+
+networks:
+  default:
+    external: true
+    name: adguard
