@@ -1,0 +1,56 @@
+version: "2"
+
+x-redash-service: &redash-service
+  image: redash/redash:preview
+  depends_on:
+    - postgres
+    - redis
+  env_file: .env
+  restart: unless-stopped
+
+services:
+  server:
+    <<: *redash-service
+    command: server
+    ports:
+      - "5000:5000"
+    container_name: redash-server
+    environment:
+      REDASH_WEB_WORKERS: 4
+
+  scheduler:
+    <<: *redash-service
+    command: scheduler
+    container_name: redash-scheduler
+    environment:
+      QUEUES: "celery"
+      WORKERS_COUNT: 1
+
+  scheduled_worker:
+    <<: *redash-service
+    command: worker
+    container_name: redash-scheduled-worker
+    environment:
+      QUEUES: "scheduled_queries,schemas"
+      WORKERS_COUNT: 1
+
+  adhoc_worker:
+    <<: *redash-service
+    command: worker
+    container_name: redash-adhoc-worker
+    environment:
+      QUEUES: "queries"
+      WORKERS_COUNT: 2
+
+  redis:
+    image: redis:5.0-alpine
+    restart: unless-stopped
+    container_name: redash-redis
+
+  postgres:
+    image: postgres:9.6-alpine
+    env_file: .env
+    container_name: redash-postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped

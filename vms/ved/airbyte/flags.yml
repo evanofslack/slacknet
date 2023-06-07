@@ -1,0 +1,15 @@
+flags:
+  - name: performance.backgroundJsonSchemaValidation
+    enabled: false
+  - name: heartbeat.failSync
+    enabled: true
+  - name: platform.commitStatesAsap
+    enabled: false
+  - name: platform.commitStatsAsap
+    enabled: false
+  - name: heartbeat.enabled
+    enabled: true
+  - name: connectors.versionOverridesEnabled
+    enabled: true
+  - name: perform-new-json-deser
+    enabled: false

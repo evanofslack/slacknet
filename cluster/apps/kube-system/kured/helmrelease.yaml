@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kured
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: kured
+      version: 4.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: kured
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    configuration:
+      startTime: "2:00"
+      endTime: "7:00"
+      timeZone: "${TIMEZONE}"
+      logFormat: "json"
+      rebootCommand: "/usr/bin/systemctl reboot"
+      blockingPodSelector:
+        app.kubernetes.io/created-by: "volsync"
+    metrics:
+      create: true
+    service:
+      create: true
+  valuesFrom:
+    - kind: Secret
+      name: kured
+      targetPath: configuration.notifyUrl
+      valuesKey: slack_url

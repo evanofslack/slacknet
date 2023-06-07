@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+    databend:
+        ports:
+            - '8888:8000'
+            - '8889:8124'
+            - '3307:3307'
+        restart: unless-stopped
+        container_name: databend
+        image: datafuselabs/databend
+        environment:
+            - QUERY_DEFAULT_USER=${QUERY_DEFAULT_USER}
+            - QUERY_DEFAULT_PASSWORD=${QUERY_DEFAULT_PASSWORD}
+            - QUERY_STORAGE_TYPE=${QUERY_STORAGE_TYPE}
+            - AWS_S3_ENDPOINT=${AWS_S3_ENDPOINT}
+            - AWS_S3_BUCKET=${AWS_S3_BUCKET}
+            - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+            - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+        volumes:
+            - './logs:/var/log/databend'

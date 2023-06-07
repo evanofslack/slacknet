@@ -17,6 +17,7 @@ resources:
   - k8s-at-home.yaml
   - k8s-gateway.yaml
   - kubernetes-sigs-descheduler-charts.yaml
+  - kured.yaml
   - longhorn.yaml
   - metallb.yaml
   - metrics-server.yaml
@@ -27,4 +28,3 @@ resources:
   - stakater.yaml
   - victoria-metrics-charts.yaml
   - weave-gitops.yaml
-  - weaveworks-kured.yaml
