@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  adguardhome-sync:
+    image: ghcr.io/bakito/adguardhome-sync
+    container_name: adguardhome-sync
+    command: run
+    restart: unless-stopped
+    environment:
+      # ORIGIN_URL: 'https://adguard.local.eslack.net'
+      ORIGIN_URL: ${{ORIGIN_URL}}
+      ORIGIN_USERNAME: ${{ORIGIN_USERNAME}}
+      ORIGIN_PASSWORD: ${{ORIGIN_PASSWORD}}
+      REPLICA_URL: ${{REPLICA_URL}}
+      REPLICA_USERNAME: ${{REPLICA_USERNAME}}
+      REPLICA_PASSWORD: ${{REPLICA_PASSWORD}}
+      CRON: ${{CRON}}
+      RUNONSTART: ${{RUNONSTART}}
+    ports:
+      - 7777:8080
