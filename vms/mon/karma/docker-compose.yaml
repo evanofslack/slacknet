@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  karma:
+    image: ghcr.io/prymitive/karma:v0.114
+    container_name: karma
+    restart: unless-stopped
+    ports:
+      - 9094:8080
+    environment:
+      - 'ALERTMANAGER_URI=http://alertmanager:9093'
+
+networks:
+  default:
+    external: true
+    name: mon
+
