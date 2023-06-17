@@ -1,0 +1,336 @@
+{
+  email evan.slack@outlook.com
+}
+
+(dnsauth) {
+  tls {
+    dns cloudflare {env.CF_API_TOKEN}
+    # ca https://acme-staging-v02.api.letsencrypt.org/directory
+  }
+}
+
+*.local.{env.DOMAIN}, *.{env.DOMAIN}, {env.DOMAIN} {
+
+  # get certs from cloudflare DNS challenge
+  import dnsauth
+
+  # only allow local access
+  @denied not remote_ip private_ranges
+  abort @denied
+
+  # -------
+  #  RASPI
+  # -------
+
+  @adguard host adguard.local.{env.DOMAIN}
+  handle @adguard {
+    reverse_proxy {env.RASPI_ADDR}:80
+  }
+
+  # ---------
+  #  GATEWAY
+  # ---------
+
+  @gateway_npm host npm.local.{env.DOMAIN}
+  handle @gateway_npm {
+    reverse_proxy {env.GATEWAY}:81
+  }
+
+  # -----
+  #  MON
+  # -----
+
+  @alertmanager host alertmanager.local.{env.domain}
+  handle @alertmanager {
+    reverse_proxy {env.MON_ADDR}:9093
+  }
+
+  @grafana host grafana.local.{env.domain}
+  handle @grafana {
+    reverse_proxy {env.MON_ADDR}:3000
+  }
+
+  @karma host karma.local.{env.domain}
+  handle @karma {
+    reverse_proxy {env.MON_ADDR}:9094
+  }
+
+  @mimir host mimir.local.{env.domain}
+  handle @mimir {
+    reverse_proxy {env.MON_ADDR}:9009
+  }
+
+  @prometheus host prometheus.local.{env.domain}
+  handle @prometheus {
+    reverse_proxy {env.MON_ADDR}:9090
+  }
+
+  # -------
+  #  TORRR
+  # -------
+
+  @audiobookshelf host audiobookshelf.local.{env.domain}
+  handle @audiobookshelf {
+    reverse_proxy {env.TORRR_ADDR}:13378
+  }
+
+  @autobrr host autobrr.local.{env.domain}
+  handle @autobrr {
+    reverse_proxy {env.TORRR_ADDR}:7474
+  }
+
+  @jellyfin host jellyfin.local.{env.domain}
+  handle @jellyfin {
+    reverse_proxy {env.TORRR_ADDR}:8096
+  }
+
+  @jellyseerr host jellyseerr.local.{env.domain}
+  handle @jellyseerr {
+    reverse_proxy {env.TORRR_ADDR}:5055
+  }
+
+  @lidarr host lidarr.local.{env.domain}
+  handle @lidarr {
+    reverse_proxy {env.TORRR_ADDR}:8686
+  }
+
+  @metube host metube.local.{env.domain}
+  handle @metube {
+    reverse_proxy {env.TORRR_ADDR}:8081
+  }
+
+  @navidrome host navidrome.local.{env.domain}
+  handle @navidrome {
+    reverse_proxy {env.TORRR_ADDR}:4533
+  }
+
+  @podgrab host podgrab.local.{env.domain}
+  handle @podgrab {
+    reverse_proxy {env.TORRR_ADDR}:8330
+  }
+
+  @prowlarr host prowlarr.local.{env.domain}
+  handle @prowlarr {
+    reverse_proxy {env.TORRR_ADDR}:9696
+  }
+
+  @radarr host radarr.local.{env.domain}
+  handle @radarr {
+    reverse_proxy {env.TORRR_ADDR}:7878
+  }
+
+  @openbooks host openbooks.local.{env.domain}
+  handle @openbooks {
+    reverse_proxy {env.TORRR_ADDR}:8071
+  }
+
+  @sonarr host sonarr.local.{env.domain}
+  handle @sonarr {
+    reverse_proxy {env.TORRR_ADDR}:8989
+  }
+
+  @stash host stash.local.{env.domain}
+  handle @stash {
+    reverse_proxy {env.TORRR_ADDR}:9999
+  }
+
+  @tdarr host tdarr.local.{env.domain}
+  handle @tdarr {
+    reverse_proxy {env.TORRR_ADDR}:8265
+  }
+
+  @transmission host transmission.local.{env.domain}
+  handle @transmission {
+    reverse_proxy {env.TORRR_ADDR}:8080
+  }
+
+  @whisparr host whisparr.local.{env.domain}
+  handle @whisparr {
+    reverse_proxy {env.TORRR_ADDR}:6969
+  }
+
+  @wizzar host wizzar.local.{env.domain}
+  handle @wizzar {
+    reverse_proxy {env.TORRR_ADDR}:5690
+  }
+
+  # ---------
+  #  NUBUNTU
+  # ---------
+
+  @archivebox host archivebox.local.{env.DOMAIN}
+  handle @archivebox {
+    reverse_proxy {env.NUBUNTU_ADDR}:8007
+  }
+
+  @change_detection host change.local.{env.DOMAIN}
+  handle @change_detection {
+    reverse_proxy {env.NUBUNTU_ADDR}:5000
+  }
+
+  @diagrams host diagrams.local.{env.DOMAIN}
+  handle @diagrams {
+    reverse_proxy {env.NUBUNTU_ADDR}:8219
+  }
+
+  @emulatorjs host emulator.local.{env.DOMAIN}
+  handle @emulatorjs {
+    reverse_proxy {env.NUBUNTU_ADDR}:3080
+  }
+
+  @emulatorjs_management host emulator-management.local.{env.DOMAIN}
+  handle @emulatorjs_management {
+    reverse_proxy {env.NUBUNTU_ADDR}:3079
+  }
+
+  @excalidraw host draw.local.{env.DOMAIN}
+  handle @excalidraw {
+    reverse_proxy {env.NUBUNTU_ADDR}:7645
+  }
+
+  @expanse host expanse.local.{env.DOMAIN}
+  handle @expanse {
+    reverse_proxy {env.NUBUNTU_ADDR}:1301
+  }
+
+  @factorio host factorio.local.{env.DOMAIN}
+  handle @factorio {
+    reverse_proxy {env.NUBUNTU_ADDR}:34197
+  }
+
+  @gitea host git.local.{env.DOMAIN}
+  handle @gitea {
+    reverse_proxy {env.NUBUNTU_ADDR}:3331
+  }
+
+  @hakatime host hakatime.local.{env.DOMAIN}
+  handle @hakatime {
+    reverse_proxy {env.NUBUNTU_ADDR}:8201
+  }
+
+  @healthchecks host healthchecks.local.{env.DOMAIN}
+  handle @healthchecks {
+    reverse_proxy {env.NUBUNTU_ADDR}:8055
+  }
+
+  @immich host immich.local.{env.DOMAIN}
+  handle @immich {
+    reverse_proxy {env.NUBUNTU_ADDR}:2283
+  }
+
+  @linkding host linkding.local.{env.DOMAIN}
+  handle @linkding {
+    reverse_proxy {env.NUBUNTU_ADDR}:9090
+  }
+
+  @miniflux host miniflux.local.{env.domain}
+  handle @miniflux {
+    reverse_proxy {env.NUBUNTU_ADDR}:8481
+  }
+
+  @nextcloud host cloud.local.{env.domain}
+  handle @nextcloud {
+    reverse_proxy {env.NUBUNTU_ADDR}:8080
+  }
+
+  @node_red host node-red.local.{env.domain}
+  handle @node_red {
+    reverse_proxy {env.NUBUNTU_ADDR}:1880
+  }
+
+  @nomie host nomie.local.{env.domain}
+  handle @nomie {
+    reverse_proxy {env.NUBUNTU_ADDR}:5482
+  }
+
+  @nomie_db host nomie-db.local.{env.domain}
+  handle @nomie_db {
+    reverse_proxy {env.NUBUNTU_ADDR}:5984
+  }
+
+  @paperless host paperless.local.{env.domain}
+  handle @paperless {
+    reverse_proxy {env.NUBUNTU_ADDR}:8028
+  }
+
+  @password_pusher host pw.local.{env.domain}
+  handle @password_pusher {
+    reverse_proxy {env.NUBUNTU_ADDR}:5100
+  }
+
+  @pastebnn host bin.local.{env.domain}
+  handle @pastebnn {
+    reverse_proxy {env.NUBUNTU_ADDR}:8993
+  }
+
+  @pialert host pialert.local.{env.domain}
+  handle @pialert {
+    reverse_proxy {env.NUBUNTU_ADDR}:20211
+  }
+
+  @portainer host portainer.local.{env.domain}
+  handle @portainer {
+    reverse_proxy {env.NUBUNTU_ADDR}:9000
+  }
+
+  @scrutiny host scrutiny.local.{env.domain}
+  handle @scrutiny {
+    reverse_proxy {env.NUBUNTU_ADDR}:8040
+  }
+
+  @send host send.local.{env.domain}
+  handle @send {
+    reverse_proxy {env.NUBUNTU_ADDR}:1234
+  }
+
+  @shlink_server host shlink-server.local.{env.domain}
+  handle @shlink_server {
+    reverse_proxy {env.NUBUNTU_ADDR}:8410
+  }
+
+  @shlink host shlink.local.{env.domain}
+  handle @shlink {
+    reverse_proxy {env.NUBUNTU_ADDR}:8411
+  }
+
+  @snapdrop host snapdrop.local.{env.domain}
+  handle @snapdrop {
+    reverse_proxy {env.NUBUNTU_ADDR}:9999
+  }
+
+  @speedtest_tracker host speedtest-tracker.local.{env.domain}
+  handle @speedtest_tracker {
+    reverse_proxy {env.NUBUNTU_ADDR}:8173
+  }
+
+  @spotify host spotify.local.{env.domain}
+  handle @spotify {
+    reverse_proxy {env.NUBUNTU_ADDR}:3917
+  }
+
+  @vaultwarden host vaultwarden.local.{env.domain}
+  handle @vaultwarden {
+    reverse_proxy {env.NUBUNTU_ADDR}:8069
+  }
+
+  @umami host umami.local.{env.domain}
+  handle @umami {
+    reverse_proxy {env.NUBUNTU_ADDR}:3977
+  }
+
+  @upsnap host upsnap.local.{env.domain}
+  handle @upsnap {
+    reverse_proxy {env.NUBUNTU_ADDR}:8090
+  }
+
+  @vikunja host vikunja.local.{env.domain}
+  handle @vikunja {
+    reverse_proxy {env.NUBUNTU_ADDR}:3455
+  }
+
+  @vikunja_api host vikunja-api.local.{env.domain}
+  handle @vikunja_api {
+    reverse_proxy {env.NUBUNTU_ADDR}:3456
+  }
+
+}
