@@ -214,6 +214,11 @@
     reverse_proxy {env.NUBUNTU_ADDR}:8055
   }
 
+  @homepage host homepage.local.{env.DOMAIN}
+  handle @homepage {
+    reverse_proxy {env.NUBUNTU_ADDR}:3963
+  }
+
   @immich host immich.local.{env.DOMAIN}
   handle @immich {
     reverse_proxy {env.NUBUNTU_ADDR}:2283
