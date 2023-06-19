@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  caddy:
+    image: iarekylew00t/caddy-cloudflare:latest
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - DOMAIN=${DOMAIN}
+      - CF_API_TOKEN=${CF_API_TOKEN}
+      - NUBUNTU_ADDR=${NUBUNTU_ADDR}
+      - KUBUNTU_ADDR=${KUBUNTU_ADDR}
+      - TORRR_ADDR=${TORRR_ADDR}
+      - MON_ADDR=${MON_ADDR}
+      - RASPI_ADDR=${RASPI_ADDR}
+      - GATEWAY_ADDR=${GATEWAY_ADDR}
+      - VED_ADDR=${VED_ADDR}
+
+volumes:
+  caddy_data:
+  caddy_config:
