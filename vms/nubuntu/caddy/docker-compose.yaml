@@ -4,11 +4,13 @@ services:
   caddy:
     image: iarekylew00t/caddy-cloudflare:latest
     container_name: caddy
+      #command: /usr/bin/caddy run --resume
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
       - "443:443/udp"
+      - "2019:2019" # admin
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
@@ -23,6 +25,13 @@ services:
       - RASPI_ADDR=${RASPI_ADDR}
       - GATEWAY_ADDR=${GATEWAY_ADDR}
       - VED_ADDR=${VED_ADDR}
+
+  caddy-ui:
+    image: qmcgaw/caddy-ui
+    ports:
+      - 8443:8000/tcp
+    environment:
+      - CADDY_API_ENDPOINT=http://caddy:2019
 
 volumes:
   caddy_data:
