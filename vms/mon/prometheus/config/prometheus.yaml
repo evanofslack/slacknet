@@ -56,6 +56,7 @@ scrape_configs:
     - targets:
         - 10.33.1.98:9100 # node-exporter
         - 10.33.1.98:9101 # cadvisor
+        - 10.33.1.98:9102 # adguard
 
 - job_name: "pve-kepler"
   scrape_interval: 15s
