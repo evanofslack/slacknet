@@ -42,6 +42,14 @@
 		reverse_proxy {env.GATEWAY_ADDR}:81
 	}
 
+	@authentik host auth.local.{env.DOMAIN}
+	handle @authentik {
+		reverse_proxy {env.GATEWAY_ADDR}:9000 {
+            header_down Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;"
+            header_up X-Real-IP {remote_host}
+        }
+	}
+
 	# -----
 	#  MON
 	# -----
@@ -222,6 +230,11 @@
 	@healthchecks host healthchecks.local.{env.DOMAIN}
 	handle @healthchecks {
 		reverse_proxy {env.NUBUNTU_ADDR}:8055
+	}
+
+	@hass host hass.local.{env.DOMAIN}
+	handle @hass {
+		reverse_proxy {env.NUBUNTU_ADDR}:8123
 	}
 
 	@homepage host homepage.local.{env.DOMAIN}
