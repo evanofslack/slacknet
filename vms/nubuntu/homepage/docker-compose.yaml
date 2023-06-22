@@ -3,6 +3,7 @@ services:
   homepage:
     image: ghcr.io/benphelps/homepage:latest
     container_name: homepage
+    restart: unless-stopped
     ports:
       - 3963:3000
     volumes:

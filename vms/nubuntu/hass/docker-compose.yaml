@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  hass:
+    container_name: hass
+    image: lscr.io/linuxserver/homeassistant:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    ports:
+      - 8123:8123
+      #- 1400:1400
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+    # privileged: true
+    network_mode: host
+    
+  postgres:
+    container_name: hass-postgres
+    image: postgres:12.6
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
