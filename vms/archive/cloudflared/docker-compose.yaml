@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  cloudflared:
+    container_name: cloudflared
+    image: erisamoe/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}

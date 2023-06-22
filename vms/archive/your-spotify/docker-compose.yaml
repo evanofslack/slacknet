@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  server:
+    image: yooooomi/your_spotify_server
+    container_name: your_spotify_server
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    environment:
+      - API_ENDPOINT=${API_ENDPOINT} # This MUST be included as a valid URL in the spotify dashboard
+      - CLIENT_ENDPOINT=${CLIENT_ENDPOINT}
+      - SPOTIFY_PUBLIC=${SPOTIFY_PUBLIC}
+      - SPOTIFY_SECRET=${SPOTIFY_SECRET}
+      - CORS=all # all if you want to allow every origin
+  mongo:
+    container_name: mongo
+    image: mongo:4.4.8
+    restart: unless-stopped
+    volumes:
+      - ./your_spotify_db:/data/db
+
+  web:
+    image: yooooomi/your_spotify_client
+    container_name: your_spotify_client
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - API_ENDPOINT=${API_ENDPOINT}
