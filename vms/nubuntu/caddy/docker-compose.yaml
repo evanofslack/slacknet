@@ -28,6 +28,7 @@ services:
 
   caddy-ui:
     image: qmcgaw/caddy-ui
+    container_name: caddy-ui
     ports:
       - 8443:8000/tcp
     environment:
