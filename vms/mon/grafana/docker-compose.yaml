@@ -12,6 +12,22 @@ services:
       - ./config/provisioning/datasources.yaml:/etc/grafana/provisioning/datasources/provisioning-datasources.yaml
       - ./config/provisioning/dashboards.yaml:/etc/grafana/provisioning/dashboards/provisioning-dashboards.yaml
       - ./config/provisioning/dashboards:/var/lib/grafana/dashboards
+    environment:
+      GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+      GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "E9FQGHPjow5EazeWUopxqNjzMw0UKGg3BMz7yub9"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: "SRbBN64LtRbpfEwfVsTDzDpGSSyhsBOsc5QWhCHG26qgGUgO3z9LeCZY4nlKsBCq8rgH0tRHcRAF66c7HSUCPTzmLk30ZEndc4JujKOtwClMn8UfkPoXmtYcaKHOyDtM"
+      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://auth.local.eslack.net/application/o/authorize/"
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "https://auth.local.eslack.net/application/o/token/"
+      GF_AUTH_GENERIC_OAUTH_API_URL: "https://auth.local.eslack.net/application/o/userinfo/"
+      GF_AUTH_SIGNOUT_REDIRECT_URL: "https://auth.local.eslack.net/application/o/grafana/end-session/"
+      # Optionally enable auto-login (bypasses Grafana login screen)
+      GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+      # Optionally map user groups to Grafana roles
+      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
+      GF_SERVER_DOMAIN: "grafana.local.eslack.net"
+      GF_SERVER_ROOT_URL: "https://grafana.local.eslack.net"
 
 volumes:
   grafana-data:
