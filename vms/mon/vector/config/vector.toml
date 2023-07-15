@@ -49,6 +49,7 @@ source_type = '{{source_type}}'
 stream = '{{stream}}'
 container_name = '{{container_name}}'
 image = '{{image}}'
+"*" = "{{message}}"
 
 [sinks.loki_syslog]
 type = "loki"
