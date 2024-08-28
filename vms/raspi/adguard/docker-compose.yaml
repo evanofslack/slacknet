@@ -1,7 +1,8 @@
 version: "3.7"
 services:
   adguardhome:
-    image: adguard/adguardhome
+    # image: adguard/adguardhome
+    image: adguard/adguardhome:v0.107.48
     container_name: adguardhome
     restart: unless-stopped
     environment:

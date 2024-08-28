@@ -12,8 +12,8 @@ services:
       adguard_username: ${ADGUARD_USERNAME}
       adguard_password: ${ADGUARD_PASSWORD}
       server_port: 9617
-      interval: 10s
-      log_limit: 100000
+      interval: 15s
+      log_limit: 1000
 
 networks:
   default:
