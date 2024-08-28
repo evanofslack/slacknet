@@ -1,0 +1,7 @@
+---
+- hosts: all
+  remote_user: eslack
+  become: yes
+  roles:
+    - geerlingguy.docker
+    - docker

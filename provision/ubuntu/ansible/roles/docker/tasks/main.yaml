@@ -1,0 +1,4 @@
+ - name: Deploy Docker daemon.json.
+    copy:
+      src: files/daemon.json
+      dest: /etc/docker/daemon.json

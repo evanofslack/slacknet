@@ -1,0 +1,18 @@
+# ignore all by default
+*
+
+# spare some yaml
+!*.yaml
+!.gitignore
+!*.md
+
+# ignore some sensitive files
+ip_bans.yaml
+secrets.yaml
+known_devices.yaml
+
+# ignore folders
+.storage
+.cloud
+.google.token
+

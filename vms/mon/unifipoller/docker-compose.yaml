@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  unifi-poller:
+    image: ghcr.io/unpoller/unpoller:latest
+    container_name: unifi-poller
+    restart: unless-stopped
+    ports:
+      - 9130:9130
+    environment:
+      - UP_INFLUXDB_DISABLE=true
+      - UP_UNIFI_DYNAMIC=false
+      - UP_PROMETHEUS_HTTP_LISTEN=0.0.0.0:9130
+      - UP_PROMETHEUS_NAMESPACE=unpoller
+      - UP_LOKI_DISABLE=false
+      - UP_LOKI_URL=loki:3100
+      - UP_UNIFI_CONTROLLER_0_USER=${UNIFI_USER}
+      - UP_UNIFI_CONTROLLER_0_PASS=${UNIFI_PASS}
+      - UP_UNIFI_CONTROLLER_0_URL=${UNIFI_URL}
+      - UP_UNIFI_CONTROLLER_0_SAVE_ALARMS=true
+      - UP_UNIFI_CONTROLLER_0_SAVE_ANOMALIES=true
+      - UP_UNIFI_CONTROLLER_0_SAVE_DPI=true
+      - UP_UNIFI_CONTROLLER_0_SAVE_EVENTS=true
+      - UP_UNIFI_CONTROLLER_0_SAVE_IDS=true
+      - UP_UNIFI_CONTROLLER_0_SAVE_SITES=true
+
+networks:
+  default:
+    external: true
+    name: mon
