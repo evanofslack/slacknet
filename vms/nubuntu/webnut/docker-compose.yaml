@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  webnut:
+    image: edgd1er/webnut:latest
+    container_name: webnut
+    restart: unless-stopped
+    ports:
+     - 6543:6543
+    environment:
+      UPS_HOST: ${UPS_HOST}
+      UPS_PORT: ${UPS_PORT}
+      UPS_USER: ${UPS_USER}
+      UPS_PASSWORD: ${UPS_PASSWORD}
