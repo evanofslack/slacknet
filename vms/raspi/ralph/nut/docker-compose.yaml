@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  app:
+    image: instantlinux/nut-upsd:latest
+    container_name: nut-upsd
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - 3493:3493
+    volumes:
+      - ./nut:/etc/nut/local
+    environment:
+      API_USER: ${API_USER}
+      API_PASSWORD: ${API_PASSWORD}
+      NAME: ${NAME}
+      DESCRIPTION: ${DESCRIPTION}
+      DRIVER: ${DRIVER}
+      SERVER: ${SERVER}
+      SECRET: ${SECRET}
+      VENDORID: ${VENDORID}
+      PORT: ${PORT}

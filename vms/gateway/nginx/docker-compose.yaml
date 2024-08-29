@@ -1,12 +1,13 @@
 version: "3.7"
 services:
   app:
-    image: jc21/nginx-proxy-manager:latest
+    image: jc21/nginx-proxy-manager:2.9.19
     restart: unless-stopped
     ports:
       - 80:80
       - 443:443
       - 81:81
+      - 34197:34197
     container_name: npm
     environment:
       DB_MYSQL_HOST: ${DB_MYSQL_HOST}
@@ -31,5 +32,6 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - ./mariadb-aria/data/mysql:/var/lib/mysql
+
 

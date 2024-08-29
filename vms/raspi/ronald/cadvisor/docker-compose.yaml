@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  cadvisor:
+    image: evanofslack/cadvisor:latest
+    container_name: cadvisor
+    restart: unless-stopped
+    command: --raw_cgroup_prefix_whitelist=/docker/
+    privileged: true
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:ro'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+      - '/dev/disk/:/dev/disk:ro'
+    devices:
+      - '/dev/kmsg:/dev/kmsg'
+    ports:
+      - 9101:8080
