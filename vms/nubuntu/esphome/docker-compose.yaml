@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  esphome:
+    image: esphome/esphome:latest
+    container_name: esphome
+    restart: unless-stopped
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 6052:6052
