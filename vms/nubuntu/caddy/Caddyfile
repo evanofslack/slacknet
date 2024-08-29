@@ -24,6 +24,48 @@
 	@denied not remote_ip private_ranges
 	abort @denied
 
+
+	# ---------
+	#  SCALE
+	# ---------
+
+	@scale host scale.local.{env.DOMAIN}
+	handle @scale {
+		reverse_proxy {env.SCALE_ADDR}:443 {
+        transport http {
+            tls_insecure_skip_verify
+            }
+        }
+	}
+
+	# ---------
+	#  PVE-NAVI
+	# ---------
+
+	@pvenavi host pve-navi.local.{env.DOMAIN}
+	handle @pvenavi {
+		reverse_proxy {env.PVENAVI_ADDR}:8006 {
+        transport http {
+            tls_insecure_skip_verify
+            }
+        }
+	}
+
+	# ---------
+	#  PBS
+	# ---------
+
+	@pbs host pbs.local.{env.DOMAIN}
+	handle @pbs {
+		reverse_proxy {env.PBS_ADDR}:8007 {
+        transport http {
+            tls_insecure_skip_verify
+            }
+        header_up Connection {http.request.header.Connection}
+        header_up Upgrade {http.request.header.Upgrade}
+        }
+	}
+
 	# -------
 	#  RASPI
 	# -------
@@ -37,17 +79,22 @@
 	#  GATEWAY
 	# ---------
 
-	@gateway_npm host npm.local.{env.DOMAIN}
-	handle @gateway_npm {
-		reverse_proxy {env.GATEWAY_ADDR}:81
-	}
-
 	@authentik host auth.local.{env.DOMAIN}
 	handle @authentik {
 		reverse_proxy {env.GATEWAY_ADDR}:9000 {
             header_down Strict-Transport-Security "max-age=15768000; includeSubDomains; preload;"
             header_up X-Real-IP {remote_host}
         }
+	}
+
+	@convoy host convoy.local.{env.DOMAIN}
+	handle @convoy {
+		reverse_proxy {env.GATEWAY_ADDR}:5005
+	}
+
+	@gateway_npm host npm.local.{env.DOMAIN}
+	handle @gateway_npm {
+		reverse_proxy {env.GATEWAY_ADDR}:81
 	}
 
 	# -----
@@ -62,6 +109,16 @@
 	@grafana host grafana.local.{env.DOMAIN}
 	handle @grafana {
 		reverse_proxy {env.MON_ADDR}:3000
+	}
+
+	@influxdb host influxdb.local.{env.DOMAIN}
+	handle @influxdb {
+		reverse_proxy {env.MON_ADDR}:8086
+	}
+
+	@jaeger host jaeger.local.{env.DOMAIN}
+	handle @jaeger {
+		reverse_proxy {env.MON_ADDR}:16686
 	}
 
 	@karma host karma.local.{env.DOMAIN}
@@ -79,6 +136,11 @@
 		reverse_proxy {env.MON_ADDR}:9090
 	}
 
+	@uptrace host uptrace.local.{env.DOMAIN}
+	handle @uptrace {
+		reverse_proxy {env.MON_ADDR}:14318
+	}
+
 	# -------
 	#  TORRR
 	# -------
@@ -93,6 +155,11 @@
 		reverse_proxy {env.TORRR_ADDR}:7474
 	}
 
+	@bazarr host bazarr.local.{env.DOMAIN}
+	handle @bazarr {
+		reverse_proxy {env.TORRR_ADDR}:6767
+	}
+
 	@jellyfin host jellyfin.local.{env.DOMAIN}
 	handle @jellyfin {
 		reverse_proxy {env.TORRR_ADDR}:8096
@@ -101,6 +168,11 @@
 	@jellyseerr host jellyseerr.local.{env.DOMAIN}
 	handle @jellyseerr {
 		reverse_proxy {env.TORRR_ADDR}:5055
+	}
+
+	@jellystat host jellystat.local.{env.DOMAIN}
+	handle @jellystat {
+		reverse_proxy {env.TORRR_ADDR}:3009
 	}
 
 	@lidarr host lidarr.local.{env.DOMAIN}
@@ -126,6 +198,11 @@
 	@prowlarr host prowlarr.local.{env.DOMAIN}
 	handle @prowlarr {
 		reverse_proxy {env.TORRR_ADDR}:9696
+	}
+
+	@ptube host ptube.local.{env.DOMAIN}
+	handle @ptube {
+		reverse_proxy {env.TORRR_ADDR}:8069
 	}
 
 	@radarr host radarr.local.{env.DOMAIN}
@@ -202,6 +279,11 @@
 		reverse_proxy {env.NUBUNTU_ADDR}:3079
 	}
 
+	@esphome host esphome.local.{env.DOMAIN}
+	handle @esphome {
+		reverse_proxy {env.NUBUNTU_ADDR}:6052
+	}
+
 	@excalidraw host draw.local.{env.DOMAIN}
 	handle @excalidraw {
 		reverse_proxy {env.NUBUNTU_ADDR}:7645
@@ -237,8 +319,13 @@
 		reverse_proxy {env.NUBUNTU_ADDR}:8123
 	}
 
-	@homepage host homepage.local.{env.DOMAIN}
-	handle @homepage {
+	@homebridge host homebridge.local.{env.DOMAIN}
+	handle @homebridge {
+		reverse_proxy {env.NUBUNTU_ADDR}:8581
+	}
+
+	@home host home.local.{env.DOMAIN}
+	handle @home {
 		reverse_proxy {env.NUBUNTU_ADDR}:3963
 	}
 
@@ -366,4 +453,40 @@
 	handle @vikunja_api {
 		reverse_proxy {env.NUBUNTU_ADDR}:3456
 	}
+
+	@webnut host webnut.local.{env.DOMAIN}
+	handle @webnut {
+		reverse_proxy {env.NUBUNTU_ADDR}:6543
+	}
+
+	# -------
+	#  VED
+	# -------
+
+	@analogdb host analogdb.local.{env.DOMAIN}
+	handle @analogdb {
+		reverse_proxy {env.VED_ADDR}:3000
+	}
+
+	@analogdb-api host api.analogdb.local.{env.DOMAIN}
+	handle @analogdb-api {
+		reverse_proxy {env.VED_ADDR}:8080
+	}
+
+	@databend host databend.local.{env.DOMAIN}
+	handle @databend {
+		reverse_proxy {env.VED_ADDR}:8888
+	}
+
+	@redash host redash.local.{env.DOMAIN}
+	handle @redash {
+		reverse_proxy {env.VED_ADDR}:5000
+	}
+
+	@windmill host windmill.local.{env.DOMAIN}
+	handle @windmill {
+		reverse_proxy {env.VED_ADDR}:9999
+	}
+
+
 }

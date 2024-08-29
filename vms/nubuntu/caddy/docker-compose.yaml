@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   caddy:
-    image: iarekylew00t/caddy-cloudflare:latest
+    image: iarekylew00t/caddy-cloudflare:2.7
     container_name: caddy
       #command: /usr/bin/caddy run --resume
     restart: unless-stopped
@@ -20,9 +20,11 @@ services:
       - CF_API_TOKEN=${CF_API_TOKEN}
       - NUBUNTU_ADDR=${NUBUNTU_ADDR}
       - KUBUNTU_ADDR=${KUBUNTU_ADDR}
+      - PBS_ADDR=${PBS_ADDR}
       - TORRR_ADDR=${TORRR_ADDR}
       - MON_ADDR=${MON_ADDR}
       - RASPI_ADDR=${RASPI_ADDR}
+      - PVENAVI_ADDR=${PVENAVI_ADDR}
       - GATEWAY_ADDR=${GATEWAY_ADDR}
       - VED_ADDR=${VED_ADDR}
 
