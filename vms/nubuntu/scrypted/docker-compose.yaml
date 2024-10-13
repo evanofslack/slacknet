@@ -1,0 +1,20 @@
+## MOVED TO RASPI (RONALD)
+services:
+    scrypted:
+        image: ghcr.io/koush/scrypted
+        container_name: scrypted
+        restart: unless-stopped
+        ports:
+            - "10443:10443"
+            - "11080:11080"
+        environment:
+            - SCRYPTED_WEBHOOK_UPDATE_AUTHORIZATION=adwdaljdadj873y7qdqgdqd897bb
+            - SCRYPTED_WEBHOOK_UPDATE=http://localhost:10444/v1/update
+            - SCRYPTED_DOCKER_AVAHI=true
+        volumes:
+            - scrypted_data:/server/volume
+        network_mode: host
+
+volumes:
+  scrypted_data:
+
