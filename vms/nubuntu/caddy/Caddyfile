@@ -309,14 +309,19 @@
 		reverse_proxy {env.NUBUNTU_ADDR}:8201
 	}
 
+	@hass host hass.local.{env.DOMAIN}
+	handle @hass {
+		reverse_proxy {env.NUBUNTU_ADDR}:8123
+	}
+
 	@healthchecks host healthchecks.local.{env.DOMAIN}
 	handle @healthchecks {
 		reverse_proxy {env.NUBUNTU_ADDR}:8055
 	}
 
-	@hass host hass.local.{env.DOMAIN}
-	handle @hass {
-		reverse_proxy {env.NUBUNTU_ADDR}:8123
+	@hoarder host hoarder.local.{env.DOMAIN}
+	handle @hoader {
+		reverse_proxy {env.NUBUNTU_ADDR}:3039
 	}
 
 	@homebridge host homebridge.local.{env.DOMAIN}
@@ -387,6 +392,11 @@
 	@portainer host portainer.local.{env.DOMAIN}
 	handle @portainer {
 		reverse_proxy {env.NUBUNTU_ADDR}:9000
+	}
+
+	@scrypted host scrypted.local.{env.DOMAIN}
+	handle @scrypted {
+		reverse_proxy {env.NUBUNTU_ADDR}:11080
 	}
 
 	@scrutiny host scrutiny.local.{env.DOMAIN}
