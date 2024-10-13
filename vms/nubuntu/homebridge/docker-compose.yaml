@@ -1,8 +1,11 @@
+## MOVED TO RASPI (RONALD)
 version: '3.8'
 services:
   homebridge:
     image: homebridge/homebridge:latest
     container_name: homebridge
+    ports:
+      - "8581:8581"
     restart: unless-stopped
     network_mode: host
     volumes:
