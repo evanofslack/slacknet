@@ -1,0 +1,24 @@
+services:
+  immich-cron-upload:
+    container_name: immich-cron-upload
+    image: evanofslack/immich-cron-upload:latest
+    restart: unless-stopped
+    volumes:
+      - /mnt/photos/upload:/import
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      SCHEDULE: "0 4 * * *" # optional, alsp accepts cron syntax
+      TZ: America/New_York
+      IMMICH_INSTANCE_URL: ${IMMICH_INSTANCE_URL}
+      IMMICH_API_KEY: ${IMMICH_API_KEY}
+      # IMMICH_IGNORE_PATHS: [] # optional
+      IMMICH_UPLOAD_CONCURRENCY: 4 # optional
+      # IMMICH_ALBUM_NAME: "" # optional
+      IMMICH_RECURSIVE: True
+      IMMICH_AUTO_CREATE_ALBUM: True
+      IMMICH_DELETE_ASSETS: True
+      # IMMICH_DRY_RUN: False
+      # IMMICH_SKIP_HASH:
+      # IMMICH_INCLUDE_HIDDEN:
+    
+
