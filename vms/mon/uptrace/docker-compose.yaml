@@ -1,0 +1,53 @@
+version: '3.8'
+
+networks:
+  default:
+    external: true
+    name: mon
+
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.4
+    container_name: uptrace-clickhouse
+    restart: unless-stopped
+    environment:
+      CLICKHOUSE_DB: uptrace
+    healthcheck:
+      test: ['CMD', 'wget', '--spider', '-q', 'localhost:8123/ping']
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    volumes:
+      - clickhouse:/var/lib/clickhouse
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: uptrace-postgres
+    restart: unless-stopped
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_USER: uptrace
+      POSTGRES_PASSWORD: uptrace
+      POSTGRES_DB: uptrace
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U uptrace -d uptrace']
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    volumes:
+      - postgres:/var/lib/postgresql/data/pgdata
+
+  uptrace:
+    image: uptrace/uptrace-dev:latest
+    container_name: uptrace
+    restart: unless-stopped
+    volumes:
+      - ./config/uptrace.yaml:/etc/uptrace/uptrace.yml
+    ports:
+      - 14317:14317
+      - 14318:14318
+
+volumes:
+  clickhouse:
+  postgres:

@@ -1,0 +1,167 @@
+## Uptrace configuration file.
+## See https://uptrace.dev/get/config.html for details.
+
+## ClickHouse database credentials.
+ch:
+  addr: clickhouse:9000
+  user: default
+  password:
+  database: uptrace
+  max_execution_time: 30s
+
+## PostgreSQL db that is used to store metadata such us metric names, dashboards, alerts
+pg:
+  addr: postgres:5432
+  user: uptrace
+  password: uptrace
+  database: uptrace
+
+## A list of pre-configured projects. Each project is fully isolated.
+projects:
+  # Conventionally, the first project is used to monitor Uptrace itself.
+  - id: 1
+    name: Uptrace
+    # Token grants write access to the project. Keep a secret.
+    token: uptrace_secret_token
+    pinned_attrs:
+      - service
+      - host.name
+      - deployment.environment
+    # Group spans by deployment.environment attribute.
+    group_by_env: false
+    # Group funcs spans by service.name attribute.
+    group_funcs_by_service: false
+
+  - id: 2
+    name: Analogdb
+    # Token grants write access to the project. Keep a secret.
+    token: analogdb_secret_token
+    pinned_attrs:
+      - service
+      - host.name
+      - deployment.environment
+    # Group spans by deployment.environment attribute.
+    group_by_env: false
+    # Group funcs spans by service.name attribute.
+    group_funcs_by_service: false
+
+## Create metrics from spans and events.
+metrics_from_spans:
+  - name: uptrace.tracing.spans
+    description: Spans duration (excluding events)
+    instrument: histogram
+    unit: microseconds
+    value: .duration / 1000
+    attrs:
+      - .system
+      - .group_id
+      - service.name
+      - host.name
+      - .status_code
+    annotations:
+      - display.name
+    where: .event_name = ''
+
+  - name: uptrace.tracing.events
+    description: Events count (excluding spans)
+    instrument: counter
+    unit: 1
+    value: .count
+    attrs:
+      - .system
+      - .group_id
+      - .name
+      - host.name
+    annotations:
+      - display.name
+    where: .is_event = 1
+
+## To require authentication, uncomment one of the following sections.
+auth:
+  users:
+    - name: evan slack
+      email: eslack
+      password: eslack
+      notify_by_email: true
+
+
+## Various options to tweak ClickHouse schema.
+## For changes to take effect, you need reset the ClickHouse database with `ch reset`.
+ch_schema:
+  # Compression codec, for example, LZ4, ZSTD(3), or Default.
+  compression: ZSTD(3)
+
+  # Whether to use ReplicatedMergeTree instead of MergeTree.
+  replicated: false
+
+  spans:
+    # Delete spans data after 30 days.
+    ttl_delete: 30 DAY
+    storage_policy: 'default'
+
+  metrics:
+    # Delete metrics data after 90 days.
+    ttl_delete: 180 DAY
+    storage_policy: 'default'
+
+## Addresses on which Uptrace receives gRPC and HTTP requests.
+listen:
+  # OTLP/gRPC API.
+  grpc:
+    addr: ':14317'
+    # tls:
+    #   cert_file: config/tls/uptrace.crt
+    #   key_file: config/tls/uptrace.key
+
+  # OTLP/HTTP API and Uptrace API with UI.
+  http:
+    addr: ':14318'
+    # tls:
+    #   cert_file: config/tls/uptrace.crt
+    #   key_file: config/tls/uptrace.key
+
+## Various options for Uptrace UI.
+site:
+  # Overrides public URL for Vue-powered UI in case you put Uptrace behind a proxy.
+  #addr: 'https://uptrace.local.eslack.net/'
+
+## Spans processing options.
+spans:
+  # The size of the Go chan used to buffer incoming spans.
+  # If the buffer is full, Uptrace starts to drop spans.
+  #buffer_size: 100000
+
+  # The number of spans to insert in a single query.
+  #batch_size: 10000
+
+## Metrics processing options.
+metrics:
+  # List of attributes to drop for being noisy.
+  drop_attrs:
+    - telemetry.sdk.language
+    - telemetry.sdk.name
+    - telemetry.sdk.version
+
+  # The size of the Go chan used to buffer incoming measures.
+  # If the buffer is full, Uptrace starts to drop measures.
+  #buffer_size: 100000
+
+  # The number of measures to insert in a single query.
+  #batch_size: 10000
+
+## uptrace-go client configuration.
+## Uptrace sends internal telemetry here. Defaults to listen.grpc.addr.
+uptrace_go:
+  dsn: http://uptrace_secret_token@localhost:14317/1
+
+## Logging configuration.
+logs:
+  # Zap minimal logging level.
+  # Valid values: DEBUG, INFO, WARN, ERROR, DPANIC, PANIC, FATAL.
+  level: INFO
+
+# Secret key that is used to sign JWT tokens etc.
+secret_key: 1091hdq8h2do82ida72777aidga2d2
+
+# Enable to log HTTP requests and database queries.
+debug: false
