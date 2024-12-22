@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: jaeger
+    restart: unless-stopped
+    ports:
+      - "16686:16686"
+      - "4317"
+      - "4318"
+      - "14268"
+      - "14250"
+
+networks:
+  default:
+    external: true
+    name: mon
+
