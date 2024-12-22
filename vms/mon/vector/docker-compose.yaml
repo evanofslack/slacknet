@@ -4,6 +4,7 @@ services:
     image: timberio/vector:latest-alpine
     restart: unless-stopped
     container_name: vector
+    command: ["-c", "/etc/vector/vector.toml"]
     ports:
       - 8686:8686 # playground
       - 8687:8687 # docker agents
@@ -11,7 +12,7 @@ services:
       - 8689:8689 # metrics agents
       - 9598:9598 # prom exporter
     environment:
-      - LOG=info
+      - RUST_LOG=info
     volumes:
       - ./config/vector.toml:/etc/vector/vector.toml:ro
 

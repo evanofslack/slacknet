@@ -18,11 +18,27 @@ type = "vector"
 address = "0.0.0.0:8689"
 version = "2"
 
-[transforms.parse_docker]
+[transforms.drop_docker_labels]
 type = "remap"
 inputs = ["agent_docker"]
 source = '''
-. |= parse_key_value!(.message)
+structured =
+  del(.label)
+  del(.container_created_at)
+  del(.container_id)
+  del(.host)
+'''
+
+[transforms.parse_docker]
+type = "remap"
+inputs = ["drop_docker_labels"]
+source = '''
+structured =
+  parse_json(.message) ??
+  parse_key_value(.message) ??
+  parse_json(.msg) ??
+  parse_key_value!(.msg)
+. = merge!(., structured)
 '''
 
 [transforms.parse_syslog]
@@ -38,7 +54,7 @@ inputs = [ "parse_docker" ]
 endpoint = "http://loki:3100"
 path = "/loki/api/v1/push"
 encoding.codec = "json"
-out_of_order_action = "drop"
+out_of_order_action = "accept"
 remove_timestamp = true
 [sinks.loki_docker.labels]
 forwarder = "vector"
@@ -49,7 +65,6 @@ source_type = '{{source_type}}'
 stream = '{{stream}}'
 container_name = '{{container_name}}'
 image = '{{image}}'
-"*" = "{{message}}"
 
 [sinks.loki_syslog]
 type = "loki"
@@ -57,7 +72,7 @@ inputs = [ "parse_syslog" ]
 endpoint = "http://loki:3100"
 path = "/loki/api/v1/push"
 encoding.codec = "json"
-out_of_order_action = "drop"
+out_of_order_action = "accept"
 remove_timestamp = true
 [sinks.loki_syslog.labels]
 forwarder = "vector"
@@ -71,4 +86,3 @@ type = "prometheus_exporter"
 inputs = [ "agent_metrics" ]
 address = "0.0.0.0:9598"
 flush_period_secs = 60
-
