@@ -11,3 +11,12 @@ groups:
       value: DOWN ({{ $value }})
       title: 'Instance {{ $labels.instance }} down'
       description: '{{ $labels.instance }} of job {{ $labels.job }} is unavaliable'
+
+  - alert: container_cpu
+    expr: (sum(rate(container_cpu_usage_seconds_total{name!=""}[5m])) BY (instance, name, job) * 100) > 90
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: 'Container {{ $labels.name }} CPU'
+      description: '{{ $labels.name }} container on instance {{ $labels.instance }} of job {{ $labels.job }} is above 90% CPU for 5 minutes'
