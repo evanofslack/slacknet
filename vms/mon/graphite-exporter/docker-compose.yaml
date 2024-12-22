@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  graphite-exporter:
+    container_name: graphite-exporter
+    image: prom/graphite-exporter
+    restart: unless-stopped
+    ports:
+        - 9108:9108
+        - 9109:9109
+        - 9109:9109/udp
+    volumes:
+        - ./config/mapping.conf:/tmp/mapping.conf
+    command: --graphite.mapping-config=/tmp/mapping.conf
+
+networks:
+  default:
+    external: true
+    name: mon
