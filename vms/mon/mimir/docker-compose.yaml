@@ -3,7 +3,7 @@ services:
 
   mimir-gateway:
     image: nginx:latest
-    container_name: nginx
+    container_name: mimir-nginx
     restart: unless-stopped
     volumes:
       - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -12,7 +12,7 @@ services:
       - "mimir-2"
       - "mimir-3"
     ports:
-      - 9009:9009
+      - 9010:9010
 
   mimir-1:
     image: grafana/mimir:latest
@@ -56,4 +56,3 @@ networks:
   default:
     external: true
     name: mon
-
