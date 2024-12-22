@@ -8,6 +8,7 @@ services:
   # Therefore the init container changes permissions of the mounted directory.
   init:
     image: grafana/loki:2.8.2
+    container_name: loki-init
     user: root
     entrypoint:
       - "chown"
