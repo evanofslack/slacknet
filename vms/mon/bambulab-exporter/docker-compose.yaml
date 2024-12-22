@@ -1,0 +1,17 @@
+services:
+  bambulab-exporter:
+    image: evanofslack/bambulab-exporter:latest
+    container_name: bambulab-exporter
+    restart: unless-stopped
+    ports:
+      - 9091:${EXPORTER_HTTP_PORT}
+    environment:
+      HTTP_PORT: ${EXPORTER_HTTP_PORT}
+      LOG_LEVEL: ${EXPORTER_LOG_LEVEL}
+      BAMBU_ENDPOINT: ${BAMBU_ENDPOINT}
+      BAMBU_DEVICE_ID: ${BAMBU_DEVICE_ID}
+      BAMBU_USERNAME: ${BAMBU_USERNAME}
+      BAMBU_PASSWORD: ${BAMBU_PASSWORD}
+
+
+
