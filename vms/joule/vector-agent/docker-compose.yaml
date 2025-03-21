@@ -1,0 +1,12 @@
+services:
+  vector-agent:
+    image: timberio/vector:latest-alpine
+    container_name: vector-agent
+    restart: unless-stopped
+    environment:
+      - LOG=info
+      - HOSTNAME=joule
+    volumes:
+      - ./config/vector.toml:/etc/vector/vector.toml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log:/host

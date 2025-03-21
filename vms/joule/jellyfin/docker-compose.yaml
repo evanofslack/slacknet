@@ -1,0 +1,40 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: America/New_York
+    volumes:
+      - ./config:/config
+      - /mnt/media:/data
+    devices:
+      - /dev/dri:/dev/dri
+    ports:
+      - 8096:8096
+    labels:
+      # stop container during backup
+      - docker-volume-backup.stop-during-backup=true
+
+  jellyfin-backup:
+    container_name: jellyfin-backup
+    image: offen/docker-volume-backup:latest
+    restart: unless-stopped
+    environment:
+      TZ: America/New_York
+      BACKUP_CRON_EXPRESSION: 0 4 * * 0
+      BACKUP_RETENTION_DAYS: 90
+      BACKUP_PRUNING_LEEWAY: 30m
+      AWS_ENDPOINT_PROTO: http
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_ENDPOINT: ${AWS_ENDPOINT}
+      AWS_S3_BUCKET_NAME: ${AWS_S3_BUCKET_NAME}
+    volumes:
+      - ./config:/backup/data:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
