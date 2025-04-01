@@ -1,0 +1,8 @@
+# Talos' way of redirecting kube-dns (CoreDNS) to the host doesn't work with Cilium if
+# bpf.hostLegacyRouting=false and/or bpf.masquerade=true. For more information, see
+# https://github.com/siderolabs/talos/pull/9200.
+machine:
+  features:
+    hostDNS:
+      enabled: true
+      forwardKubeDNSToHost: false
