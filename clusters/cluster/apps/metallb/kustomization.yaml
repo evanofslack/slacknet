@@ -4,5 +4,5 @@ namespace: metallb
 resources:
   - namespace.yaml
   - release.yaml
-  - ippool.yaml
-  - bgppeer.yaml
+  # - ippool.yaml
+  # - bgppeer.yaml
