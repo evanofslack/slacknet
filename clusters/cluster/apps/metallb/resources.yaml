@@ -7,7 +7,7 @@ spec:
   interval: 15m
   dependsOn: 
   - name: metallb
-  path: ./resources
+  path: ./clusters/cluster/apps/metallb/resources
   prune: true 
   timeout: 2m
   sourceRef:
