@@ -4,4 +4,4 @@ namespace: metallb
 resources:
   - namespace.yaml
   - release.yaml
-  - crd.yaml
+  - resources.yaml
