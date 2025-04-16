@@ -18,8 +18,9 @@ spec:
     createNamespace: true
     remediation:
       retries: 3
-  crds: CreateReplace
   values:
+    crds:
+      enabled: true
     speaker:
       frr:
         enabled: false
