@@ -3,6 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: metallb
+  namespace: metallb
 spec:
   interval: 5m
   chart:
@@ -13,8 +14,6 @@ spec:
         kind: HelmRepository
         name: metallb
         namespace: flux-system
-  install:
-    crds: CreateReplace
-  upgrade:
-    crds: CreateReplace
   values:
+    crds:
+      enabled: true
