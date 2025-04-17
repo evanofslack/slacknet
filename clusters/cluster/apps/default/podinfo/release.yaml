@@ -8,8 +8,8 @@ spec:
   chart:
     spec:
       chart: podinfo
+      version: 6.8.0
       sourceRef:
-        version: 6.8.0
         kind: HelmRepository
         name: podinfo
         namespace: flux-system
