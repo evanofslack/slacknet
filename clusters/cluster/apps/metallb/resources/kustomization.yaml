@@ -1,6 +1,0 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-namespace: metallb
-resources:
-  - ippool.yaml
-  - bgppeer.yaml
