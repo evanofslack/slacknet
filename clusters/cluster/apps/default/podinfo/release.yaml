@@ -9,8 +9,10 @@ spec:
     spec:
       chart: podinfo
       sourceRef:
+        version: 6.8.0
         kind: HelmRepository
         name: podinfo
+        namespace: flux-system
   interval: 60m
   install:
     remediation:
