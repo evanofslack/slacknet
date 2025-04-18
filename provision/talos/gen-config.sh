@@ -4,7 +4,6 @@ talosctl gen config \
     --with-secrets secrets.yaml \
     --config-patch @patch/dns.yaml \
     --config-patch @patch/disable-kube-proxy-and-cni.yaml \
-    --config-patch @patch/allow-controlplane-workloads.yaml \
     $CLUSTER_NAME \
     $CLUSTER_ENDPOINT
 
@@ -14,6 +13,11 @@ talosctl gen config \
     --with-secrets secrets.yaml \
     --config-patch @patch/dns.yaml \
     --config-patch @patch/disable-kube-proxy-and-cni.yaml \
-    --config-patch @patch/allow-controlplane-workloads.yaml \
+    $CLUSTER_NAME \
+    $CLUSTER_ENDPOINT
+
+talosctl gen config \
+    --output-types talosconfig \
+    --with-secrets secrets.yaml \
     $CLUSTER_NAME \
     $CLUSTER_ENDPOINT
