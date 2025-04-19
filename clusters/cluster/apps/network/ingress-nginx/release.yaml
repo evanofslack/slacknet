@@ -72,19 +72,19 @@ spec:
           cpu: 25m
         limits:
           memory: 800Mi
-      defaultBackend:
-        enabled: true
-        image:
-          repository: ghcr.io/tarampampam/error-pages
-          tag: 3.3.2
-        extraEnvs:
-          - name: TEMPLATE_NAME
-            value: connection
-          - name: SHOW_DETAILS
-            value: 'true'
-        resources:
-          requests:
-            memory: 250Mi
-            cpu: 25m
-          limits:
-            memory: 350Mi
+    defaultBackend:
+      enabled: true
+      image:
+        repository: ghcr.io/tarampampam/error-pages
+        tag: 3.3.2
+      extraEnvs:
+        - name: TEMPLATE_NAME
+          value: connection
+        - name: SHOW_DETAILS
+          value: 'true'
+      resources:
+        requests:
+          memory: 250Mi
+          cpu: 25m
+        limits:
+          memory: 350Mi
