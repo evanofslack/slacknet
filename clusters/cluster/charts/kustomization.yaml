@@ -6,5 +6,6 @@ resources:
   - cilium.yaml
   - external-dns.yaml
   - external-secrets.yaml
+  - ingress-nginx.yaml
   - metallb.yaml
   - podinfo.yaml
