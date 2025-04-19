@@ -65,7 +65,7 @@ spec:
       metrics:
         enabled: false
       extraArgs:
-        default-ssl-certificate: "network/acme-crt-secret-prod"
+        default-ssl-certificate: "cert-manager/acme-crt-secret-prod"
       resources:
         requests:
           memory: 500Mi
