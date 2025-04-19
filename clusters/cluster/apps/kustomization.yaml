@@ -5,4 +5,5 @@ resources:
   - default
   - kube-system
   - metallb
+  - network
   - secrets
