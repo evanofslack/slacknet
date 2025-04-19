@@ -1,0 +1,31 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: acme-crt-prod
+  namespace: cert-manager
+spec:
+  secretName: acme-crt-secret-prod
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  dnsNames:
+  - eslack.net
+  - '*.eslack.net'
+  - '*.local.eslack.net'
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: acme-crt-stage
+  namespace: cert-manager
+spec:
+  secretName: acme-crt-secret-stage
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  dnsNames:
+  - eslack.net
+  - '*.eslack.net'
+  - '*.local.eslack.net'
