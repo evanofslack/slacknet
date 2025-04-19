@@ -78,8 +78,10 @@ spec:
           repository: ghcr.io/tarampampam/error-pages
           tag: 3.3.2
         extraEnvs:
-          - { name: TEMPLATE_NAME, value: orient }
-          - { name: SHOW_DETAILS, value: "false" }
+          - name: TEMPLATE_NAME
+            value: connection
+          - name: SHOW_DETAILS
+            value: 'true'
         resources:
           requests:
             memory: 250Mi
