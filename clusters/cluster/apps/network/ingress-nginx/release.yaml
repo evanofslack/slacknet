@@ -31,6 +31,10 @@ spec:
   values:
     controller:
       replicaCount: 2
+      ingressClassResource:
+        name: internal
+        default: true
+        controllerValue: k8s.io/internal
       allowSnippetAnnotations: true
       config:
         addHeaders: "network/nginx-custom"
@@ -81,7 +85,7 @@ spec:
         - name: TEMPLATE_NAME
           value: connection
         - name: SHOW_DETAILS
-          value: 'true'
+          value: "true"
       resources:
         requests:
           memory: 250Mi
