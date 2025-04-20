@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - cert-manager.yaml
   - cilium.yaml
+  - emberstack.yaml
   - external-dns.yaml
   - external-secrets.yaml
   - ingress-nginx.yaml
