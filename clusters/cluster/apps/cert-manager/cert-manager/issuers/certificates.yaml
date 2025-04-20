@@ -29,3 +29,7 @@ spec:
   - eslack.net
   - '*.eslack.net'
   - '*.local.eslack.net'
+  secretTemplate:
+    annotations:
+      networking.v1.k8s.emberstack.com/reflection-allowed: "true"
+      networking.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
