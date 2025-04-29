@@ -133,6 +133,19 @@ spec:
       # @section -- Features - Application Observability
       destinations: []
 
+      # -- The receivers used for receiving application data.
+      # @section -- Features - Application Observability
+      receivers:
+        otlp:
+          # The OTLP gRPC receiver configuration.
+          grpc:
+            # -- Accept application data over OTLP gRPC.
+            # @section -- Receivers: OTLP
+            enabled: true
+            # -- The port to listen on for OTLP gRPC requests.
+            # @section -- Receivers: OTLP
+            port: 4317
+
       # -- Which collector to assign this feature to. Do not change this unless you are sure of what you are doing.
       # @section -- Features - Application Observability
       # @ignored
@@ -805,4 +818,7 @@ spec:
       # Skip installation of the Grafana Alloy CRDs, since we don't use them in this chart
       # @ignored
       crds: {create: false}
+
+
+      (combined from similar events): Helm install failed for release monitoring/grafana-k8s-monitoring with chart k8s-monitoring@2.0.26: execution error at (k8s-monitoring/templates/validations.yaml:1:4): At least one receiver must be enabled to use Application Observability. Please enable one. For example: applicationObservability: receivers: otlp: grpc: enabled: true See https://github.com/grafana/k8s-monitoring-helm/tree/main/charts/k8s-monitoring/charts/feature-application-observability for more details. Last Helm logs: 2025-04-29T15:25:54.895877945Z: applying CustomResourceDefinition(s) with policy Create
 
