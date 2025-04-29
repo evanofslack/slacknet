@@ -6,5 +6,6 @@ resources:
   - default
   - kube-system
   - metallb
+  - monitoring
   - network
   - secrets
