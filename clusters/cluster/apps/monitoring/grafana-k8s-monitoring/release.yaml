@@ -45,6 +45,9 @@ spec:
         metrics: { enabled: true }
         logs: { enabled: true }
         traces: { enabled: true }
+      - name: pyroscope
+        type: pyroscope
+        url: https://pyroscope.local.eslack.net/api/v1/ingest
     #
     # Features
     #
