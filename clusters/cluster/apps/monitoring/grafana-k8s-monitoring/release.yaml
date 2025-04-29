@@ -594,7 +594,7 @@ spec:
     alloy-receiver:
       # -- Deploy the Alloy instance for opening receivers to collect application data.
       # @section -- Collectors - Alloy Receiver
-      enabled: false
+      enabled: true
 
       # -- Extra Alloy configuration to be added to the configuration file.
       # @section -- Collectors - Alloy Receiver
