@@ -732,9 +732,9 @@ spec:
         # @section -- Collectors - Alloy Receiver
         extraPorts:
           - name: otlp-grpc
-          - port: 4317
-          - targetPort: 4317
-          - protocol: TCP
+            port: 4317
+            targetPort: 4317
+            protocol: TCP
 
         # This chart is creating the configuration, so the alloy chart does not need to.
         # @ignored
