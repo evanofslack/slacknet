@@ -393,8 +393,8 @@ spec:
         replicas: 1
 
         # @ignored
-        nodeSelector:
-          kubernetes.io/os: linux
+        # nodeSelector:
+        #   kubernetes.io/os: linux
 
         # @ignored
         podAnnotations:
@@ -516,8 +516,8 @@ spec:
         replicas: 1
 
         # @ignored
-        nodeSelector:
-          kubernetes.io/os: linux
+        # nodeSelector:
+        #   kubernetes.io/os: linux
 
         # @ignored
         podAnnotations:
@@ -647,8 +647,8 @@ spec:
         type: daemonset
 
         # @ignored
-        nodeSelector:
-          kubernetes.io/os: linux
+        # nodeSelector:
+        #   kubernetes.io/os: linux
 
       # Skip installation of the Grafana Alloy CRDs, since we don't use them in this chart
       # @ignored
@@ -770,8 +770,8 @@ spec:
         type: daemonset
 
         # @ignored
-        nodeSelector:
-          kubernetes.io/os: linux
+        # nodeSelector:
+        #   kubernetes.io/os: linux
 
       # Skip installation of the Grafana Alloy CRDs, since we don't use them in this chart
       # @ignored
