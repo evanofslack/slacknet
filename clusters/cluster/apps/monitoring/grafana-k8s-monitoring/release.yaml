@@ -98,7 +98,7 @@ spec:
     nodeLogs:
       # -- Enable gathering Kubernetes Cluster Node logs.
       # @section -- Features - Node Logs
-      enabled: true
+      enabled: false
 
       # -- The destinations where logs will be sent. If empty, all logs-capable destinations will be used.
       # @section -- Features - Node Logs
