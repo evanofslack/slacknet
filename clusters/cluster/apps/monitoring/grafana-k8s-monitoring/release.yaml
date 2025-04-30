@@ -35,7 +35,7 @@ spec:
     destinations:
       - name: prometheus
         type: prometheus
-        url: https://prometheus.local.eslack.net/api/v1/push
+        url: https://prometheus.local.eslack.net/api/v1/write
       - name: loki
         type: loki
         url: https://loki.local.eslack.net/api/v1/push
