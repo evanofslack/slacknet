@@ -9,3 +9,4 @@ resources:
   - monitoring
   - network
   - secrets
+  - storage
