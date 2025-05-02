@@ -10,7 +10,7 @@ volumeBindingMode: Immediate
 parameters:
   clusterID: "2cc35365-6eff-44ee-820e-4769e1a430e5"
   fsName: "kubernetes"
-  pool: "kubernetes"
+  pool: "kubernetes_data"
   mounter: fuse
   mountOptions: _netdev,noatime
   csi.storage.k8s.io/provisioner-secret-name: "csi-cephfs-secret"
