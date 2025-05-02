@@ -1,25 +1,25 @@
-# ---
-# apiVersion: storage.k8s.io/v1
-# kind: StorageClass
-# metadata:
-#   name: ceph-filesystem
-# provisioner: cephfs.csi.ceph.com
-# reclaimPolicy: Delete
-# allowVolumeExpansion: true
-# volumeBindingMode: Immediate
-# parameters:
-#   clusterID: "2cc35365-6eff-44ee-820e-4769e1a430e5"
-#   fsName: "kubernetes"
-#   pool: "kubernetes_data"
-#   mounter: fuse
-#   mountOptions: _netdev,noatime
-#   csi.storage.k8s.io/provisioner-secret-name: "csi-cephfs-secret"
-#   csi.storage.k8s.io/provisioner-secret-namespace: "storage"
-#   csi.storage.k8s.io/controller-expand-secret-name: "csi-cephfs-secret"
-#   csi.storage.k8s.io/controller-expand-secret-namespace: "storage"
-#   csi.storage.k8s.io/node-stage-secret-name: "csi-cephfs-secret"
-#   csi.storage.k8s.io/node-stage-secret-namespace: "storage"
-#   csi.storage.k8s.io/fstype: ext4
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ceph-filesystem
+provisioner: cephfs.csi.ceph.com
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
+parameters:
+  clusterID: "2cc35365-6eff-44ee-820e-4769e1a430e5"
+  fsName: "kubernetes"
+  pool: "kubernetes_data"
+  mounter: fuse
+  mountOptions: _netdev,noatime
+  csi.storage.k8s.io/provisioner-secret-name: "csi-cephfs-secret"
+  csi.storage.k8s.io/provisioner-secret-namespace: "storage"
+  csi.storage.k8s.io/controller-expand-secret-name: "csi-cephfs-secret"
+  csi.storage.k8s.io/controller-expand-secret-namespace: "storage"
+  csi.storage.k8s.io/node-stage-secret-name: "csi-cephfs-secret"
+  csi.storage.k8s.io/node-stage-secret-namespace: "storage"
+  csi.storage.k8s.io/fstype: ext4
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
