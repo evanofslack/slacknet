@@ -9,8 +9,8 @@ allowVolumeExpansion: true
 volumeBindingMode: Immediate
 parameters:
   clusterID: "2cc35365-6eff-44ee-820e-4769e1a430e5"
-  fsName: "kubernetes"
-  pool: "kubernetes_data"
+  fsName: "cephfs"
+  pool: "csi"
   mounter: fuse
   mountOptions: _netdev,noatime
   csi.storage.k8s.io/provisioner-secret-name: "csi-cephfs-secret"
@@ -30,7 +30,7 @@ reclaimPolicy: Delete
 allowVolumeExpansion: true
 parameters:
   clusterID: "2cc35365-6eff-44ee-820e-4769e1a430e5"
-  pool: "kubernetes"
+  pool: "csi"
   imageFormat: "2"
   imageFeatures: layering
   csi.storage.k8s.io/provisioner-secret-name: "csi-rbd-secret"
