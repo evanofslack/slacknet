@@ -13,6 +13,7 @@ parameters:
   pool: "csi"
   mounter: fuse
   mountOptions: _netdev,noatime
+  subvolumePath: /volumes/csi
   csi.storage.k8s.io/provisioner-secret-name: "csi-cephfs-secret"
   csi.storage.k8s.io/provisioner-secret-namespace: "storage"
   csi.storage.k8s.io/controller-expand-secret-name: "csi-cephfs-secret"
