@@ -3,4 +3,5 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - namespace.yaml
+  - prometheus-operator-crds
   - grafana-k8s-monitoring
