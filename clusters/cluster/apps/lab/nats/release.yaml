@@ -40,39 +40,9 @@ spec:
       enabled: true
 
     promExporter:
-      enabled: true
+      enabled: false
       podMonitor:
-        enabled: true 
+        enabled: false 
     
     podDisruptionBudget:
       enabled: true
-
-
-
-  # values:
-  #   config:
-  #     cluster:
-  #       enabled: true
-  #       replicas: 3
-  #     jetstream:
-  #       enabled: true
-  #       memStorage:
-  #         enabled: true
-  #         size: 8Gi
-  #       fileStorage:
-  #         enabled: true
-  #         size: 100Gi
-  #         storageClassName: ceph-filesystem
-  #
-  #
-  #   # cluster:
-  #   #   enabled: true
-  #   #   replicas: 3  
-  #
-  #   natsBox:
-  #     enabled: true
-  #
-  #   prometheus:
-  #     enabled: true
-  #     serviceMonitor:
-  #       enabled: true  
