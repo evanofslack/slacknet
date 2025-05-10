@@ -40,9 +40,9 @@ spec:
       enabled: true
 
     promExporter:
-      enabled: false
+      enabled: true
       podMonitor:
-        enabled: false 
+        enabled: true 
     
     podDisruptionBudget:
       enabled: true
