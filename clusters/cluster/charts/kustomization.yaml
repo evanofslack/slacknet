@@ -13,3 +13,4 @@ resources:
   - metallb.yaml
   - nats.yaml
   - podinfo.yaml
+  - prometheus.yaml
