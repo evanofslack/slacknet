@@ -5,6 +5,7 @@ resources:
   - cert-manager
   - default
   - kube-system
+  - lab
   - metallb
   - monitoring
   - network
