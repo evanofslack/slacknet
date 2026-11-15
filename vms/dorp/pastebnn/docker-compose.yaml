@@ -1,0 +1,41 @@
+services:
+  redis:
+    container_name: pastebnn-redis
+    image: redis:8-alpine
+    restart: unless-stopped
+    command: >
+      redis-server
+      --requirepass "${REDIS_PASSWORD:?set REDIS_PASSWORD in .env}"
+      --maxmemory 256mb
+      --maxmemory-policy noeviction
+      --appendonly yes
+    environment:
+      REDISCLI_AUTH: ${REDIS_PASSWORD}
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  server:
+    image: evanofslack/pastebnn:latest
+    container_name: pastebnn
+    restart: unless-stopped
+    environment:
+      PASTEBNN_LOG_LEVEL: "info"
+      PASTEBNN_STORAGE_BACKEND: "redis"
+      PASTEBNN_REDIS_HOST: "redis"
+      PASTEBNN_REDIS_PASSWORD: ${REDIS_PASSWORD}
+      PASTEBNN_MAX_SIZE_BYTES: 1048576 # 1MB
+      PASTEBNN_APP_URL: "bin.evanslack.dev"
+      PASTEBNN_TRUST_PROXY: "true"
+    ports:
+      - 8993:8080
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  redis-data:

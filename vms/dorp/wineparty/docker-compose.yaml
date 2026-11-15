@@ -1,0 +1,24 @@
+services:
+  wineparty:
+    image: evanofslack/wineparty:latest
+    restart: unless-stopped
+    container_name: wineparty
+    ports:
+      - "1999:8080"
+    environment:
+      PORT: "8080"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
+      LOBBY_TOKEN: "${LOBBY_TOKEN}"
+      BASE_URL: "${BASE_URL}"
+      WINES_FILE: "config/wines.yaml"
+      GAMES_FILE: "config/games.yaml"
+      COLORS_FILE: "config/colors.yaml"
+      STATE_FILE: "/data/state.json"
+    volumes:
+      - ./config:/app/config:ro
+      - ./config/qr.png:/app/qr.png:ro
+      - wineparty-data:/data
+
+volumes:
+  wineparty-data:
+
