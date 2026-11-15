@@ -2,7 +2,7 @@ version: "3.7"
 services:
   app:
     image: jc21/nginx-proxy-manager:2.9.19
-    restart: unless-stopped
+    restart: never
     ports:
       - 80:80
       - 443:443
@@ -24,7 +24,7 @@ services:
 
   db:
     image: jc21/mariadb-aria:latest
-    restart: unless-stopped
+    restart: never
     container_name: npm-mariadb
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}

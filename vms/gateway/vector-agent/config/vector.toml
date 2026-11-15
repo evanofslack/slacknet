@@ -40,15 +40,15 @@ del(.tags.host)
 
 [sinks.aggregator-docker]
 type = "vector"
-inputs = [ "add_hostname_docker" ]
+inputs = [ "add_hostname_docker"]
 address = "http://10.33.1.212:8687"
 
 [sinks.aggregator-syslog]
 type = "vector"
-inputs = [ "add_hostname_syslog" ]
+inputs = [ "add_hostname_syslog"]
 address = "http://10.33.1.212:8688"
 
 [sinks.aggregator-metrics]
 type = "vector"
-inputs = [ "add_hostname_metrics" ]
+inputs = [ "add_hostname_metrics"]
 address = "http://10.33.1.212:8689"

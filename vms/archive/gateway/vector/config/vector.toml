@@ -1,0 +1,31 @@
+[sources.gateway_docker]
+type = "vector"
+address = "0.0.0.0:8687"
+version = "2"
+
+[sources.gateway_syslog]
+type = "vector"
+address = "0.0.0.0:8688"
+version = "2"
+
+[sources.gateway_metrics]
+type = "vector"
+address = "0.0.0.0:8689"
+version = "2"
+
+[sinks.mon_docker]
+type = "vector"
+inputs = [ "gateway_docker" ]
+address = "10.33.1.212:8687"
+
+[sinks.mon_syslog]
+type = "vector"
+inputs = [ "gateway_syslog" ]
+address = "10.33.1.212:8688"
+
+[sinks.gateway-prom-exporter]
+type = "prometheus_exporter"
+inputs = [ "gateway_metrics" ]
+address = "0.0.0.0:9598"
+flush_period_secs = 60
+

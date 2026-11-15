@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  nats:
+    container_name: nats
+    image: nats
+    restart: unless-stopped
+    ports:
+      - 4222:4222
+      - 8222:8222
