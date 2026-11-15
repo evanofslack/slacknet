@@ -19,3 +19,15 @@ terraform.tfstate*
 credentials.auto.tfvars
 
 docs/
+# host inventory dumps (contain secrets)
+.inventory/
+# ops venv
+ops/.venv/
+# ops host addresses
+ops/.env
+# rendered secrets: commit .env.tpl / .env.example, never .env
+.env
+**/.env
+!.env.example
+!.env.tpl
+__pycache__/

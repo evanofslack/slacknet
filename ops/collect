@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Collect read-only inventory from hosts into ../.inventory/<host>/ and summarise.
+#   ./collect                 all hosts
+#   ./collect --limit nubuntu one host (any extra args go to pyinfra)
+set -euo pipefail
+cd "$(dirname "$0")"
+INV=../.inventory
+umask 077
+
+uv run --no-env-file pyinfra inventory.py deploys/collect.py -y "$@" || echo "pyinfra reported failures (unreachable hosts?) — continuing with what was fetched"
+
+for tb in "$INV"/_tarballs/*.tar.gz; do
+  [ -e "$tb" ] || continue
+  h="$(basename "$tb" .tar.gz)"
+  rm -rf "${INV:?}/$h" && mkdir -p "$INV/$h"
+  tar -xzf "$tb" -C "$INV/$h"
+done
+rm -rf "$INV/_tarballs"
+
+uv run --no-env-file python summarize.py
