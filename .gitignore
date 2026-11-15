@@ -31,3 +31,6 @@ ops/.env
 !.env.example
 !.env.tpl
 __pycache__/
+# app configs rendered from *.tpl by op inject
+/vms/torrr/recyclarr/config/secrets.yml
+/vms/nubuntu/pve-exporter/config/pve.yaml
