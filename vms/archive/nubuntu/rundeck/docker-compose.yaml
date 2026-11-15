@@ -11,7 +11,7 @@ services:
         environment:
             RUNDECK_DATABASE_DRIVER: org.postgresql.Driver
             RUNDECK_DATABASE_USERNAME: rundeck
-            RUNDECK_DATABASE_PASSWORD: rundeck
+            RUNDECK_DATABASE_PASSWORD: ${RUNDECK_DATABASE_PASSWORD}
             RUNDECK_DATABASE_URL: jdbc:postgresql://postgres/rundeck?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
             RUNDECK_GRAILS_URL: http://10.33.1.114:4440
         volumes:
@@ -27,7 +27,7 @@ services:
         environment:
           - POSTGRES_DB=rundeck
           - POSTGRES_USER=rundeck
-          - POSTGRES_PASSWORD=rundeck
+          - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
         volumes:
           - dbdata:/var/lib/postgresql/data
 

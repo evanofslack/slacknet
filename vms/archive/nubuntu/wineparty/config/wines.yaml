@@ -1,0 +1,58 @@
+wines:
+  - id: 1
+    name: "Mystery Red #1"
+    variety: "Cabernet Sauvignon"
+    country: "USA"
+    region: "Napa Valley"
+    year: 2020
+    hint: "Full-bodied with dark fruit"
+    price: 45
+    flavors:
+      - blackcurrant
+      - cedar
+      - dark chocolate
+      - tobacco
+      - vanilla
+  - id: 2
+    name: "Mystery White #1"
+    variety: "Chardonnay"
+    country: "France"
+    region: "Burgundy"
+    year: 2021
+    hint: "Crisp with notes of green apple"
+    price: 35
+    flavors:
+      - green apple
+      - lemon
+      - butter
+      - toasted oak
+      - hazelnut
+  - id: 3
+    name: "Mystery Red #2"
+    variety: "Pinot Noir"
+    country: "USA"
+    region: "Willamette Valley"
+    year: 2019
+    hint: "Light-bodied with earthy notes"
+    price: 30
+    flavors:
+      - cherry
+      - raspberry
+      - mushroom
+      - earth
+      - spice
+  - id: 4
+    name: "Mystery Rose #1"
+    variety: "Grenache Rosé"
+    country: "France"
+    region: "Provence"
+    year: 2022
+    hint: "Dry and refreshing"
+    price: 25
+    flavors:
+      - strawberry
+      - peach
+      - watermelon
+      - citrus
+      - herbs
+

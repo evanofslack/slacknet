@@ -1,0 +1,10 @@
+services:
+  hohm:
+    image: evanofslack/hohm:latest
+    container_name: hohm
+    user: "65532:65532"
+    restart: unless-stopped
+    ports:
+      - "5005:8080"
+    volumes:
+      - ./data:/data

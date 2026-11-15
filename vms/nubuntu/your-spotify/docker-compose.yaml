@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  server:
+    image: yooooomi/your_spotify_server
+    container_name: your-spotify-server
+    restart: always
+    ports:
+      - "8715:8080"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    environment:
+      API_ENDPOINT: http://10.33.1.114:8715
+        #CLIENT_ENDPOINT: http://10.33.1.114:3917
+      CLIENT_ENDPOINT: https://spotify.local.eslack.net
+      SPOTIFY_PUBLIC: 9e64fe4971934d72802844bf562c7ce3
+      SPOTIFY_SECRET: ${SPOTIFY_SECRET}
+
+  mongo:
+    container_name: your-spotify-mongo
+    image: mongo:4.4
+    restart: unless-stopped
+    volumes:
+      - ./your_spotify_db:/data/db
+
+  web:
+    image: yooooomi/your_spotify_client
+    container_name: your-spotify-web
+    restart: unless-stopped
+    ports:
+      - "3917:3000"
+    environment:
+      API_ENDPOINT: http://10.33.1.114:8715
