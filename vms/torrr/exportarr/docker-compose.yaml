@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  sonarr-exporter:
+    image: ghcr.io/onedr0p/exportarr:v1.0.0
+    restart: unless-stopped
+    command: ["sonarr"]
+    container_name: exportarr-sonarr
+    environment:
+      PORT: 9707
+      URL: "http://10.33.1.23:8989"
+      APIKEY: ${APIKEY}
+    ports:
+      - "9707:9707"
+  radarr-exporter:
+    image: ghcr.io/onedr0p/exportarr:v1.0.0
+    restart: unless-stopped
+    command: ["radarr"]
+    container_name: exportarr-radarr
+    environment:
+      PORT: 9708
+      URL: "http://10.33.1.23:7878"
+      APIKEY: ${APIKEY_RADARR_EXPORTER}
+    ports:
+      - "9708:9708"
+  lidarr-exporter:
+    image: ghcr.io/onedr0p/exportarr:v1.0.0
+    restart: unless-stopped
+    command: ["lidarr"]
+    container_name: exportarr-lidarr
+    environment:
+      PORT: 9709
+      URL: "http://10.33.1.23:8686"
+      APIKEY: ${APIKEY_LIDARR_EXPORTER}
+    ports:
+      - "9709:9709"

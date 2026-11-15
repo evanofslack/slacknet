@@ -1,0 +1,9 @@
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:latest
+    container_name: recyclarr
+    restart: unless-stopped
+    volumes:
+      - ./config:/config
+    environment:
+      - TZ=America/New_York
