@@ -1,0 +1,14 @@
+services:
+  keepalived:
+    image: shawly/keepalived
+    container_name: keepalived
+    environment:
+      TZ: America/New_York
+      KEEPALIVED_CUSTOM_CONFIG: "true"
+    network_mode: host
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - NET_BROADCAST
+    volumes:
+      - "./data/keepalived.conf:/etc/keepalived/keepalived.conf:ro"

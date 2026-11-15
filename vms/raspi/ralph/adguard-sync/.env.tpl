@@ -1,0 +1,8 @@
+ORIGIN_URL="http://10.33.1.98:80"
+ORIGIN_USERNAME="eslack"
+ORIGIN_PASSWORD="{{ op://Homelab/ralph-adguard-sync/ORIGIN_PASSWORD }}"
+REPLICA_URL="http://10.33.1.136"
+REPLICA_USERNAME="eslack"
+REPLICA_PASSWORD="{{ op://Homelab/ralph-adguard-sync/REPLICA_PASSWORD }}"
+CRON="0 * * * *"
+RUN_ON_START="true"
