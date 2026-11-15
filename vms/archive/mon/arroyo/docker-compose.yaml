@@ -1,0 +1,9 @@
+version: "3.7"
+
+services:
+  arroyo:
+    container_name: arroyo
+    restart: unless-stopped
+    image: ghcr.io/arroyosystems/arroyo:latest
+    ports:
+      - "5115:5115"

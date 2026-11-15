@@ -1,5 +1,26 @@
 version: "3.7"
 services:
+
+  init:
+    image: grafana/tempo:latest
+    container_name: tempo-init
+    user: root
+    entrypoint:
+      - "chown"
+      - "10001:10001"
+      - "/var/tempo"
+    volumes:
+      - ./tempo-data:/var/tempo
+
+  memcached:
+    image: memcached:1.6.38
+    container_name: tempo-memcached
+    ports:
+      - "11211:11211"
+    environment:
+      - MEMCACHED_MAX_MEMORY=64m
+      - MEMCACHED_THREADS=4
+
   tempo:
     image: grafana/tempo:latest
     container_name: tempo
@@ -7,11 +28,15 @@ services:
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
       - ./config/tempo.yaml:/etc/tempo.yaml
-      - ./tempo-data:/tmp/tempo
+      - ./tempo-data:/var/tempo
     ports:
       - "3200:3200"  # tempo
+      - "9095:9095" # tempo grpc
       - "4317" # otlp grpc
       - "4318" # otlp http
+    depends_on:
+      - init
+      - memcached
 
 networks:
   default:

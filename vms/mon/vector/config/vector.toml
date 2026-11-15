@@ -1,7 +1,6 @@
 [api]
 enabled = true
 address = "0.0.0.0:8686"
-playground = true
 
 [sources.agent_docker]
 type = "vector"
@@ -22,61 +21,83 @@ version = "2"
 type = "remap"
 inputs = ["agent_docker"]
 source = '''
-structured =
-  del(.label)
-  del(.container_created_at)
-  del(.container_id)
-  del(.host)
+del(.label)
+del(.container_created_at)
+del(.container_id)
+del(.host)
 '''
 
 [transforms.parse_docker]
 type = "remap"
 inputs = ["drop_docker_labels"]
 source = '''
-structured =
-  parse_json(.message) ??
-  parse_key_value(.message) ??
-  parse_json(.msg) ??
-  parse_key_value!(.msg)
-. = merge!(., structured)
+parsed = parse_json(.message) ?? parse_key_value(.message) ?? {}
+if is_object(parsed) {
+  . = merge!(., parsed)
+}
+
+# Set defaults only for fields that might be missing
+if !exists(.level) && !exists(.severity) {
+  .level = "info"
+} else if exists(.severity) && !exists(.level) {
+  .level = .severity
+}
+
+if !exists(.hostname) {
+  .hostname = get_hostname() ?? "unknown"
+}
+
+if !exists(.source_type) {
+  .source_type = "docker"
+}
 '''
 
 [transforms.parse_syslog]
 type = "remap"
 inputs = ["agent_syslog"]
 source = '''
-. = parse_syslog!(string!(.message))
+parsed = parse_syslog(.message) ?? {}
+if is_object(parsed) {
+  . = merge(., parsed)
+}
+
+# Set defaults only for missing fields
+if !exists(.hostname) {
+  .hostname = get_hostname() ?? "unknown"
+}
+
+if !exists(.appname) {
+  .appname = "unknown"
+}
 '''
 
 [sinks.loki_docker]
 type = "loki"
 inputs = [ "parse_docker" ]
 endpoint = "http://loki:3100"
-path = "/loki/api/v1/push"
 encoding.codec = "json"
 out_of_order_action = "accept"
-remove_timestamp = true
+
 [sinks.loki_docker.labels]
 forwarder = "vector"
-domain = 'vms'
-level = '{{level}}'
-hostname = '{{hostname}}'
-source_type = '{{source_type}}'
-stream = '{{stream}}'
-container_name = '{{container_name}}'
-image = '{{image}}'
+domain = "vms"
+level = "{{ level }}"
+hostname = "{{ hostname }}"
+source_type = "{{ source_type }}"
+stream = "{{ stream }}"
+container_name = "{{ container_name }}"
+image = "{{ image }}"
 
 [sinks.loki_syslog]
 type = "loki"
 inputs = [ "parse_syslog" ]
 endpoint = "http://loki:3100"
-path = "/loki/api/v1/push"
 encoding.codec = "json"
 out_of_order_action = "accept"
-remove_timestamp = true
+
 [sinks.loki_syslog.labels]
 forwarder = "vector"
-source_type = 'file'
+source_type = 'syslog'
 domain = 'vms'
 hostname = '{{hostname}}'
 appname = '{{appname}}'

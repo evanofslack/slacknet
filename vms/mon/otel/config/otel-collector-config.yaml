@@ -12,10 +12,6 @@ exporters:
     endpoint: jaeger:4317
     tls:
       insecure: true
-  otlp/uptrace:
-    endpoint: uptrace:14317
-    tls: { insecure: true }
-    headers: { 'uptrace-dsn': 'http://analogdb_secret_token@localhost:14317/1' }
 
 processors:
   batch:
@@ -33,4 +29,4 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp/tempo, otlp/jaeger, otlp/uptrace]
+      exporters: [otlp/tempo, otlp/jaeger]
