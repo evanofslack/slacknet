@@ -5,7 +5,7 @@ Goal: make `vms/` describe what actually runs on every host, with secrets in
 
 | Pass | What | State |
 |---|---|---|
-| 1 | host → git: import real state, move secrets to 1Password | **done** on `reconcile/pass1` (not merged) |
+| 1 | host → git: import real state, move secrets to 1Password | **done** on `reconcile/pass1`, ready to merge |
 | 2 | git → host: hosts run from the repo, `.env` rendered from 1Password | not started |
 | 3 | drift check on a schedule | not started |
 
@@ -48,20 +48,17 @@ Stacks the hosts had moved into a local `archive/` dir are in `vms/archive/<host
 1. **Don't `git pull` + `docker compose up` on a host after merging, until pass 2.**
    Compose files now use `${KEY}` where values used to be hardcoded; without a
    rendered `.env` those containers start with empty secrets.
-2. **go-poker (dorp) is not committed yet.** The host's own `vms/dorp/.gitignore`
-   listed it, so the first import missed it. It's imported in the working tree
-   (with the ignore line removed), but its compose still hardcodes
-   `DATABASE_URL` and `POSTGRES_PASSWORD`. 1Password authorization timed out.
-   Finish with:
-   ```sh
-   cd ops && uv run --no-env-file python reconcile/secrets.py --apply --only vms/dorp/go-poker
-   git add vms/dorp/.gitignore vms/dorp/go-poker && git commit
-   ```
-3. **Uncommitted edits in the main checkout conflict with this branch:**
-   `vms/nubuntu/caddy/Caddyfile` (the host archived nubuntu's caddy) and
-   `vms/raspi/ralph/adguard/conf/AdGuardHome.yaml` (the branch has the host's
-   version; the main checkout has different upstream DNS). Decide which wins before merging.
-4. **Secrets already in git history** (from before this work); rotate if still in use:
+2. ~~go-poker~~ done (item `dorp-go-poker`).
+3. ~~Main-checkout WIP~~ resolved: nubuntu no longer runs caddy (its root-domain
+   route already exists on gateway's Caddyfile), and the ralph AdGuard upstream
+   DNS change is a note, not config. Both kept in `git stash` on main
+   ("WIP notes: ..."); hohm's README/example config were added to the branch.
+4. **Secrets already in git history. The repo is PUBLIC, so treat these as exposed and rotate:**
+   - host secrets also found in history (`git log -S`): AdGuard admin password
+     (adguard-sync ORIGIN/REPLICA) and password hashes, healthchecks superuser,
+     scrypted webhook token, dagster `key`, databend password, AWS access key ids
+     (jellyfin, send, postgres-backup-s3; the secret halves were not found),
+     several internal DB passwords (paperless, hass, tracearr, rundeck, speedtest)
    - `provision/talos/cilium/cilium.yaml`: private keys / k8s secrets (3 commits)
    - `vms/mon/grafana/docker-compose.yaml`: an API key in an older version
    - AdGuard `users[].password` bcrypt hashes are still tracked in
