@@ -7,4 +7,5 @@ services:
     ports:
       - "5005:8080"
     volumes:
+      # a directory, not a single file: hohm replaces config.yaml atomically on edits
       - ./data:/data
