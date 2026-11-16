@@ -42,6 +42,7 @@ EXCLUDE = [
     "vms/nubuntu/filebrowser/srv/*",     # served files, not config
     "*/jellyfin/config/*",               # app state
     "*_data/*", "*/redis_data/*",        # db dirs in archived stacks
+    "*/state.json",                      # app state (wineparty)
 ]
 
 # User-authored files inside otherwise app-owned mount dirs (loose stacks).
@@ -90,9 +91,13 @@ class Importer:
         if rel.startswith(prefix):
             rel = f"vms/archive/{self.host}/{rel[len(prefix):]}"
         dest = REPO / rel
-        if dest.exists() and dest.read_bytes() == src.read_bytes():
+        if dest.exists():
+            if dest.read_bytes() != src.read_bytes():
+                # Never clobber: the repo copy may already have had secrets
+                # moved out (secrets.py), or been edited during review.
+                self.skipped.append(f"{rel}  (exists and differs; kept repo version)")
             return
-        self.done.append(f"{'update' if dest.exists() else 'add   '} {rel}")
+        self.done.append(f"add    {rel}")
         if not self.dry:
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src, dest)
@@ -152,9 +157,20 @@ class Importer:
                 own = f"/slacknet/{self.repo_path}/"
                 if own not in wd + "/":
                     self.skipped.append(f"{name}  (runs from another host's dir: {wd})")
-                continue  # handled by clone steps
-            app = Path(wd).name
-            dest = f"{self.repo_path}/{app}"
+                    continue
+                if meta.get("git_toplevel", "").rstrip("/") != wd.split(f"/{self.repo_path}/")[0].rstrip("/") + "":
+                    self.skipped.append(f"{name}  (its own git repo, not slacknet: {wd})")
+                    continue
+                dest = wd.split("/slacknet/", 1)[1]
+                if any((REPO / dest / n).exists() for n in
+                       ("docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml")):
+                    continue  # handled by the clone steps
+                # In the clone but invisible to git (e.g. gitignored on the host):
+                # fall through and import it like a loose stack.
+                app = Path(wd).name
+            else:
+                app = Path(wd).name
+                dest = f"{self.repo_path}/{app}"
             files = pdir / "files"
             wanted: set[str] = set()
             for p in files.iterdir() if files.exists() else []:
