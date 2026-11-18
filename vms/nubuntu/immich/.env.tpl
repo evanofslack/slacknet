@@ -17,5 +17,5 @@ DB_PASSWORD={{ op://Homelab/nubuntu-immich/DB_PASSWORD }}
 
 # The values below this line do not need to be changed
 ###################################################################################
-DB_USERNAME=postgres
+DB_USERNAME={{ op://Homelab/nubuntu-immich/DB_USERNAME }}
 DB_DATABASE_NAME=immich

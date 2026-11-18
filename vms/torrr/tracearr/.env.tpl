@@ -4,4 +4,3 @@ PORT=3801              # External port mapping
 TZ=America/New_York    # Timezone
 DB_PASSWORD={{ op://Homelab/torrr-tracearr/DB_PASSWORD }}
 LOG_LEVEL=info         # Log level (debug, info, warn, error)
-

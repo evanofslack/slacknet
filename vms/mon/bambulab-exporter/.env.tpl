@@ -1,6 +1,6 @@
 EXPORTER_HTTP_PORT="9091"
 EXPORTER_LOG_LEVEL="info"
 BAMBU_ENDPOINT="us.mqtt.bambulab.com"
-BAMBU_DEVICE_ID="01P09C461602411"
-BAMBU_USERNAME="u_3474570692"
+BAMBU_DEVICE_ID="{{ op://Homelab/mon-bambulab-exporter/BAMBU_DEVICE_ID }}"
+BAMBU_USERNAME="{{ op://Homelab/mon-bambulab-exporter/BAMBU_USERNAME }}"
 BAMBU_PASSWORD="{{ op://Homelab/mon-bambulab-exporter/BAMBU_PASSWORD }}"

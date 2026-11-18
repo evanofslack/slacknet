@@ -1,7 +1,7 @@
 {
     #debug
         admin :2019 {
-                origins 10.33.1.114
+                origins {$NUBUNTU_ADDR}
         }
         servers {
                 metrics

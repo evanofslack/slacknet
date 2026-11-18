@@ -7,7 +7,7 @@ services:
     container_name: exportarr-sonarr
     environment:
       PORT: 9707
-      URL: "http://10.33.1.23:8989"
+      URL: "${SONARR_URL}"
       APIKEY: ${APIKEY}
     ports:
       - "9707:9707"
@@ -18,7 +18,7 @@ services:
     container_name: exportarr-radarr
     environment:
       PORT: 9708
-      URL: "http://10.33.1.23:7878"
+      URL: "${RADARR_URL}"
       APIKEY: ${APIKEY_RADARR_EXPORTER}
     ports:
       - "9708:9708"
@@ -29,7 +29,7 @@ services:
     container_name: exportarr-lidarr
     environment:
       PORT: 9709
-      URL: "http://10.33.1.23:8686"
+      URL: "${LIDARR_URL}"
       APIKEY: ${APIKEY_LIDARR_EXPORTER}
     ports:
       - "9709:9709"

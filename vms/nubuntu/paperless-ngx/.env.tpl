@@ -41,5 +41,4 @@ PAPERLESS_OCR_LANGUAGE=eng
 #PAPERLESS_FORCE_SCRIPT_NAME=/PATHPREFIX
 #PAPERLESS_STATIC_URL=/PATHPREFIX/static/ # trailing slash required
 
-# moved out of docker-compose (was hardcoded)
 POSTGRES_PASSWORD={{ op://Homelab/nubuntu-paperless-ngx/POSTGRES_PASSWORD }}

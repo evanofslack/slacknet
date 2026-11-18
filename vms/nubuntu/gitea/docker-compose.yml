@@ -38,7 +38,7 @@ services:
     container_name: gitea-mirror
     environment:
       - GITHUB_USERNAME=evanofslack
-      - GITEA_URL=http://10.33.1.114:3331
+      - GITEA_URL=${GITEA_URL}
       - GITEA_TOKEN=${GITEA_TOKEN}
     depends_on:
       - server

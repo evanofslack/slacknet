@@ -11,7 +11,7 @@ Reads the read-only inventory in .inventory/<host>/ (run ops/collect first):
                      compose files, top-level files, single-file bind mounts and
                      EXTRA files -> <repo_path>/<app>/. Directory mounts are app
                      state and are not imported.
-  Host-local archive dirs (<repo_path>/archive/<app>) go to vms/archive/<host>/<app>.
+  Host-local archive dirs (<repo_path>/archive/<app>) are skipped (not tracked).
 
 Secrets are NOT handled here: .env files are never copied. Run secrets.py next.
 
@@ -86,10 +86,10 @@ class Importer:
         if excluded(rel):
             self.excluded["/".join(rel.split("/")[:4])] += 1
             return
-        # Host-local archive dirs (<repo_path>/archive/<app>) -> vms/archive/<host>/<app>
-        prefix = f"{self.repo_path}/archive/"
-        if rel.startswith(prefix):
-            rel = f"vms/archive/{self.host}/{rel[len(prefix):]}"
+        # Host-local archive dirs are not tracked
+        if rel.startswith(f"{self.repo_path}/archive/") or "/archive/" in rel:
+            self.excluded["archive"] += 1
+            return
         dest = REPO / rel
         if dest.exists():
             if dest.read_bytes() != src.read_bytes():

@@ -12,8 +12,7 @@ services:
     depends_on:
       - mongo
     environment:
-      API_ENDPOINT: http://10.33.1.114:8715
-        #CLIENT_ENDPOINT: http://10.33.1.114:3917
+      API_ENDPOINT: ${API_ENDPOINT}
       CLIENT_ENDPOINT: https://spotify.local.eslack.net
       SPOTIFY_PUBLIC: 9e64fe4971934d72802844bf562c7ce3
       SPOTIFY_SECRET: ${SPOTIFY_SECRET}
@@ -32,4 +31,4 @@ services:
     ports:
       - "3917:3000"
     environment:
-      API_ENDPOINT: http://10.33.1.114:8715
+      API_ENDPOINT: ${API_ENDPOINT}

@@ -46,13 +46,15 @@ SECRET_KEY = re.compile(
     re.I,
 )
 NOT_SECRET_KEY = re.compile(r"(NO_PASSWORD|_FILE|_PATH|_DIR|_LENGTH|_ALGORITHM|_ENABLED|_EXPIRY|_TTL|_TIMEOUT|_ID)$", re.I)
+# usernames and account/device/client ids are kept out of git as well
+IDENTITY_KEY = re.compile(r"(USER(NAME)?S?$|_LOGIN$|ACCESS_KEY_ID$|(CLIENT|APP|DEVICE|ACCOUNT)_ID$)", re.I)
 CREDS_IN_URL = re.compile(r"://[^/\s:@]+:[^/\s@]+@")
 
 
 def is_secret(key: str, value: str) -> bool:
     if not value or "${" in value or value.startswith("op://"):
         return False
-    if CREDS_IN_URL.search(value) or key.upper().endswith("ACCESS_KEY_ID"):
+    if CREDS_IN_URL.search(value) or IDENTITY_KEY.search(key):
         return True
     if NOT_SECRET_KEY.search(key):
         return False
@@ -186,10 +188,8 @@ def build(stack: Stack) -> None:
         for l in parse_env(stack.host_env.read_text()):
             if not l.key:
                 m = re.match(r"^(\s*#\s*(?:export\s+)?)([A-Za-z_][A-Za-z0-9_]*)=(.+)$", l.raw)
-                if m and is_secret(m.group(2), m.group(3).strip("'\" ")):
-                    tpl.append(f"{m.group(1)}{m.group(2)}=  # old value removed")
-                else:
-                    tpl.append(l.raw)
+                if not (m and is_secret(m.group(2), m.group(3).strip("'\" "))):
+                    tpl.append(l.raw)  # commented-out secrets are dropped
                 continue
             env_keys.add(l.key)
             if is_secret(l.key, l.value):
@@ -204,7 +204,6 @@ def build(stack: Stack) -> None:
     if moved:
         if tpl and tpl[-1].strip():
             tpl.append("")
-        tpl.append("# moved out of docker-compose (was hardcoded)")
         for k in moved:
             v = stack.secrets[k]
             q = "'" if any(c in v for c in "$ #\"") else ""
@@ -389,9 +388,8 @@ def main() -> None:
                     print(f"    note: {n}")
                 continue
             tpl_path = REPO / s.dir / ".env.tpl"
-            marker = "# moved out of docker-compose"
-            if tpl_path.exists() and marker in tpl_path.read_text() and marker not in "\n".join(s.tpl_lines):
-                print(f"{line}\n    SKIP: already converted (compose secrets were moved earlier); not rebuilding")
+            if tpl_path.exists() and "op://" in tpl_path.read_text():
+                print(f"{line}\n    SKIP: already converted (.env.tpl exists); not rebuilding")
                 continue
             if s.secrets:
                 (update_item if s.item in have else create_item)(s, scratch)

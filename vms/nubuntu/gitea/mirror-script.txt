@@ -2,6 +2,6 @@ docker container run \
  -d \
  --restart always \
  -e GITHUB_USERNAME=evanofslack \
- -e GITEA_URL=http://10.33.1.114:3331 \
+ -e GITEA_URL=$GITEA_URL \
  -e GITEA_TOKEN={{ op://Homelab/nubuntu-gitea/GITEA_TOKEN }} \
  jaedle/mirror-to-gitea:latest
