@@ -1,0 +1,11 @@
+services:
+  sonos-nightmode:
+    container_name: sonos-nightmode
+    image: evanofslack/sonos-nightmode:latest
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - SONOS_NAME=${SONOS_NAME}
+      - NIGHTMODE_ON=${NIGHTMODE_ON}
+      - NIGHTMODE_OFF=${NIGHTMODE_OFF}
+      - TZ=America/New_York

@@ -1,0 +1,66 @@
+services:
+  postgres-dev:
+    image: postgres:15
+    container_name: analogdb-postgres-dev
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PW}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+
+  postgres-sync:
+    image: postgres:15
+    container_name: analogdb-postgres-sync
+    restart: unless-stopped
+    environment:
+      POSTGRES_PROD_HOST: postgres
+      POSTGRES_PROD_USER: ${POSTGRES_USER}
+      POSTGRES_PROD_PASSWORD: ${POSTGRES_PW}
+      POSTGRES_PROD_DB: ${POSTGRES_DB}
+      POSTGRES_DEV_HOST: postgres-dev
+      POSTGRES_DEV_USER: ${POSTGRES_USER}
+      POSTGRES_DEV_PASSWORD: ${POSTGRES_PW}
+      POSTGRES_DEV_DB: ${POSTGRES_DB}
+    volumes:
+      - ./sync.sh:/sync.sh
+    command: >
+      sh -c "
+        apt-get update && apt-get install -y cron
+        chmod +x /sync.sh
+        echo '0 2 * * * /sync.sh >> /var/log/sync.log 2>&1' | crontab -
+        touch /var/log/sync.log
+        cron && tail -f /var/log/sync.log
+      "
+    depends_on:
+      - postgres-dev
+
+  metabase:
+    image: metabase/metabase
+    container_name: metabase-dev
+    restart: unless-stopped
+    ports:
+      - "3010:3000"
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${POSTGRES_USER}
+      MB_DB_PASS: ${POSTGRES_PW}
+      MB_DB_HOST: postgres-dev
+    depends_on:
+      - postgres-dev
+    volumes:
+      - metabase-data:/metabase-data
+
+volumes:
+  postgres-dev-data:
+  metabase-data:
+
+networks:
+  default:
+    external: true
+    name: prod

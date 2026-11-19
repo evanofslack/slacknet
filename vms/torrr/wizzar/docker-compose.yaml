@@ -1,0 +1,15 @@
+version: "3.7"
+services:
+  wizarr:
+    container_name: wizarr
+    image: ghcr.io/wizarrrr/wizarr:latest
+    restart: unless-stopped
+      # user: 1000:1000
+    ports:
+      - 5690:5690
+    volumes:
+      - ./config:/data/database
+    environment:
+      - APP_URL=https://setup.eslack.net
+      - DISABLE_BUILTIN_AUTH=false #Set to true ONLY if you are using another auth provider (Authelia, Authentik, etc)
+      - TZ=America/New_York

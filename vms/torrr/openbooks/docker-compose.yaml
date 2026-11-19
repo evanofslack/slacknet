@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  openbooks:
+    container_name: openbooks
+    image: evanbuss/openbooks:latest
+    restart: unless-stopped
+    ports:
+      - "8071:80"
+    volumes:
+      - ./data:/books
+    environment:
+      - PUID=1000
+      - PGID=1000
+    command: --name silly-goose --persist

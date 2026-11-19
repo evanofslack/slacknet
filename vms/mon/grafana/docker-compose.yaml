@@ -4,6 +4,7 @@ services:
     container_name: grafana
     image: grafana/grafana-oss:latest
     restart: unless-stopped
+    user: "$UID:$GID"
     ports:
       - 3000:3000
     volumes:
@@ -12,10 +13,13 @@ services:
       - ./config/provisioning/datasources.yaml:/etc/grafana/provisioning/datasources/provisioning-datasources.yaml
       - ./config/provisioning/dashboards.yaml:/etc/grafana/provisioning/dashboards/provisioning-dashboards.yaml
       - ./config/provisioning/dashboards:/var/lib/grafana/dashboards
+      - ./config/provisioning/plugins:/var/lib/grafana/plugins
     environment:
+      GF_INSTALL_PLUGINS: "grafana-pyroscope-app,grafana-clickhouse-datasource"
       GF_FEATURE_TOGGLES_ENABLE: "traceqlEditor traceToMetrics timeSeriesTable"
       GF_SERVER_DOMAIN: "grafana.local.eslack.net"
       GF_SERVER_ROOT_URL: "https://grafana.local.eslack.net"
+
 
 volumes:
   grafana-data:

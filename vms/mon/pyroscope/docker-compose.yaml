@@ -1,0 +1,13 @@
+services:
+  pyroscope:
+    image: 'grafana/pyroscope:latest'
+    restart: unless-stopped
+    container_name: pyroscope
+    ports:
+      - 4040:4040
+
+networks:
+  default:
+    external: true
+    name: mon
+

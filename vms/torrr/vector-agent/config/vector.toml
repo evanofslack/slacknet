@@ -1,0 +1,54 @@
+[api]
+enabled = false
+
+[sources.docker]
+type = "docker_logs"
+auto_partial_merge = true
+docker_host = "/var/run/docker.sock"
+
+[sources.syslog]
+type = "file"
+include = [ "/host/syslog" ]
+
+[sources.host_metrics]
+type = "host_metrics"
+
+[sources.vector_metrics]
+type = "internal_metrics"
+
+[transforms.add_hostname_docker]
+  type = "remap"
+  inputs = ["docker"]
+  source = '''
+.hostname = "$HOSTNAME"
+'''
+
+[transforms.add_hostname_syslog]
+  type = "remap"
+  inputs = ["syslog"]
+  source = '''
+.hostname = "$HOSTNAME"
+'''
+
+[transforms.add_hostname_metrics]
+  type = "remap"
+  inputs = ["host_metrics", "vector_metrics"]
+  source = '''
+.tags.hostname = "$HOSTNAME"
+del(.tags.host)
+'''
+
+[sinks.aggregator-docker]
+type = "vector"
+inputs = [ "add_hostname_docker" ]
+address = "http://10.33.1.212:8687"
+
+[sinks.aggregator-syslog]
+type = "vector"
+inputs = [ "add_hostname_syslog" ]
+address = "http://10.33.1.212:8688"
+
+[sinks.aggregator-metrics]
+type = "vector"
+inputs = [ "add_hostname_metrics" ]
+address = "http://10.33.1.212:8689"

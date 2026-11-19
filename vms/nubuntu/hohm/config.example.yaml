@@ -1,0 +1,226 @@
+# hohm config for nubuntu (https://github.com/evanofslack/hohm)
+# Catalog mirrors docs/network/flame-dashboard.md. Validate with:
+#   docker run --rm -v ./data:/data evanofslack/hohm validate -f /data/config.yaml
+
+settings:
+  title: slacknet
+  greeting: {enabled: true, name: Evan}
+  date: {enabled: true}
+  theme: {light: gazette, dark: tron}
+  newTab: false
+  history: 10
+
+search:
+  default: d
+  providers:
+    - {token: g, name: Google, url: "https://www.google.com", search: "https://www.google.com/search?q={query}"}
+    - {token: d, name: DuckDuckGo, url: "https://duckduckgo.com", search: "https://duckduckgo.com/?q={query}"}
+    - {token: y, name: YouTube, url: "https://www.youtube.com", search: "https://www.youtube.com/results?search_query={query}"}
+    - {token: gh, name: GitHub, url: "https://github.com", search: "https://github.com/search?q={query}"}
+    - {token: git, name: Gitea, url: "https://git.local.eslack.net", search: "https://git.local.eslack.net/explore/repos?q={query}"}
+
+groups:
+  - name: nubuntu
+    layout: cards
+    items:
+      - name: hohm
+        url: https://home.local.eslack.net
+        icon: "mdi:view-dashboard"
+        info: this page
+      - name: File Browser
+        url: https://filebrowser.local.eslack.net
+        icon: "mdi:folder"
+      - name: HashiCorp Vault
+        url: https://vault.local.eslack.net
+        icon: "si:vault"
+      - name: Home Assistant
+        url: https://hass.local.eslack.net
+        icon: "mdi:home-assistant"
+      - name: Immich
+        url: https://immich.local.eslack.net
+        icon: "mdi:image-multiple"
+      - name: Uptime Kuma
+        url: https://up.local.eslack.net
+        icon: "mdi:radar"
+      - name: WebNUT
+        url: https://webnut.local.eslack.net
+        icon: "mdi:power-plug"
+      - name: ChangeDetection
+        url: https://change.local.eslack.net
+        icon: "mdi:monitor-eye"
+      - name: Expanse
+        url: https://expanse.local.eslack.net
+        icon: "mdi:reddit"
+      - name: Gitea
+        url: https://git.local.eslack.net
+        icon: "mdi:git"
+      - name: HakaTime
+        url: https://hakatime.local.eslack.net
+        icon: "mdi:code-braces"
+      - name: Healthchecks
+        url: https://healthchecks.local.eslack.net
+        icon: "mdi:heart-pulse"
+      - name: Paperless
+        url: https://paperless.local.eslack.net
+        icon: "mdi:file-document-check"
+      - name: Scrutiny
+        url: https://scrutiny.local.eslack.net
+        icon: "mdi:harddisk"
+      - name: Send
+        url: https://send.local.eslack.net
+        icon: "mdi:cloud-upload-outline"
+      - name: Speedtest Tracker
+        url: https://speedtest-tracker.local.eslack.net
+        icon: "mdi:speedometer"
+      - name: UpSnap
+        url: https://upsnap.local.eslack.net
+        icon: "mdi:power"
+      - name: Your Spotify
+        url: https://spotify.local.eslack.net
+        icon: "mdi:spotify"
+  - name: torrr
+    layout: cards
+    items:
+      - name: Audiobookshelf
+        url: https://audiobookshelf.local.eslack.net
+        icon: "mdi:book-music"
+      - name: Bazarr
+        url: https://bazarr.local.eslack.net
+        icon: "mdi:subtitles"
+      - name: Jellyseerr
+        url: https://jellyseerr.local.eslack.net
+        icon: "mdi:magnify-expand"
+      - name: Lidarr
+        url: https://lidarr.local.eslack.net
+        icon: "mdi:music-note"
+      - name: MeTube
+        url: https://metube.local.eslack.net
+        icon: "mdi:video"
+      - name: PTube
+        url: https://ptube.local.eslack.net
+        icon: "mdi:play-box"
+      - name: Navidrome
+        url: https://navidrome.local.eslack.net
+        icon: "mdi:music-box-multiple-outline"
+      - name: OpenBooks
+        url: https://openbooks.local.eslack.net
+        icon: "mdi:book-open-page-variant"
+      - name: Podgrab
+        url: https://podgrab.local.eslack.net
+        icon: "mdi:podcast"
+      - name: Prowlarr
+        url: https://prowlarr.local.eslack.net
+        icon: "mdi:radar"
+      - name: qBittorrent
+        url: https://qbittorrent.local.eslack.net
+        icon: "mdi:download-network"
+      - name: Radarr
+        url: https://radarr.local.eslack.net
+        icon: "mdi:movie-search"
+      - name: Sonarr
+        url: https://sonarr.local.eslack.net
+        icon: "mdi:television-classic"
+      - name: Stash
+        url: https://stash.local.eslack.net
+        icon: "mdi:eye"
+      - name: Tracearr
+        url: https://tracearr.local.eslack.net
+        icon: "mdi:chart-line"
+      - name: Whisparr
+        url: https://whisparr.local.eslack.net
+        icon: "mdi:filmstrip-box"
+      - name: Wizarr
+        url: https://wizzar.local.eslack.net
+        icon: "mdi:account-group"
+  - name: mon
+    layout: cards
+    items:
+      - name: Alertmanager
+        url: https://alertmanager.local.eslack.net
+        icon: "mdi:alert-circle-outline"
+      - name: Grafana
+        url: https://grafana.local.eslack.net
+        icon: "mdi:chart-areaspline"
+      - name: InfluxDB
+        url: https://influxdb.local.eslack.net
+        icon: "mdi:chart-bell-curve-cumulative"
+      - name: Jaeger
+        url: https://jaeger.local.eslack.net
+        icon: "mdi:timeline-clock-outline"
+      - name: Karma
+        url: https://karma.local.eslack.net
+        icon: "mdi:bell-alert"
+      - name: Loki
+        url: https://loki.local.eslack.net
+        icon: "mdi:text-search"
+      - name: Mimir
+        url: https://mimir.local.eslack.net
+        icon: "mdi:database-clock-outline"
+      - name: Prometheus
+        url: https://prometheus.local.eslack.net
+        icon: "mdi:database"
+      - name: Pyroscope
+        url: https://pyroscope.local.eslack.net
+        icon: "mdi:fire"
+      - name: Uptrace
+        url: https://uptrace.local.eslack.net
+        icon: "mdi:chart-line"
+  - name: dorp
+    layout: cards
+    items:
+      - name: AnalogDB
+        url: https://analogdb.local.eslack.net
+        icon: "mdi:database"
+      - name: Dagster
+        url: https://dagster.local.eslack.net
+        icon: "mdi:graph"
+      - name: Go Poker
+        url: https://poker.local.eslack.net
+        icon: "mdi:cards-playing"
+      - name: Kafka UI
+        url: https://kafka-ui.local.eslack.net
+        icon: "si:apachekafka"
+      - name: OW2Stats
+        url: https://ow2stats.local.eslack.net
+        icon: "mdi:chart-box"
+      - name: Pastebnn
+        url: https://bin.local.eslack.net
+        icon: "mdi:content-paste"
+      - name: Samila
+        url: https://samila.local.eslack.net
+        icon: "mdi:chart-bell-curve"
+      - name: Umami
+        url: https://umami.local.eslack.net
+        icon: "mdi:chart-donut"
+      - name: Weaviate UI
+        url: https://weaviate.local.eslack.net
+        icon: "mdi:database-search"
+      - name: Wineparty
+        url: https://wineparty.local.eslack.net
+        icon: "mdi:glass-wine"
+  - name: Infra
+    layout: cards
+    items:
+      - name: "AdGuard Home (ralph)"
+        url: https://adguard.local.eslack.net
+        icon: "mdi:shield-check-outline"
+        info: ralph
+      - name: "AdGuard Home (ronald)"
+        url: https://adguard2.local.eslack.net
+        icon: "mdi:shield-check-outline"
+        info: ronald
+      - name: Homebridge
+        url: https://homebridge.local.eslack.net
+        icon: "mdi:home-automation"
+        info: ronald
+      - name: Scrypted
+        url: https://scrypted.local.eslack.net
+        icon: "mdi:cctv"
+        info: ronald
+      - name: Proxmox
+        url: https://pve-navi.local.eslack.net
+        icon: "mdi:server-network"
+      - name: TrueNAS SCALE
+        url: https://scale.local.eslack.net
+        icon: "mdi:nas"
+        info: usually off

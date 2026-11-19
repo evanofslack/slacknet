@@ -1,0 +1,78 @@
+services:
+  dagster_postgres:
+    image: postgres:15
+    container_name: dagster_postgres
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - dagster_postgres_data:/var/lib/postgresql/data
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+
+  dagster_webserver:
+    image: evanofslack/analogdb-dagster:latest
+    container_name: dagster_webserver
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DAGSTER_HOME: /app
+      DAGSTER_POSTGRES_USER: ${POSTGRES_USER}
+      DAGSTER_POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DAGSTER_POSTGRES_HOST: dagster_postgres
+      DAGSTER_POSTGRES_DB: ${POSTGRES_DB}
+      DAGSTER_POSTGRES_PORT: 5432
+    volumes:
+      - dagster_storage:/app/dagster_storage
+      - ./config/dagster.yaml:/app/dagster.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "3001:3000"
+    depends_on:
+      - dagster_postgres
+    command: >
+      sh -c "
+        uv run dagster instance migrate &&
+        uv run dagster-webserver --host 0.0.0.0 --port 3000
+      "
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+
+  dagster_daemon:
+    image: evanofslack/analogdb-dagster:latest
+    container_name: dagster_daemon
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DAGSTER_HOME: /app
+      DAGSTER_POSTGRES_USER: ${POSTGRES_USER}
+      DAGSTER_POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DAGSTER_POSTGRES_HOST: dagster_postgres
+      DAGSTER_POSTGRES_DB: ${POSTGRES_DB}
+      DAGSTER_POSTGRES_PORT: 5432
+    volumes:
+      - dagster_storage:/app/dagster_storage
+      - ./config/dagster.yaml:/app/dagster.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - dagster_postgres
+      - dagster_webserver
+    command: uv run dagster-daemon run
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+
+volumes:
+  dagster_postgres_data:
+  dagster_storage:
+
+networks:
+  default:
+    external: true
+    name: dagster
+

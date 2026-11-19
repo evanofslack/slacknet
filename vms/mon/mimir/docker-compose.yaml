@@ -1,6 +1,4 @@
-version: '3.4'
 services:
-
   mimir-gateway:
     image: nginx:latest
     container_name: mimir-nginx

@@ -1,0 +1,8 @@
+ORIGIN_URL="{{ op://Homelab/ralph-adguard-sync/ORIGIN_URL }}"
+ORIGIN_USERNAME="{{ op://Homelab/ralph-adguard-sync/ORIGIN_USERNAME }}"
+ORIGIN_PASSWORD="{{ op://Homelab/ralph-adguard-sync/ORIGIN_PASSWORD }}"
+REPLICA_URL="{{ op://Homelab/ralph-adguard-sync/REPLICA_URL }}"
+REPLICA_USERNAME="{{ op://Homelab/ralph-adguard-sync/REPLICA_USERNAME }}"
+REPLICA_PASSWORD="{{ op://Homelab/ralph-adguard-sync/REPLICA_PASSWORD }}"
+CRON="0 * * * *"
+RUN_ON_START="true"

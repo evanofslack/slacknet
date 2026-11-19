@@ -1,0 +1,106 @@
+{
+	#debug
+	admin localhost:2019
+	email evan.slack@outlook.com
+
+    log default {
+        format json
+    }
+
+	servers {
+		# Requests from Cloudflare edges carry the real client in CF-Connecting-IP.
+		# Peers outside these ranges (DNS-only sites, direct hits) keep their own address.
+		trusted_proxies cloudflare {
+			interval 12h
+			timeout 15s
+		}
+		client_ip_headers CF-Connecting-IP X-Forwarded-For
+		trusted_proxies_strict
+	}
+}
+
+(dnsauth) {
+	tls {
+		# get certs from cloudflare DNS challenge
+		dns cloudflare {env.CF_API_TOKEN}
+		# ca https://acme-staging-v02.api.letsencrypt.org/directory
+	}
+}
+
+*.{$ANALOGDB_DOMAIN}, {$ANALOGDB_DOMAIN} {
+	import dnsauth
+
+	# -------
+	#  DORP
+	# -------
+
+	# header_up sends dorp exactly one X-Forwarded-For entry, the resolved client.
+	# Without it Caddy appends the Cloudflare edge to the incoming header.
+
+	@analogdb host {$ANALOGDB_DOMAIN}
+	handle @analogdb {
+		reverse_proxy {$DORP_ADDR}:3000 {
+			header_up X-Forwarded-For {client_ip}
+		}
+	}
+
+	@analogdb-api host api.{$ANALOGDB_DOMAIN}
+	handle @analogdb-api {
+		reverse_proxy {$DORP_ADDR}:8080 {
+			header_up X-Forwarded-For {client_ip}
+		}
+	}
+	handle {
+		respond "Not found" 404
+	}
+}
+
+
+*.{$ESLACK_DOMAIN}, {$ESLACK_DOMAIN} {
+        import dnsauth
+
+        # -------
+        #  DORP
+        # -------
+
+        @umami host umami.{$ESLACK_DOMAIN}
+        handle @umami {
+                reverse_proxy {$DORP_ADDR}:3977
+        }
+
+        # Redirect to dev domain
+        @apex host {$ESLACK_DOMAIN}
+        handle @apex {
+                redir https://{$EVANSLACK_DOMAIN}{uri} 308
+        }
+
+        # Do not publish any other eslack.net subdomains
+        handle {
+                respond "Not found" 404
+        }
+}
+
+
+*.{$EVANSLACK_DOMAIN}, {$EVANSLACK_DOMAIN} {
+	import dnsauth
+
+	# -------
+	#  DORP
+	# -------
+
+	@poker host poker.{$EVANSLACK_DOMAIN}
+	handle @poker {
+		reverse_proxy {$DORP_ADDR}:7272
+	}
+	@bin host bin.{$EVANSLACK_DOMAIN}
+	handle @bin {
+		reverse_proxy {$DORP_ADDR}:8993
+	}
+	@samila host samila.{$EVANSLACK_DOMAIN}
+	handle @samila {
+		reverse_proxy {$DORP_ADDR}:8994
+	}
+	handle {
+		respond "Not found" 404
+	}
+}

@@ -1,0 +1,91 @@
+games:
+  - type: trivia
+    questions:
+      - text: "Anika would rather..."
+        options:
+          ["Go on a trip she didn't plan", "Plan a trip and not go on it"]
+        answer: "Plan a trip and not go on it"
+        points: 2
+      - text: "When Anika goes back to an establishment she has already been to, generally she..."
+        options:
+          ["Orders something she has already had and knows she likes", "Orders something new, it might be better, it might be worse"]
+        answer: "Orders something new, it might be better, it might be worse"
+        points: 2
+      - text: "Anika's favorite video game growing up"
+        options:
+          ["Just Dance", "Mario Galaxy", "Call of Duty", "Assassin's Creed"]
+        answer: "Call of Duty"
+        points: 2
+      - text: "What position did Anika hold in high school?"
+        options: ["President", "Vice President", "Treasurer", "Secretary"]
+        answer: "Treasurer"
+        points: 2
+      - text: "When calling out a liar, what does Anika say?"
+        options:
+          [
+            "Liar, liar, pencil fire",
+            "Liar, liar, telephone wire",
+            "Liar, liar, pants on fire",
+            "Liar, liar, tongue's on fire",
+          ]
+        answer: "Liar, liar, pencil fire"
+        points: 2
+
+  - type: wordle
+    word: "BIRTH"
+    max_guesses: 6
+
+  - type: connections
+    groups:
+      - category: "Keyboard keys"
+        color: green
+        words: ["control", "f1", "shift", "option"]
+      - category: "Oncology (abbreviated)"
+        color: yellow
+        words: ["med", "surg", "hem", "rad"]
+      - category: "Climbing holds"
+        color: blue
+        words: ["crimp", "jug", "pinch", "sloper"]
+      - category: "Over ___"
+        color: purple
+        words: ["hang", "throw", "dose", "flow"]
+
+  - type: fibbage
+    fibbage_questions:
+      - prompt: "In the 19th century, ___ was sold in grocery stores as a remedy for infant sleeplessness"
+        answer: "opium"
+      - prompt: "In the town of Wilbur, Washington, you can be fined $300 for riding a horse deemed to be ___."
+        answer: "ugly"
+      - prompt: "In the 1890’s in Australia it was common for patients with arthritis to climb inside ___ and lie in them for two hours in an attempt to be cured."
+        answer: "beached decomposing whales"
+      - prompt: "Partizánske in Slovakia was founded in 1938 as a planned, industrial town created specifically around a ___ factory that employed almost the entire adult population."
+        answer: "shoemaking"
+      - prompt: "In Connecticut It is illegal for two people who are married to ___ in public on a Sunday"
+        answer: "kiss"
+
+  - type: quiplash
+    max_rounds: 6
+    prompts:
+      - "What they're actually teaching at Hogwarts that Dumbledore doesn't want you to know"
+      - "The real reason New Haven has so many pizza places"
+      - "What the Pope googles at 2am"
+      - "The real difference between a lawyer and a doctor"
+      - "The title of a PowerPoint slide that ended someone's career"
+      - "Something you can say to your standardized patient that you cannot say to a real patient"
+
+  - type: emoji_decode
+    timer_seconds: 30
+    emoji_rounds:
+      - emoji: "❄️🦃"
+        answer: "cold turkey"
+      - emoji: "😱⚰️"
+        answer: "scared to death"
+      - emoji: "🕐💰"
+        answer: "time is money"
+      - emoji: "❌🚀👩‍🔬"
+        answer: "not rocket science"
+      - emoji: "👁4️⃣👁"
+        answer: "an eye for an eye"
+      - emoji: "🌍🔥😰"
+        answer: "climate change"
+

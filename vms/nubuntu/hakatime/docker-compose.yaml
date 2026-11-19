@@ -1,0 +1,38 @@
+version: "3.7"
+services:
+  server:
+    container_name: hakatime
+    image: mujx/hakatime:latest
+    restart: unless-stopped
+    environment:
+      HAKA_DB_HOST: haka_db
+      HAKA_DB_PORT: 5432
+      HAKA_DB_NAME: hakatime
+      HAKA_DB_PASS: ${HAKA_DB_PASS}
+      HAKA_DB_USER: hakatime
+      HAKA_BADGE_URL: "https://hakatime.local.eslack.net"
+      HAKA_PORT: 8080
+      HAKA_SHIELDS_IO_URL: "https://img.shields.io"
+      HAKA_ENABLE_REGISTRATION: "false"
+      HAKA_SESSION_EXPIRY: "4320" # 180 days
+      HAKA_LOG_LEVEL: "info"
+      HAKA_ENV: "dev"
+      HAKA_HTTP_LOG: "false"
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+      # Add the following variables if you want to forward any received heartbeats to another
+      # Wakatime compatible server.
+      # HAKA_REMOTE_WRITE_URL: "https://wakatime.com/api/v1/users/current/heartbeats.bulk"
+      # HAKA_REMOTE_WRITE_TOKEN: "<token>"
+    ports:
+      - 8202:8080
+  haka_db:
+    container_name: hakatime-postgres
+    image: postgres:12-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hakatime
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: hakatime
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
