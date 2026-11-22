@@ -70,8 +70,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PW}
       POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - 5432:5432
+    # not published: clients reach it as postgres:5432 on the prod network
     logging:
       options:
         max-size: 10m
@@ -98,7 +97,7 @@ services:
     image: confluentinc/cp-kafka:7.4.0
     container_name: kafka
     ports:
-      - 9092:9092
+      - 127.0.0.1:9092:9092 # PLAINTEXT_HOST listener, dorp-local only; containers use kafka:29092
     restart: unless-stopped
     environment:
       KAFKA_NODE_ID: 1
