@@ -69,6 +69,11 @@ def repo_stacks(host: str) -> dict[str, str]:
     return out
 
 
+def canonical_dir(host: str, repo_dir: str) -> str:
+    """Where a stack lives on the host when it isn't pinned to an existing running dir."""
+    return f"/home/{hosts()[host]['ssh_user']}/slacknet/{repo_dir}"
+
+
 def plan(host: str) -> tuple[dict[str, Stack], list[str]]:
     """-> (stacks by name, unmanaged running project names)."""
     running = projects(host)
@@ -82,7 +87,7 @@ def plan(host: str) -> tuple[dict[str, Stack], list[str]]:
             if meta.get("working_dir_missing"):
                 # the dir it was started from is gone: deploy to the clone's canonical path
                 s.relocate_from = s.working_dir
-                s.working_dir = f"/home/{hosts()[host]['ssh_user']}/slacknet/{rd}"
+                s.working_dir = canonical_dir(host, rd)
                 s.config_files = []
         stacks[name] = s
     unmanaged = sorted(set(running) - set(stacks))

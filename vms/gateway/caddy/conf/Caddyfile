@@ -408,6 +408,17 @@
                 reverse_proxy {$DORP_ADDR}:3291
         }
 
+        # S3 API (path-style requests; reverse_proxy keeps the Host header the signature covers)
+        @rustfs host rustfs.local.{$DOMAIN}
+        handle @rustfs {
+                reverse_proxy {$DORP_ADDR}:9010
+        }
+
+        @rustfs_console host rustfs-console.local.{$DOMAIN}
+        handle @rustfs_console {
+                reverse_proxy {$DORP_ADDR}:9011
+        }
+
         @samila host samila.local.{$DOMAIN}
         handle @samila {
                 reverse_proxy {$DORP_ADDR}:8994

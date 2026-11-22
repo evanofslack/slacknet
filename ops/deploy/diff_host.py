@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from lib import INV, SECRET_KEY, compose_config, parse_kv_lines  # noqa: E402
-from deploy.desired import Stack, check_repo, load_hashes, plan, render  # noqa: E402
+from deploy.desired import Stack, canonical_dir, check_repo, load_hashes, plan, render  # noqa: E402
 
 SECRET_LINE = re.compile(r"^([+\- ]?\s*-?\s*\"?)([A-Za-z_][\w.-]*)(\"?\s*[:=]\s*)(.+)$")
 NOISE = re.compile(r"(\.bak$|\.bak/|\.old$|\.orig$|\.log$|\.pid$|~$|\.swp$)")
@@ -255,6 +255,10 @@ def main() -> None:
             continue
         if not s.working_dir:
             summary["not deployed"].append(name)
+            if want:
+                render(s)
+                report += [f"\n## {name}  (not deployed; ops/apply --create puts it in {canonical_dir(a.host, s.repo_dir)})",
+                           *(f"  + {rel}" + ("  [secret]" if secret else "") for rel, secret in sorted(s.files.items()))]
             continue
         status, lines = diff_stack(a.host, s, hashes, runtime)
         if s.relocate_from:

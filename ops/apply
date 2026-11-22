@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Push main to one host's stacks (files only unless --up). Asks before executing.
-#   ./apply <host> --stack a,b [--up] [--any-branch]
+#   ./apply <host> --stack a,b [--up] [--create] [--any-branch]
 # Review ./diff <host> first. Backups: ~/.slacknet-backups/<ts>/ on the host.
+# --create: deploy stacks that aren't running yet to ~/slacknet/<repo dir> (pair with --up).
 set -euo pipefail
 cd "$(dirname "$0")"
 host="${1:?usage: ./apply <host> --stack a,b [--up] [--any-branch]}"; shift
@@ -10,6 +11,7 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --stack) stacks="$2"; shift 2 ;;
     --up) data+=(--data up=true); shift ;;
+    --create) data+=(--data create=true); shift ;;
     --any-branch) data+=(--data any_branch=true); shift ;;
     *) echo "unknown arg $1" >&2; exit 2 ;;
   esac
