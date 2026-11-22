@@ -3,10 +3,10 @@
 
 Run via ../ops/migrate <host> --stack a,b. Per stack:
   1. preflight (nothing changed yet): sources present, targets absent, same filesystem,
-     parents writable. Failures print the sudo commands to run by hand.
+     files to carry over readable; pull the mv helper image
   2. back up the compose/config files at the old dir -> ~/.slacknet-backups/<ts>/<stack>.tgz,
      and the move list -> <stack>.migrate (for --rollback)
-  3. docker compose down (never -v); mv each data path to /srv/<stack>/...
+  3. docker compose down (never -v); mv each data path to /srv/<stack>/... (as root, via a container)
   4. relocation only: copy app-written files out of tracked dirs (cp -an), then push repo files
   5. docker compose up -d --pull missing (never updates images); verify mounts
      (--no-up: leave the stack down, only check the moved paths exist)
@@ -40,6 +40,12 @@ if not manifest_path.exists():
     raise SystemExit(f"migrate: no {manifest_path}; run reconcile/datadirs.py")
 manifest = json.loads(manifest_path.read_text())
 B = f"$HOME/.slacknet-backups/{q(ts)}"
+# Data dirs are often owned by root or a container uid, and renaming a directory into another
+# parent needs write access to the directory itself. Rename as root in a throwaway container
+# (docker group is root-equivalent already); one bind of / keeps it a same-filesystem rename.
+HELPER = "alpine:3.20"
+RMV = (f'helper() {{ docker image inspect {HELPER} >/dev/null 2>&1 || docker pull -q {HELPER} >/dev/null; }}\n'
+       f'rmv() {{ mkdir -p "$(dirname "$2")" && docker run --rm --network none -v /:/host {HELPER} mv "/host$1" "/host$2"; }}\n')
 
 
 def compose_args(names: list[str]) -> str:
@@ -53,13 +59,14 @@ if rollback:
         server.shell(
             name=f"{name}: rollback from {ts}",
             commands=[f"""set -eu
+{RMV}helper
 M={B}/{n}.migrate
 test -f "$M" || {{ echo "no migration record $M"; exit 1; }}
 OLD=$(sed -n 's/^old_wd\\t//p' "$M"); CFG=$(sed -n 's/^old_cfg\\t//p' "$M")
 cd "$OLD" 2>/dev/null || cd /
 docker compose -p {n} down
 grep '^mv\\t' "$M" | while IFS="$(printf '\\t')" read -r _ src dst; do
-  if [ -e "$dst" ] && [ ! -e "$src" ]; then mkdir -p "$(dirname "$src")" && mv "$dst" "$src" && echo "moved back $dst -> $src"; fi
+  if [ -e "$dst" ] && [ ! -e "$src" ]; then rmv "$dst" "$src" && echo "moved back $dst -> $src"; fi
 done
 cd "$OLD" && tar xzf {B}/{n}.tgz
 args=""; for f in $(echo "$CFG" | tr ',' ' '); do args="$args -f $f"; done
@@ -100,18 +107,21 @@ elif [ ! -e {src} ]; then echo "MISSING source {mv['src']}"; bad=1
 elif [ -e {dst} ]; then echo "TARGET EXISTS {mv['dst']}"; bad=1
 else
   [ "$(stat -c %d "$(dirname {src})")" = "$(stat -c %d /srv)" ] || {{ echo "DIFFERENT FILESYSTEM: {mv['src']}"; bad=1; }}
-  if [ ! -w "$(dirname {src})" ]; then echo "NOT WRITABLE: parent of {mv['src']}"; sudo_cmds="$sudo_cmds
-  sudo mkdir -p $(dirname {dst}) && sudo mv {src} {dst}"; fi
 fi""")
+    for r in keep_dirs:
+        d = q(old + "/" + r)
+        pre.append(f"""
+if [ -d {d} ] && [ -n "$(find {d} ! -readable -print -quit 2>/dev/null)" ]; then
+  echo "UNREADABLE files in tracked dir to carry over: ./{r}"; bad=1; fi""")
     # 1-3: preflight, backup, down, move
     server.shell(
         name=f"{name}: preflight, back up, down, move data",
         commands=[f"""set -eu
-bad=0; sudo_cmds=""
+{RMV}bad=0
 test -w /srv || {{ echo "/srv not writable (sudo chown $USER: /srv)"; exit 1; }}
 {''.join(pre)}
-if [ -n "$sudo_cmds" ]; then echo "run by hand, then rerun migrate:$sudo_cmds"; bad=1; fi
 [ "$bad" = 0 ] || exit 1
+helper
 mkdir -p {B} && chmod 700 $HOME/.slacknet-backups {B}
 if [ -d {q(old)} ]; then cd {q(old)} && for f in {backup_files}; do [ -e "$f" ] && echo "$f"; done | tar czf {B}/{n}.tgz -T - ; else tar czf {B}/{n}.tgz -T /dev/null; fi
 chmod 600 {B}/{n}.tgz
@@ -122,7 +132,7 @@ else
   cd / && docker compose -p {n} down
 fi
 """ + "".join(
-            f"if [ -e {q(mv['src'])} ]; then mkdir -p \"$(dirname {q(mv['dst'])})\" && mv {q(mv['src'])} {q(mv['dst'])} && echo 'moved {mv['rel']}'; fi\n"
+            f"if [ -e {q(mv['src'])} ]; then rmv {q(mv['src'])} {q(mv['dst'])} && echo 'moved {mv['rel']}'; fi\n"
             for mv in moves) + (
             f"mkdir -p {q(new)}\n" + "".join(
                 f"if [ -d {q(old + '/' + r)} ]; then mkdir -p {q(new + '/' + r)} && cp -an {q(old + '/' + r)}/. {q(new + '/' + r)}/ && echo 'carried over ./{r}'; fi\n"
