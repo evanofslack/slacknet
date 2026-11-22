@@ -11,4 +11,4 @@ for a in "$@"; do [ "$a" = "--no-collect" ] && collect=0 || args+=("$a"); done
 umask 077
 [ "$collect" = 1 ] && ./collect --limit "$host" > "../.inventory/collect-$host.log" 2>&1
 uv run --no-env-file pyinfra inventory.py deploys/hashes.py --limit "$host" -y > "../.inventory/hashes-$host.log" 2>&1 || { echo "hash check failed, see .inventory/hashes-$host.log" >&2; exit 1; }
-uv run --no-env-file python deploy/diff_host.py "$host" "${args[@]}"
+uv run --no-env-file python deploy/diff_host.py "$host" ${args[@]+"${args[@]}"}

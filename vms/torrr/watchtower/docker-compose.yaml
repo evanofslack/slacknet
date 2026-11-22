@@ -11,7 +11,7 @@ services:
     environment:
       - WATCHTOWER_CLEANUP=true
       - WATCHTOWER_SCHEDULE=0 0 4 * * *
-      - WATCHTOWER_ROLLING_RESTART=true
+      - WATCHTOWER_ROLLING_RESTART=false # qbittorrent uses network_mode: service:gluetun
       - WATCHTOWER_TIMEOUT=60s
       - WATCHTOWER_NO_STARTUP_MESSAGE=true
       - WATCHTOWER_NOTIFICATION_TITLE_TAG=torrr
