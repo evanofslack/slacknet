@@ -1,0 +1,16 @@
+services:
+  myki:
+    image: evanofslack/myki:latest
+    restart: unless-stopped
+    ports:
+      - 8711:8080 # app, proxied by gateway caddy
+      - 8712:9090 # /metrics
+    environment:
+      MYKI_BASE_URL: https://myki.local.eslack.net
+      MYKI_SECURE_COOKIES: "true"
+      MYKI_TRUST_PROXY: "true"
+      MYKI_JOIN_CODE: ${MYKI_JOIN_CODE}
+      TZ: America/New_York
+    volumes:
+      - /srv/myki/data:/data
+      - /srv/myki/backups:/backups
