@@ -54,14 +54,15 @@ if rollback:
 M={B}/{n}.migrate
 test -f "$M" || {{ echo "no migration record $M"; exit 1; }}
 OLD=$(sed -n 's/^old_wd\\t//p' "$M"); CFG=$(sed -n 's/^old_cfg\\t//p' "$M")
-cd / && docker compose -p {n} down
+cd "$OLD" 2>/dev/null || cd /
+docker compose -p {n} down
 grep '^mv\\t' "$M" | while IFS="$(printf '\\t')" read -r _ src dst; do
   if [ -e "$dst" ] && [ ! -e "$src" ]; then mkdir -p "$(dirname "$src")" && mv "$dst" "$src" && echo "moved back $dst -> $src"; fi
 done
 cd "$OLD" && tar xzf {B}/{n}.tgz
 args=""; for f in $(echo "$CFG" | tr ',' ' '); do args="$args -f $f"; done
 docker compose -p {n} $args up -d --pull missing
-docker compose -p {n} ps --format '{{{{.Name}}}} {{{{.State}}}}'
+docker ps -a --filter label=com.docker.compose.project={n} --format '{{{{.Names}}}} {{{{.State}}}}'
 """],
         )
 else:
@@ -113,7 +114,11 @@ mkdir -p {B} && chmod 700 $HOME/.slacknet-backups {B}
 if [ -d {q(old)} ]; then cd {q(old)} && for f in {backup_files}; do [ -e "$f" ] && echo "$f"; done | tar czf {B}/{n}.tgz -T - ; else tar czf {B}/{n}.tgz -T /dev/null; fi
 chmod 600 {B}/{n}.tgz
 printf '{record}\\n' > {B}/{n}.migrate
-cd / && docker compose -p {n} down
+if [ -d {q(old)} ] && (cd {q(old)} && for f in {' '.join(q(f) for f in old_cfg) or 'none'}; do [ -f "$f" ] || exit 1; done); then
+  cd {q(old)} && docker compose -p {n} {compose_args(old_cfg)} down
+else
+  cd / && docker compose -p {n} down
+fi
 """ + "".join(
             f"if [ -e {q(mv['src'])} ]; then mkdir -p \"$(dirname {q(mv['dst'])})\" && mv {q(mv['src'])} {q(mv['dst'])} && echo 'moved {mv['rel']}'; fi\n"
             for mv in moves) + (
@@ -135,14 +140,19 @@ cd / && docker compose -p {n} down
         commands=[f"""set -eu
 cd {q(new)} && docker compose -p {n} {compose_args(new_cfg)} up -d --pull missing
 sleep 5
-docker compose -p {n} ps -a --format '{{{{.Name}}}} {{{{.State}}}} {{{{.Status}}}}'
-bad=0
-for c in $(docker compose -p {n} ps -aq); do
+docker ps -a --filter label=com.docker.compose.project={n} --format '{{{{.Names}}}} {{{{.State}}}} {{{{.Status}}}}'
+for c in $(docker ps -aq --filter label=com.docker.compose.project={n}); do
   docker inspect -f '{{{{range .Mounts}}}}{{{{if eq .Type "bind"}}}}{{{{.Source}}}}{{{{"\\n"}}}}{{{{end}}}}{{{{end}}}}' "$c"
 done | sort -u | while read -r src; do
-  case "$src" in
-    {q(old)}/*) [ {q(old)} != {q(new)} ] && echo "STILL UNDER OLD DIR: $src" && exit 1 ;;
-  esac
+  for d in {q(old)} {q(new)}; do
+    case "$src" in
+      "$d"/*) rel="${{src#"$d"/}}"
+        case " {' '.join(m['keep_relative'])} " in
+          *" $rel "*) ;;
+          *) echo "DATA STILL IN STACK DIR: $src"; exit 1 ;;
+        esac ;;
+    esac
+  done
   [ -e "$src" ] || {{ echo "MISSING mount source: $src"; exit 1; }}
   echo "mount ok: $src"
 done
