@@ -65,9 +65,16 @@ test -f "$M" || {{ echo "no migration record $M"; exit 1; }}
 OLD=$(sed -n 's/^old_wd\\t//p' "$M"); CFG=$(sed -n 's/^old_cfg\\t//p' "$M")
 cd "$OLD" 2>/dev/null || cd /
 docker compose -p {n} down
-grep '^mv\\t' "$M" | while IFS="$(printf '\\t')" read -r _ src dst; do
-  if [ -e "$dst" ] && [ ! -e "$src" ]; then rmv "$dst" "$src" && echo "moved back $dst -> $src"; fi
-done
+TAB="$(printf '\\t')"
+grep "^mv$TAB" "$M" > "$M.moves" || true
+echo "$(wc -l < "$M.moves") paths to move back"
+while IFS="$TAB" read -r _ src dst; do
+  if [ -e "$dst" ] && [ ! -e "$src" ]; then rmv "$dst" "$src" && echo "moved back $dst -> $src"
+  elif [ -e "$src" ] && [ ! -e "$dst" ]; then echo "already back: $src"
+  else echo "CONFLICT (both or neither exist): $src <- $dst"; exit 1; fi
+done < "$M.moves"
+# never let docker auto-create an empty bind source
+while IFS="$TAB" read -r _ src dst; do [ -e "$src" ] || {{ echo "NOT BACK: $src; not starting"; exit 1; }}; done < "$M.moves"
 cd "$OLD" && tar xzf {B}/{n}.tgz
 args=""; for f in $(echo "$CFG" | tr ',' ' '); do args="$args -f $f"; done
 docker compose -p {n} $args up -d --pull missing
@@ -158,7 +165,7 @@ fi
     server.shell(
         name=f"{name}: up -d --pull missing, verify",
         commands=[f"""set -eu
-cd {q(new)} && docker compose -p {n} {compose_args(new_cfg)} up -d --pull missing
+{''.join(f"[ -e {q(mv['dst'])} ] || {{ echo 'NOT MOVED: {mv['dst']}; not starting'; exit 1; }}" + chr(10) for mv in moves)}cd {q(new)} && docker compose -p {n} {compose_args(new_cfg)} up -d --pull missing
 sleep 5
 docker ps -a --filter label=com.docker.compose.project={n} --format '{{{{.Names}}}} {{{{.State}}}} {{{{.Status}}}}'
 for c in $(docker ps -aq --filter label=com.docker.compose.project={n}); do
