@@ -44,7 +44,8 @@ B = f"$HOME/.slacknet-backups/{q(ts)}"
 # parent needs write access to the directory itself. Rename as root in a throwaway container
 # (docker group is root-equivalent already); one bind of / keeps it a same-filesystem rename.
 HELPER = "alpine:3.20"
-RMV = (f'helper() {{ docker image inspect {HELPER} >/dev/null 2>&1 || docker pull -q {HELPER} >/dev/null; }}\n'
+RMV = (f'helper() {{ for i in 1 2 3 4 5; do docker image inspect {HELPER} >/dev/null 2>&1 && return 0; '
+       f'docker pull -q {HELPER} >/dev/null && return 0; sleep 5; done; return 1; }}\n'
        f'rmv() {{ mkdir -p "$(dirname "$2")" && docker run --rm --network none -v /:/host {HELPER} mv "/host$1" "/host$2"; }}\n')
 
 
