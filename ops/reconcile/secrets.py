@@ -245,7 +245,7 @@ def discover(only: str | None) -> list[Stack]:
     for p in sorted((REPO / "vms").rglob("*")):
         if p.is_file() and p.name in COMPOSE_NAMES:
             rel = str(p.parent.relative_to(REPO))
-            if only and not rel.startswith(only):
+            if only and rel != only.rstrip("/") and not rel.startswith(only.rstrip("/") + "/"):
                 continue
             dirs.setdefault(rel, []).append(p)
     return [Stack(d, files, envs.get(d)) for d, files in dirs.items()]
