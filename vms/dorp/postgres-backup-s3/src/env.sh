@@ -29,8 +29,15 @@ if [ -z "$POSTGRES_PASSWORD" ]; then
   exit 1
 fi
 
-# overwrite S3 endpoint because env vars were not working
-aws_args="--endpoint-url https://s3.wasabisys.com"
+# custom S3 endpoint (rustfs); path-style since buckets aren't DNS subdomains of it
+aws_args=""
+if [ -n "$S3_ENDPOINT" ]; then
+  case "$S3_ENDPOINT" in
+    http://*|https://*) aws_args="--endpoint-url $S3_ENDPOINT" ;;
+    *) aws_args="--endpoint-url https://$S3_ENDPOINT" ;;
+  esac
+  aws configure set default.s3.addressing_style path
+fi
 
 if [ -n "$S3_ACCESS_KEY_ID" ]; then
   export AWS_ACCESS_KEY_ID=$S3_ACCESS_KEY_ID
