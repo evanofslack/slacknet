@@ -9,6 +9,7 @@ Run via ../ops/migrate <host> --stack a,b. Per stack:
   3. docker compose down (never -v); mv each data path to /srv/<stack>/...
   4. relocation only: copy app-written files out of tracked dirs (cp -an), then push repo files
   5. docker compose up -d --pull missing (never updates images); verify mounts
+     (--no-up: leave the stack down, only check the moved paths exist)
 
 --rollback (with --ts): down, mv everything back, restore the old files, up from the old dir.
 """
@@ -30,6 +31,7 @@ q = shlex.quote
 want = [s for s in str(host.data.get("stacks") or "").split(",") if s]
 ts = str(host.data.get("ts") or "")
 rollback = bool(host.data.get("rollback"))
+no_up = bool(host.data.get("no_up"))
 if not want or not ts:
     raise SystemExit("migrate: --stack and ts are required")
 
@@ -134,6 +136,14 @@ fi
             dest=f"{new}/{rel}",
             mode="600" if rel == ".env" else None,
         )
+    if no_up:
+        server.shell(
+            name=f"{name}: left down (--no-up); check moved paths",
+            commands=["set -eu\n" + "".join(
+                f"[ -e {q(mv['dst'])} ] && echo 'ok {mv['dst']}' || {{ echo 'MISSING {mv['dst']}'; exit 1; }}\n"
+                for mv in moves) or "true"],
+        )
+        continue
     # 5: up + verify
     server.shell(
         name=f"{name}: up -d --pull missing, verify",

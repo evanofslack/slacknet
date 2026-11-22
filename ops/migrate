@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Move stacks' data to /srv/<stack> and relocate them to ~/slacknet/<repo dir>. Downtime per stack.
-#   ./migrate <host> --stack a,b [--any-branch]
+#   ./migrate <host> --stack a,b [--any-branch] [--no-up]   (--no-up: move + push files, leave it down)
 #   ./migrate <host> --stack a --rollback <ts>
 # Plan comes from .inventory/<host>/datadirs.json (reconcile/datadirs.py); review it first.
 # Backups + move records: ~/.slacknet-backups/<ts>/ on the host.
@@ -13,6 +13,7 @@ while [ $# -gt 0 ]; do
     --stack) stacks="$2"; shift 2 ;;
     --rollback) rb=1; ts="$2"; data+=(--data rollback=true); shift 2 ;;
     --any-branch) data+=(--data any_branch=true); shift ;;
+    --no-up) data+=(--data no_up=true); shift ;;
     *) echo "unknown arg $1" >&2; exit 2 ;;
   esac
 done
