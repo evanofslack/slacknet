@@ -100,7 +100,8 @@ for name in ([] if rollback else want):
         raise SystemExit(f"migrate: {name}: no compose file in repo")
     moves = m["moves"]
     reloc = old != new
-    keep_dirs = m["keep_relative"] if reloc else []
+    # carry over only tracked *directories*; a tracked file comes from the repo as is
+    keep_dirs = [r for r in m["keep_relative"] if r not in s.files] if reloc else []
     backup_files = " ".join(q(f) for f in sorted(set(s.files) | set(old_cfg) | {".env"}))
 
     record = "\\n".join(
