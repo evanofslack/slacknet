@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Read-only: show what deploying main would change on one host.
+#   ./diff <host> [--stack a,b] [--any-branch] [--no-collect]
+# 1. ops/collect snapshot (file contents), 2. live sha256 of every target path,
+# 3. local diff (secrets masked) -> .inventory/<host>/diff.txt
+set -euo pipefail
+cd "$(dirname "$0")"
+host="${1:?usage: ./diff <host> [--stack a,b] [--any-branch] [--no-collect]}"; shift
+collect=1; args=()
+for a in "$@"; do [ "$a" = "--no-collect" ] && collect=0 || args+=("$a"); done
+umask 077
+[ "$collect" = 1 ] && ./collect --limit "$host" > "../.inventory/collect-$host.log" 2>&1
+uv run --no-env-file pyinfra inventory.py deploys/hashes.py --limit "$host" -y > "../.inventory/hashes-$host.log" 2>&1 || { echo "hash check failed, see .inventory/hashes-$host.log" >&2; exit 1; }
+uv run --no-env-file python deploy/diff_host.py "$host" "${args[@]}"

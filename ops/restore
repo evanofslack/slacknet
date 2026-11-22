@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Roll one stack's files back to an apply backup.  ./restore <host> <stack> <ts> [--up]
+set -euo pipefail
+cd "$(dirname "$0")"
+host="${1:?usage: ./restore <host> <stack> <ts> [--up]}"; stack="${2:?stack}"; ts="${3:?ts}"
+up=(); [ "${4:-}" = "--up" ] && up=(--data up=true)
+uv run --no-env-file pyinfra inventory.py deploys/restore.py --limit "$host" \
+  --data "stack=$stack" --data "ts=$ts" "${up[@]}"
