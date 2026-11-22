@@ -1,0 +1,5 @@
+INFLUXDB_DB=test
+INFLUXDB_ADMIN_USER={{ op://Homelab/mon-influxdb/INFLUXDB_ADMIN_USER }}
+INFLUXDB_ADMIN_PASSWORD={{ op://Homelab/mon-influxdb/INFLUXDB_ADMIN_PASSWORD }}
+INFLUXDB_USER={{ op://Homelab/mon-influxdb/INFLUXDB_USER }}
+INFLUXDB_USER_PASSWORD={{ op://Homelab/mon-influxdb/INFLUXDB_USER_PASSWORD }}

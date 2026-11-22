@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+  influxdb:
+    image: influxdb:2.2
+    container_name: scrutiny-influxdb
+    restart: unless-stopped
+    ports:
+      - 8041:8086
+    volumes:
+      - ./influxdb:/var/lib/influxdb2
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 20
+
+
+  web:
+    image: 'ghcr.io/analogj/scrutiny:master-web'
+    container_name: scrutiny
+    hostname: nubuntu
+    restart: unless-stopped
+    ports:
+      - 8040:8080
+    volumes:
+      - ./config:/opt/scrutiny/config
+    environment:
+      SCRUTINY_WEB_INFLUXDB_HOST: 'influxdb'
+      SCRUTINY_WEB_NOTIFY_URLS: ${SCRUTINY_WEB_NOTIFY_URLS}
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 20
+      start_period: 10s

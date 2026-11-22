@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+  redis:
+    image: 'redis:alpine'
+    container_name: send-redis
+    restart: unless-stopped
+    volumes:
+      - ./send-redis:/data
+
+  send:
+    image: registry.gitlab.com/timvisee/send:latest
+    container_name: send
+    restart: unless-stopped
+    ports:
+      - 1234:1234
+    depends_on:
+      - redis
+    environment:
+      - VIRTUAL_HOST=send.local.eslack.net
+      - VIRTUAL_PORT=1234
+      - DHPARAM_GENERATION=false
+      - NODE_ENV=production
+      - BASE_URL=https://send.local.eslack.net
+      - PORT=1234
+      - REDIS_HOST=redis
+
+      # For S3 object storage (disable volume and FILE_DIR variable)
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - S3_BUCKET=eslack-send
+      - S3_ENDPOINT=s3.wasabisys.com
+      - S3_USE_PATH_STYLE_ENDPOINT=true
+
+      # To customize upload limits
+      - DEFAULT_EXPIRE_SECONDS=3600
+      - MAX_EXPIRE_SECONDS=31536000
+      - MAX_FILE_SIZE=107374182400
+  
+

@@ -1,0 +1,41 @@
+services:
+  caddy:
+    image: evanofslack/caddy-cloudflare:v1.0.0
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+    volumes:
+      - ./conf:/etc/caddy:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - ANALOGDB_DOMAIN=${ANALOGDB_DOMAIN}
+      - ESLACK_DOMAIN=${ESLACK_DOMAIN}
+      - EVANSLACK_DOMAIN=${EVANSLACK_DOMAIN}
+      - CF_API_TOKEN=${CF_API_TOKEN}
+      - NUBUNTU_ADDR=${NUBUNTU_ADDR}
+      - KUBUNTU_ADDR=${KUBUNTU_ADDR}
+      - PBS_ADDR=${PBS_ADDR}
+      - TORRR_ADDR=${TORRR_ADDR}
+      - MON_ADDR=${MON_ADDR}
+      - SCALE_ADDR=${SCALE_ADDR}
+      - PVENAVI_ADDR=${PVENAVI_ADDR}
+      - GATEWAY_ADDR=${GATEWAY_ADDR}
+      - VED_ADDR=${VED_ADDR}
+      - DORP_ADDR=${DORP_ADDR}
+      - PIKVM_ADDR=${PIKVM_ADDR}
+      - RALPH_ADDR=${RALPH_ADDR}
+      - RONALD_ADDR=${RONALD_ADDR}
+      - JOULE_ADDR=${JOULE_ADDR}
+
+volumes:
+  caddy_data:
+  caddy_config:

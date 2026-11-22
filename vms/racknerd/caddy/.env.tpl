@@ -1,0 +1,20 @@
+DOMAIN=eslack.net
+ANALOGDB_DOMAIN=analogdb.com
+ESLACK_DOMAIN=eslack.net
+EVANSLACK_DOMAIN=evanslack.dev
+# all zones
+CF_API_TOKEN={{ op://Homelab/racknerd-caddy/CF_API_TOKEN }}
+NUBUNTU_ADDR={{ op://Homelab/racknerd-caddy/NUBUNTU_ADDR }}
+KUBUNTU_ADDR={{ op://Homelab/racknerd-caddy/KUBUNTU_ADDR }}
+PBS_ADDR={{ op://Homelab/racknerd-caddy/PBS_ADDR }}
+TORRR_ADDR={{ op://Homelab/racknerd-caddy/TORRR_ADDR }}
+MON_ADDR={{ op://Homelab/racknerd-caddy/MON_ADDR }}
+PVENAVI_ADDR={{ op://Homelab/racknerd-caddy/PVENAVI_ADDR }}
+GATEWAY_ADDR={{ op://Homelab/racknerd-caddy/GATEWAY_ADDR }}
+VED_ADDR={{ op://Homelab/racknerd-caddy/VED_ADDR }}
+DORP_ADDR={{ op://Homelab/racknerd-caddy/DORP_ADDR }}
+JOULE_ADDR={{ op://Homelab/racknerd-caddy/JOULE_ADDR }}
+SCALE_ADDR={{ op://Homelab/racknerd-caddy/SCALE_ADDR }}
+RALPH_ADDR={{ op://Homelab/racknerd-caddy/RALPH_ADDR }}
+RONALD_ADDR={{ op://Homelab/racknerd-caddy/RONALD_ADDR }}
+PIKVM_ADDR={{ op://Homelab/racknerd-caddy/PIKVM_ADDR }}

@@ -1,0 +1,17 @@
+services:
+  metube:
+    image: alexta69/metube:latest
+    container_name: metube
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    volumes:
+      - /mnt/media/videos:/downloads
+      - ./state:/state
+    environment:
+      - DOWNLOAD_DIR=/downloads
+      - AUDIO_DOWNLOAD_DIR=/downloads/audio
+      - CREATE_CUSTOM_DIRS=True
+      - STATE_DIR=/state
+      - PUID=1000
+      - PGID=1000

@@ -1,0 +1,27 @@
+services:
+  db:
+    image: docker.io/postgres:14
+    container_name: expanse-postgres
+    restart: unless-stopped
+    volumes:
+      - ./db:/var/lib/postgresql/data/
+    env_file:
+      - .env
+
+  app:
+    image: ghcr.io/jc9108/expanse:latest
+    entrypoint: []
+    container_name: expanse
+    command: sh -c "wait-for-it db:5432 -t 0 && cd ./backend/ && npm run prod"
+    restart: unless-stopped
+    working_dir: /app/
+    depends_on:
+      - db
+    volumes:
+      - ./backups:/app/backend/backups/
+    ports:
+      - 1301:1301
+    environment:
+      - VERSION=1.2.10
+    env_file:
+      - .env

@@ -1,0 +1,51 @@
+[api]
+enabled = false
+
+[sources.docker]
+type = "docker_logs"
+auto_partial_merge = true
+docker_host = "/var/run/docker.sock"
+
+[sources.syslog]
+type = "file"
+include = [ "/host/syslog" ]
+
+[sources.cadvisor-metrics]
+type = "prometheus_scrape"
+endpoints = [ "http://cadvisor:8080/metrics" ]
+scrape_interval_secs = 30
+
+[sources.node-exporter-metrics]
+type = "prometheus_scrape"
+endpoints = [ "http://node-exporter:9100/metrics" ]
+scrape_interval_secs = 30
+
+[transforms.add-hostname-docker]
+  type = "remap"
+  inputs = ["docker"]
+  source = '''
+.hostname = "$HOSTNAME"
+'''
+
+[transforms.add-hostname-syslog]
+  type = "remap"
+  inputs = ["syslog"]
+  source = '''
+.hostname = "$HOSTNAME"
+'''
+
+[sinks.gateway-vector-docker]
+type = "vector"
+inputs = [ "add-hostname-docker" ]
+address = "10.33.1.24:8687"
+
+[sinks.gateway-vector-syslog]
+type = "vector"
+inputs = [ "add-hostname-syslog" ]
+address = "10.33.1.24:8688"
+
+[sinks.gateway-vector-metrics]
+type = "vector"
+inputs = [ "cadvisor-metrics", "node-exporter-metrics" ]
+address = "10.33.1.24:8689"
+batch.max_bytes = 4160000

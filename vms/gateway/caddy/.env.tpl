@@ -1,0 +1,16 @@
+DOMAIN=eslack.net
+CF_API_TOKEN={{ op://Homelab/gateway-caddy/CF_API_TOKEN }}
+NUBUNTU_ADDR={{ op://Homelab/gateway-caddy/NUBUNTU_ADDR }}
+KUBUNTU_ADDR={{ op://Homelab/gateway-caddy/KUBUNTU_ADDR }}
+PBS_ADDR={{ op://Homelab/gateway-caddy/PBS_ADDR }}
+TORRR_ADDR={{ op://Homelab/gateway-caddy/TORRR_ADDR }}
+MON_ADDR={{ op://Homelab/gateway-caddy/MON_ADDR }}
+PVE_ADDR={{ op://Homelab/gateway-caddy/PVE_ADDR }}
+GATEWAY_ADDR={{ op://Homelab/gateway-caddy/GATEWAY_ADDR }}
+VED_ADDR={{ op://Homelab/gateway-caddy/VED_ADDR }}
+JOULE_ADDR={{ op://Homelab/gateway-caddy/JOULE_ADDR }}
+SCALE_ADDR={{ op://Homelab/gateway-caddy/SCALE_ADDR }}
+RALPH_ADDR={{ op://Homelab/gateway-caddy/RALPH_ADDR }}
+RONALD_ADDR={{ op://Homelab/gateway-caddy/RONALD_ADDR }}
+PIKVM_ADDR={{ op://Homelab/gateway-caddy/PIKVM_ADDR }}
+DORP_ADDR={{ op://Homelab/gateway-caddy/DORP_ADDR }}

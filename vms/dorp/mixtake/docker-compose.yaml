@@ -1,0 +1,61 @@
+services:
+  mixtake:
+    image: evanofslack/mixtake:${MIXTAKE_TAG:-latest}
+    container_name: mixtake
+    restart: unless-stopped
+    # only reachable through the reverse proxy (and a local prometheus) on this host
+    ports:
+      - 8610:8080
+      - 9610:9090
+    volumes:
+      - mixtake-data:/data
+    environment:
+      DB_PATH: /data/mixtake.db
+      ANALYZER_URL: http://analyzer:8000
+      # behind caddy, take the client ip from a header instead of the proxy's address
+      TRUST_PROXY: "true"
+      # behind cloudflare, the rightmost X-Forwarded-For entry is a cloudflare edge ip,
+      # so read the header cloudflare sets. use X-Forwarded-For when caddy faces clients directly
+      CLIENT_IP_HEADER: ${CLIENT_IP_HEADER:-CF-Connecting-IP}
+      # tracks analysed at once across all mixes; keep it >= ANALYZER_WORKERS
+      ANALYZE_CONCURRENCY: ${ANALYZE_CONCURRENCY:-4}
+      SPOTIFY_CONCURRENCY: ${SPOTIFY_CONCURRENCY:-4}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-10}
+      GLOBAL_RATE_LIMIT_PER_MINUTE: ${GLOBAL_RATE_LIMIT_PER_MINUTE:-60}
+      MAX_PASTE_TRACKS: ${MAX_PASTE_TRACKS:-300}
+      # cover ideas from an LLM; empty key uses the canned scenes
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-google/gemini-2.5-flash-lite}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://openrouter.ai/api/v1}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      LOG_FORMAT: ${LOG_FORMAT:-json}
+    depends_on:
+      analyzer:
+        condition: service_healthy
+
+  analyzer:
+    image: evanofslack/mixtake-analyzer:${ANALYZER_TAG:-latest}
+    # essentia-tensorflow only ships x86_64 linux wheels
+    platform: linux/amd64
+    container_name: mixtake-analyzer
+    restart: unless-stopped
+    # no published ports: only mixtake talks to it, over the compose network
+    environment:
+      # uvicorn worker processes; each one needs about 1.7 GB of RAM
+      ANALYZER_WORKERS: ${ANALYZER_WORKERS:-2}
+      LOG_LEVEL: ${ANALYZER_LOG_LEVEL:-info}
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=4)
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      # loading the models takes a few seconds per worker
+      start_period: 120s
+
+volumes:
+  mixtake-data:
+

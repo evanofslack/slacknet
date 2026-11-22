@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  podgrab:
+    image: akhilrex/podgrab:latest
+    container_name: podgrab
+    restart: unless-stopped
+    ports:
+      - 8330:8080
+    environment:
+      - CHECK_FREQUENCY=240
+     # - PASSWORD=password     ## Uncomment to enable basic authentication, username = podgrab
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./config:/config
+      - /mnt/media/podcasts:/assets

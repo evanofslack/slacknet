@@ -19,3 +19,24 @@ terraform.tfstate*
 credentials.auto.tfvars
 
 docs/
+# host inventory dumps (contain secrets)
+.inventory/
+# ops venv
+ops/.venv/
+# ops host addresses
+ops/.env
+# rendered secrets: commit .env.tpl / .env.example, never .env
+.env
+**/.env
+!.env.tpl
+__pycache__/
+# app configs rendered from *.tpl by op inject
+/vms/torrr/recyclarr/config/secrets.yml
+/vms/nubuntu/pve-exporter/config/pve.yaml
+ops/reconcile/*.md
+# archived / deprecated stacks are not tracked
+vms/archive/
+**/*-deprecated/
+# host-local configs with credentials/hashes (managed on host)
+vms/raspi/*/adguard/conf/AdGuardHome.yaml
+vms/racknerd/caddy/conf/Caddyfile.full

@@ -1,0 +1,30 @@
+services:
+  go-poker:
+    image: evanofslack/go-poker:latest
+    container_name: go-poker
+    restart: unless-stopped
+    ports:
+      - 7272:8080
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: go-poker-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: poker
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: poker
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "poker"]
+      interval: 2s
+      retries: 15
+
+volumes:
+  postgres:

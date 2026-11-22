@@ -1,0 +1,19 @@
+services:
+  radarr:
+    container_name: radarr
+      # image: cr.hotio.dev/hotio/radarr:latest
+    image: ghcr.io/hotio/radarr:latest
+    restart: unless-stopped
+    logging:
+      driver: json-file
+    network_mode: bridge
+    ports:
+      - 7878:7878
+    environment:
+      # - PUID=1000
+      # - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config:/config
+      - /mnt/data:/data

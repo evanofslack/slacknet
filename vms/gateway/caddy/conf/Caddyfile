@@ -1,0 +1,425 @@
+{
+    #debug
+        admin :2019 {
+                origins {$NUBUNTU_ADDR}
+        }
+        servers {
+                metrics
+        }
+        email evan.slack@outlook.com
+}
+
+(dnsauth) {
+        tls {
+                dns cloudflare {env.CF_API_TOKEN}
+                # ca https://acme-staging-v02.api.letsencrypt.org/directory
+        }
+}
+
+*.local.{$DOMAIN}, *.{$DOMAIN}, {$DOMAIN} {
+        # get certs from cloudflare DNS challenge
+        import dnsauth
+
+        # only allow local access
+        @denied not remote_ip private_ranges
+        abort @denied
+
+        # ---------
+        #  SCALE
+        # ---------
+
+        @scale host scale.local.{$DOMAIN}
+        handle @scale {
+                reverse_proxy {$SCALE_ADDR}:80
+        }
+
+        # ---------
+        #  PVE
+        # ---------
+
+        @pve host pve.local.{$DOMAIN}
+        handle @pve {
+                reverse_proxy {$PVE_ADDR}:8006 {
+        transport http {
+            tls_insecure_skip_verify
+            }
+        }
+        }
+
+        # ---------
+        #  PBS
+        # ---------
+
+        @pbs host pbs.local.{$DOMAIN}
+        handle @pbs {
+                reverse_proxy {$PBS_ADDR}:8007 {
+        transport http {
+            tls_insecure_skip_verify
+            }
+        header_up Connection {http.request.header.Connection}
+        header_up Upgrade {http.request.header.Upgrade}
+        }
+        }
+
+        # -------
+        #  RALPH
+        # -------
+
+        @adguard host adguard.local.{$DOMAIN}
+        handle @adguard {
+                reverse_proxy {$RALPH_ADDR}:80
+        }
+
+        # -------
+        #  RONALD
+        # -------
+
+        @adguard2 host adguard2.local.{$DOMAIN}
+        handle @adguard2 {
+                reverse_proxy {$RONALD_ADDR}:80
+        }
+
+        @homebridge host homebridge.local.{$DOMAIN}
+        handle @homebridge {
+                reverse_proxy {$RONALD_ADDR}:8581
+        }
+
+        # ---------
+        #  GATEWAY
+        # ---------
+
+        # -----
+        #  MON
+        # -----
+
+        @alertmanager host alertmanager.local.{$DOMAIN}
+        handle @alertmanager {
+                reverse_proxy {$MON_ADDR}:9093
+        }
+
+        @grafana host grafana.local.{$DOMAIN}
+        handle @grafana {
+                reverse_proxy {$MON_ADDR}:3000
+        }
+
+        @influxdb host influxdb.local.{$DOMAIN}
+        handle @influxdb {
+                reverse_proxy {$MON_ADDR}:8086
+        }
+
+        @jaeger host jaeger.local.{$DOMAIN}
+        handle @jaeger {
+                reverse_proxy {$MON_ADDR}:16686
+        }
+
+        @karma host karma.local.{$DOMAIN}
+        handle @karma {
+                reverse_proxy {$MON_ADDR}:9094
+        }
+
+        @loki host loki.local.{$DOMAIN}
+        handle @loki {
+                reverse_proxy {$MON_ADDR}:3100
+        }
+
+        @mimir host mimir.local.{$DOMAIN}
+        handle @mimir {
+                reverse_proxy {$MON_ADDR}:9010
+        }
+
+        @prometheus host prometheus.local.{$DOMAIN}
+        handle @prometheus {
+                reverse_proxy {$MON_ADDR}:9090
+        }
+
+        @pyroscope host pyroscope.local.{$DOMAIN}
+        handle @pyroscope {
+                reverse_proxy {$MON_ADDR}:4040
+        }
+
+        # -------
+        #  TORRR
+        # -------
+
+        @audiobookshelf host audiobookshelf.local.{$DOMAIN}
+        handle @audiobookshelf {
+                reverse_proxy {$TORRR_ADDR}:13378
+        }
+
+        @bazarr host bazarr.local.{$DOMAIN}
+        handle @bazarr {
+                reverse_proxy {$TORRR_ADDR}:6767
+        }
+
+        @jellyseerr host jellyseerr.local.{$DOMAIN}
+        handle @jellyseerr {
+                reverse_proxy {$TORRR_ADDR}:5055
+        }
+
+        @lidarr host lidarr.local.{$DOMAIN}
+        handle @lidarr {
+                reverse_proxy {$TORRR_ADDR}:8686
+        }
+
+        @metube host metube.local.{$DOMAIN}
+        handle @metube {
+                reverse_proxy {$TORRR_ADDR}:8081
+        }
+
+        @navidrome host navidrome.local.{$DOMAIN}
+        handle @navidrome {
+                reverse_proxy {$TORRR_ADDR}:4533
+        }
+
+        @openbooks host openbooks.local.{$DOMAIN}
+        handle @openbooks {
+                reverse_proxy {$TORRR_ADDR}:8071
+        }
+
+        @podgrab host podgrab.local.{$DOMAIN}
+        handle @podgrab {
+                reverse_proxy {$TORRR_ADDR}:8330
+        }
+
+        @prowlarr host prowlarr.local.{$DOMAIN}
+        handle @prowlarr {
+                reverse_proxy {$TORRR_ADDR}:9696
+        }
+
+        @ptube host ptube.local.{$DOMAIN}
+        handle @ptube {
+                reverse_proxy {$TORRR_ADDR}:8069
+        }
+
+        @qbittorrent host qbittorrent.local.{$DOMAIN}
+        handle @qbittorrent {
+                reverse_proxy {$TORRR_ADDR}:8080
+        }
+
+        @radarr host radarr.local.{$DOMAIN}
+        handle @radarr {
+                reverse_proxy {$TORRR_ADDR}:7878
+        }
+
+        @sonarr host sonarr.local.{$DOMAIN}
+        handle @sonarr {
+                reverse_proxy {$TORRR_ADDR}:8989
+        }
+
+        @stash host stash.local.{$DOMAIN}
+        handle @stash {
+                reverse_proxy {$TORRR_ADDR}:9999
+        }
+
+        @tracearr host tracearr.local.{$DOMAIN}
+        handle @tracearr {
+                reverse_proxy {$TORRR_ADDR}:3801
+        }
+
+        @whisparr host whisparr.local.{$DOMAIN}
+        handle @whisparr {
+                reverse_proxy {$TORRR_ADDR}:6969
+        }
+
+        @wizzar host wizzar.local.{$DOMAIN}
+        handle @wizzar {
+                reverse_proxy {$TORRR_ADDR}:5690
+        }
+
+        # ---------
+        #  NUBUNTU
+        # ---------
+
+        @root host {$DOMAIN}
+        handle @root {
+            reverse_proxy {$NUBUNTU_ADDR}:5005
+        }
+
+        @change_detection host change.local.{$DOMAIN}
+        handle @change_detection {
+                reverse_proxy {$NUBUNTU_ADDR}:5000
+        }
+
+        @expanse host expanse.local.{$DOMAIN}
+        handle @expanse {
+                reverse_proxy {$NUBUNTU_ADDR}:1301
+        }
+
+        @filebrowser host filebrowser.local.{$DOMAIN}
+        handle @filebrowser {
+                reverse_proxy {$NUBUNTU_ADDR}:8087
+        }
+
+        @hohm host home.local.{$DOMAIN}
+        handle @hohm {
+                reverse_proxy {$NUBUNTU_ADDR}:5005
+        }
+
+        @gitea host git.local.{$DOMAIN}
+        handle @gitea {
+                reverse_proxy {$NUBUNTU_ADDR}:3331
+        }
+
+        @hakatime host hakatime.local.{$DOMAIN}
+        handle @hakatime {
+                reverse_proxy {$NUBUNTU_ADDR}:8201
+        }
+
+        @hass host hass.local.{$DOMAIN}
+        handle @hass {
+                reverse_proxy {$NUBUNTU_ADDR}:8123
+        }
+
+        @healthchecks host healthchecks.local.{$DOMAIN}
+        handle @healthchecks {
+                reverse_proxy {$NUBUNTU_ADDR}:8055
+        }
+
+        @immich host immich.local.{$DOMAIN}
+        handle @immich {
+                reverse_proxy {$NUBUNTU_ADDR}:2283
+        }
+
+        @paperless host paperless.local.{$DOMAIN}
+        handle @paperless {
+                reverse_proxy {$NUBUNTU_ADDR}:8028
+        }
+
+        @scrutiny host scrutiny.local.{$DOMAIN}
+        handle @scrutiny {
+                reverse_proxy {$NUBUNTU_ADDR}:8040
+        }
+
+        @scrypted host scrypted.local.{$DOMAIN}
+        handle @scrypted {
+                reverse_proxy {$NUBUNTU_ADDR}:11080
+        }
+
+        @send host send.local.{$DOMAIN}
+        handle @send {
+                reverse_proxy {$NUBUNTU_ADDR}:1234
+        }
+
+        @speedtest_tracker host speedtest-tracker.local.{$DOMAIN}
+        handle @speedtest_tracker {
+                reverse_proxy {$NUBUNTU_ADDR}:8173
+        }
+
+        @spotify host spotify.local.{$DOMAIN}
+        handle @spotify {
+                reverse_proxy {$NUBUNTU_ADDR}:3917
+        }
+
+        @vault host vault.local.{$DOMAIN}
+        handle @vault {
+                reverse_proxy {$NUBUNTU_ADDR}:8200
+        }
+
+        @uptime host up.local.{$DOMAIN}
+        handle @uptime {
+                reverse_proxy {$NUBUNTU_ADDR}:3001
+        }
+
+        @upsnap host upsnap.local.{$DOMAIN}
+        handle @upsnap {
+                reverse_proxy {$NUBUNTU_ADDR}:8090
+        }
+
+        @webnut host webnut.local.{$DOMAIN}
+        handle @webnut {
+                reverse_proxy {$NUBUNTU_ADDR}:6543
+        }
+
+        # -------
+        #  VED
+        # -------
+
+        @databend host databend.local.{$DOMAIN}
+        handle @databend {
+                reverse_proxy {$VED_ADDR}:8888
+        }
+
+        @redash host redash.local.{$DOMAIN}
+        handle @redash {
+                reverse_proxy {$VED_ADDR}:5000
+        }
+
+        @windmill host windmill.local.{$DOMAIN}
+        handle @windmill {
+                reverse_proxy {$VED_ADDR}:9999
+        }
+
+        # -------
+        #  JOULE
+        # -------
+
+        @jellyfin host jellyfin.local.{$DOMAIN}
+        handle @jellyfin {
+                reverse_proxy {$JOULE_ADDR}:8096
+        }
+
+        # ---------
+        #  PIKVM
+        # ---------
+
+        @pikvm host pikvm.local.{$DOMAIN}
+        handle @pikvm {
+                reverse_proxy {$PIKVM_ADDR}
+        }
+
+        # ---------
+        #  DORP
+        # ---------
+
+        @dagster host dagster.local.{$DOMAIN}
+        handle @dagster {
+                reverse_proxy {$DORP_ADDR}:3001
+        }
+
+        @mixtake host mixtake.local.{$DOMAIN}
+        handle @mixtake {
+                encode zstd gzip
+                reverse_proxy {$DORP_ADDR}:8610
+        }
+
+        @pastebnn host bin.local.{$DOMAIN}
+        handle @pastebnn {
+                reverse_proxy {$DORP_ADDR}:8993
+        }
+
+
+        @poker host poker.local.{$DOMAIN}
+        handle @poker {
+                reverse_proxy {$DORP_ADDR}:7272
+        }
+
+        @kafka_ui host kafka-ui.local.{$DOMAIN}
+        handle @kafka_ui {
+                reverse_proxy {$DORP_ADDR}:9093
+        }
+
+        @ow2stats host ow2stats.local.{$DOMAIN}
+        handle @ow2stats {
+                reverse_proxy {$DORP_ADDR}:3291
+        }
+
+        @samila host samila.local.{$DOMAIN}
+        handle @samila {
+                reverse_proxy {$DORP_ADDR}:8994
+        }
+
+        @umami host umami.local.{$DOMAIN}
+        handle @umami {
+                reverse_proxy {$DORP_ADDR}:3977
+        }
+
+        @weaviate host weaviate.local.{$DOMAIN}
+        handle @weaviate {
+                reverse_proxy {$DORP_ADDR}:7777
+        }
+
+        @wineparty host wineparty.local.{$DOMAIN}
+        handle @wineparty {
+                reverse_proxy {$DORP_ADDR}:1999
+        }
+}

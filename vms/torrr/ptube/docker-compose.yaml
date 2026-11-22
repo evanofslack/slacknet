@@ -1,0 +1,16 @@
+services:
+  metube:
+    image: alexta69/metube:latest
+    container_name: ptube
+    restart: unless-stopped
+    ports:
+      - 8069:8081
+    volumes:
+      - /mnt/media/nsfw:/downloads
+      - ./state:/state
+    environment:
+      - DOWNLOAD_DIR=/downloads
+      - CREATE_CUSTOM_DIRS=True
+      - STATE_DIR=/state
+      - PUID=1000
+      - PGID=1000

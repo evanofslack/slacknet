@@ -1,0 +1,14 @@
+services:
+  sui:
+    build:
+      context: https://github.com/jeroenpardon/sui.git
+      dockerfile: Dockerfile
+    image: sui:local
+    container_name: sui
+    restart: unless-stopped
+    ports:
+      - "5005:80"
+    volumes:
+      - ./apps.json:/opt/html/apps.json:ro
+      - ./links.json:/opt/html/links.json:ro
+

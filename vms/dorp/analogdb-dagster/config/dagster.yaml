@@ -1,0 +1,93 @@
+storage:
+  postgres:
+    postgres_db:
+      username:
+        env: DAGSTER_POSTGRES_USER
+      password:
+        env: DAGSTER_POSTGRES_PASSWORD
+      hostname:
+        env: DAGSTER_POSTGRES_HOST
+      db_name:
+        env: DAGSTER_POSTGRES_DB
+      port:
+        env: DAGSTER_POSTGRES_PORT
+
+run_launcher:
+  module: dagster_docker
+  class: DockerRunLauncher
+  config:
+    image: "evanofslack/analogdb-dagster:latest"
+    networks:
+      - dagster
+      - analogdb-api
+    container_kwargs:
+      auto_remove: true
+      mem_limit: "8g"
+      labels:
+        com.centurylinklabs.watchtower.enable: "false"
+    env_vars:
+      - DAGSTER_HOME=/app
+      - DAGSTER_LOG_LEVEL
+      - DAGSTER_POSTGRES_USER
+      - DAGSTER_POSTGRES_PASSWORD
+      - DAGSTER_POSTGRES_HOST
+      - DAGSTER_POSTGRES_DB
+      - DAGSTER_POSTGRES_PORT
+      - DAGSTER_S3_ENDPOINT_URL
+      - DAGSTER_S3_ACCESS_KEY
+      - DAGSTER_S3_SECRET_KEY
+      - DAGSTER_S3_BUCKET
+      - DAGSTER_S3_LOG_BUCKET
+      - DAGSTER_S3_PREFIX
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION
+      - ANALOGDB_USERNAME
+      - ANALOGDB_PASSWORD
+      - ANALOGDB_SLACK_WEBHOOK_URL
+      - ANALOGDB_ENDPOINT
+      - ANALOGDB_LOG_LEVEL
+      - ANALOGDB_APP_ENV
+      - ANALOGDB_BATCH_POSTS_COUNT
+      - REDDIT_CLIENT_ID
+      - REDDIT_CLIENT_SECRET
+      - REDDIT_USER_AGENT
+      - OPENROUTER_API_KEY
+      - OPENROUTER_BASE_URL
+      - OPENROUTER_MODEL
+      - OPENROUTER_VISION_MODEL
+
+run_coordinator:
+  module: dagster._core.run_coordinator
+  class: QueuedRunCoordinator
+  config:
+    max_concurrent_runs: 10
+    tag_concurrency_limits:
+      - key: "dagster/backfill"
+        value: ".*"
+        limit: 5
+      - key: "dagster/asset_group"
+        value: "backfill"
+        limit: 5
+      - key: "reddit"
+        value: "true"
+        limit: 2
+
+compute_logs:
+  module: dagster_obstore.s3.compute_log_manager
+  class: S3ComputeLogManager
+  config:
+    allow_http: true
+    bucket:
+      env: DAGSTER_S3_LOG_BUCKET
+    access_key_id:
+      env: DAGSTER_S3_ACCESS_KEY
+    secret_access_key:
+      env: DAGSTER_S3_SECRET_KEY
+    endpoint:
+      env: DAGSTER_S3_ENDPOINT_URL
+    local_dir: "/tmp/dagster-logs"
+
+telemetry:
+  enabled: false
+

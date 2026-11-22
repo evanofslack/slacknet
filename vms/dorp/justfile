@@ -1,0 +1,85 @@
+# Deploys on dorp, run from ~/slacknet/vms/dorp. Only the app containers are pulled and
+# restarted. Postgres, redis, kafka, weaviate and clickhouse are left alone, some float on
+# tags like redis:7-alpine and a pull would restart them
+
+set shell := ["bash", "-euo", "pipefail", "-c"]
+
+[private]
+default:
+    @just --list
+
+# Pull and restart the given services in one stack, their dependencies stay as they are
+[private]
+deploy dir +services:
+    cd {{dir}} && docker compose pull {{services}} && docker compose up -d --no-deps {{services}}
+
+# Backend API
+api: (deploy "analogdb" "analogdb")
+
+# Next.js site, then warm the main pages
+web: (deploy "analogdb-web" "analogdb-web") && warm
+
+# Analytics consumer
+consumer: (deploy "analogdb-consumer" "analogdb-consumer")
+
+# Dagster webserver and daemon, new runs pick up the pulled image
+dagster: (deploy "analogdb-dagster" "dagster_webserver" "dagster_daemon")
+
+# Everything, backend first so the web warm up reads the new API
+all: api consumer dagster web prune
+
+# Request the main pages once so their data caches are full before the first visitor.
+# This hits the container directly, Cloudflare's edge cache fills on its own
+warm:
+    #!/usr/bin/env bash
+    url=http://localhost:3000
+    for i in $(seq 30); do
+      curl -s -o /dev/null --max-time 5 "$url/" && break
+      if [[ $i == 30 ]]; then echo "web not up after 60s"; exit 1; fi
+      sleep 2
+    done
+    failed=0
+    for path in / /search /films /cameras /about /docs; do
+      out=$(curl -s -o /dev/null -w "%{http_code} %{time_total}s" --max-time 60 "$url$path") || true
+      printf "%-9s %s\n" "$path" "${out:-timeout}"
+      [[ ${out%% *} == 200 ]] || failed=1
+    done
+    exit $failed
+
+# Remove images left untagged by pulls
+prune:
+    docker image prune -f
+
+# App container status
+ps:
+    docker ps --filter name=analogdb --filter name=dagster --format 'table {{{{.Names}}\t{{{{.Image}}\t{{{{.Status}}'
+
+# Follow a container's logs
+logs name:
+    docker logs -f --tail 100 {{name}}
+
+# Back up Weaviate to its S3 bucket, the id defaults to today's date
+weaviate-backup id="":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    # weaviate publishes no API port, so the calls go through a curl container on the prod network
+    id="{{id}}"
+    id="${id:-$(date +%F)}"
+    api() { docker run --rm --network prod curlimages/curl:8.11.1 -sS "$@"; }
+    out=$(api --fail-with-body -X POST http://weaviate:8080/v1/backups/s3 \
+      -H 'Content-Type: application/json' -d "{\"id\":\"$id\"}") || { echo "$out"; exit 1; }
+    while :; do
+      out=$(api "http://weaviate:8080/v1/backups/s3/$id")
+      case "$out" in
+        *'"SUCCESS"'*) echo "backup $id done"; break ;;
+        *'"FAILED"'*|*'"CANCELED"'*) echo "$out"; exit 1 ;;
+      esac
+      sleep 5
+    done
+
+# Open clickhouse-client in the clickhouse container
+clickhouse:
+    cd analogdb-consumer && docker compose exec clickhouse sh -c 'clickhouse-client --user "$CLICKHOUSE_USER" --password "$CLICKHOUSE_PASSWORD" -d "$CLICKHOUSE_DB"'
+
+postgres:
+    cd analogdb && docker exec -it postgres psql -U postgres -d analogdb

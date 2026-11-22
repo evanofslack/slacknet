@@ -1,0 +1,87 @@
+wines:
+  - id: 1
+    hidden_name: "Mystery White #1"
+    real_name: "Chateau Ste Michelle"
+    variety: "Chardonnay"
+    country: "USA"
+    region: "Columbia"
+    year: 2023
+    hint: "Complex, approachable, food-friendly"
+    price: 12
+    flavors:
+      - citrus
+      - spice
+      - apple
+      - oak
+  - id: 2
+    hidden_name: "Mystery White #2"
+    real_name: "Delle Venezie"
+    variety: "Pinot Grigio"
+    country: "Italy"
+    region: "Veneto"
+    year: 2024
+    hint: "Crisp, dry, popular and refreshing"
+    price: 9
+    flavors:
+      - pear
+      - apple
+      - citrus
+      - white flowers
+      - almond
+  - id: 3
+    hidden_name: "Mystery White #3"
+    real_name: "Mount Riley"
+    variety: "Sauvignon Blanc"
+    country: "New Zealand"
+    region: "Marlborough"
+    year: 2025
+    hint: "Weighty, intense and crisp"
+    price: 16
+    flavors:
+      - grapefruit
+      - passionfruit
+      - gooseberry
+      - currant
+      - herbs
+  - id: 4
+    hidden_name: "Mystery Red #1"
+    real_name: "Tenorio"
+    variety: "Malbec"
+    country: "Argentina"
+    region: "La Rioja"
+    year: 2024
+    hint: "Bright and vibrant"
+    price: 11
+    flavors:
+      - plum
+      - cherry
+      - violet
+  - id: 5
+    hidden_name: "Mystery Red #2"
+    real_name: "Arboretum"
+    variety: "Cabernet Sauvignon"
+    country: "South Africa"
+    region: "Stellenbosch"
+    year: 2017
+    hint: "Rich and smooth"
+    price: 25
+    flavors:
+      - blackberry
+      - blackcurrant
+      - cherry
+      - tobacco
+      - plum
+  - id: 6
+    hidden_name: "Mystery Red #3"
+    real_name: "Chateau Malbec"
+    variety: "Merlot"
+    country: "France"
+    region: "Bordeaux"
+    year: 2022
+    hint: "Savory and classic"
+    price: 21
+    flavors:
+      - plum
+      - cranberry
+      - earth
+
