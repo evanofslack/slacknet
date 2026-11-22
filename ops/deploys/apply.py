@@ -56,7 +56,10 @@ for name in want:
         )
     if do_up:
         fargs = " ".join(f"-f {q(f)}" for f in s.config_files)
+        # relocated stacks: same config hash means compose would keep the old container,
+        # still labeled with the deleted dir, so force it to be recreated from the new one
+        recreate = " --force-recreate" if s.relocate_from else ""
         server.shell(
-            name=f"{name}: docker compose pull && up -d",
-            commands=[f"cd {q(wd)} && docker compose -p {q(name)} {fargs} pull -q && docker compose -p {q(name)} {fargs} up -d"],
+            name=f"{name}: docker compose pull && up -d{recreate}",
+            commands=[f"cd {q(wd)} && docker compose -p {q(name)} {fargs} pull -q && docker compose -p {q(name)} {fargs} up -d{recreate}"],
         )
