@@ -32,8 +32,7 @@ services:
             - SCREEN_WIDTH=1920
             - SCREEN_HEIGHT=1080
             - SCREEN_DEPTH=24
-        volumes:
-            - /srv/changedetection/browser/dev/shm:/dev/shm
+        shm_size: 2gb
 
     playwright-chrome:
         container_name: changedetection-playwright

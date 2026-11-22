@@ -29,11 +29,11 @@ from lib import INV, REPO, hosts  # noqa: E402
 
 SRV = "/srv"
 # reviewed by hand before migrating (see docs/data-migration.md)
-REVIEW = {
-    ("nubuntu", "changedetection", "browser/dev/shm"): "shm as a bind dir; probably tmpfs/shm_size instead",
-    ("nubuntu", "filebrowser", "srv"): "file share served by filebrowser, not app state",
-    ("dorp", "umami", "sql/schema.postgresql.sql"): "db init script not in repo; add to repo or drop mount",
-    ("nubuntu", "hashi-vault", "certs"): "certs: maybe belongs in repo/1Password",
+REVIEW: dict[tuple[str, str, str], str] = {}
+# mounts dropped from compose on purpose: not moved, not remapped (old copy stays, archived later)
+DROPPED = {
+    ("nubuntu", "changedetection", "browser/dev/shm"),   # -> shm_size: 2gb
+    ("dorp", "umami", "sql/schema.postgresql.sql"),      # init script; db already initialised
 }
 OP_REF = re.compile(r"\{\{\s*op://[^}]*\}\}")
 
@@ -84,6 +84,8 @@ def plan_host(host: str) -> dict:
                                     f.is_file() and f"{rel}/{f.relative_to(snap).as_posix()}" not in files
                                     for f in snap.rglob("*")):
                                 mixed.add(rel)
+                    elif (host, name, rel) in DROPPED:
+                        continue
                     else:
                         moves[rel] = f"{SRV}/{name}/{rel}"
                         if (host, name, rel) in REVIEW:
