@@ -40,3 +40,10 @@ vms/archive/
 # host-local configs with credentials/hashes (managed on host)
 vms/raspi/*/adguard/conf/AdGuardHome.yaml
 vms/racknerd/caddy/conf/Caddyfile.full
+/vms/mon/prometheus/config/prometheus.yaml
+/vms/mon/alertmanager/config/slack_api_url
+/vms/mon/loki/config/loki.yaml
+/vms/mon/mimir/config/mimir.yaml
+/vms/mon/tempo/config/tempo.yaml
+/vms/raspi/ralph/keepalived/data/keepalived.conf
+/vms/raspi/ronald/keepalived/data/keepalived.conf
