@@ -32,6 +32,32 @@ FILES = [
         "GF_AUTH_GENERIC_OAUTH_CLIENT_ID": r"GF_AUTH_GENERIC_OAUTH_CLIENT_ID:\s*\"?([^\"\s]+)\"?",
         "GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET": r"GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:\s*\"?([^\"\s]+)\"?",
     }),
+    # data migration stage 1 (2026-11-22): host-only configs pulled from the collect snapshot
+    ("vms/mon/prometheus/config/prometheus.yaml", "mon-prometheus", "tpl", {
+        "HASS_TOKEN": r"(?s)job_name: hass\b.*?credentials:\s*(\S+)",
+        "MINIO_CLUSTER_TOKEN": r"(?s)job_name: minio-cluster\b.*?bearer_token:\s*(\S+)",
+        "MINIO_BUCKET_TOKEN": r"(?s)job_name: minio-bucket\b.*?bearer_token:\s*(\S+)",
+    }),
+    # mon alertmanager: done by hand (Go {{ }} templates clash with op inject) ->
+    # api_url_file: /config/slack_api_url, rendered from config/slack_api_url.tpl
+    ("vms/mon/loki/config/loki.yaml", "mon-loki", "tpl", {
+        "S3_ACCESS_KEY_ID": r"access_key_id:\s*(\S+)",
+        "S3_SECRET_ACCESS_KEY": r"secret_access_key:\s*(\S+)",
+    }),
+    ("vms/mon/mimir/config/mimir.yaml", "mon-mimir", "tpl", {
+        "S3_ACCESS_KEY_ID": r"access_key_id:\s*(\S+)",
+        "S3_SECRET_ACCESS_KEY": r"secret_access_key:\s*(\S+)",
+    }),
+    ("vms/mon/tempo/config/tempo.yaml", "mon-tempo", "tpl", {
+        "S3_ACCESS_KEY": r"access_key:\s*(\S+)",
+        "S3_SECRET_KEY": r"secret_key:\s*(\S+)",
+    }),
+    ("vms/raspi/ralph/keepalived/data/keepalived.conf", "ralph-keepalived", "tpl", {
+        "AUTH_PASS": r"auth_pass\s+(\S+)",
+    }),
+    ("vms/raspi/ronald/keepalived/data/keepalived.conf", "ronald-keepalived", "tpl", {
+        "AUTH_PASS": r"auth_pass\s+(\S+)",
+    }),
     ("vms/nubuntu/gitea/mirror-script.txt", "nubuntu-gitea", "inline", {
         "GITEA_TOKEN": r"GITEA_TOKEN=(\S+)",
     }),
@@ -57,11 +83,16 @@ def main() -> None:
                 print(f"{rel}: missing (already converted?)")
                 continue
             text = path.read_text()
+            if "op://" in text and mode == "inline":
+                print(f"{rel}: already templated")
+                continue
             secrets = {}
             for key, pat in patterns.items():
                 m = re.search(pat, text, re.M)
                 if not m:
                     raise SystemExit(f"{rel}: pattern for {key} not found")
+                if "{{" in m.group(1) or "op://" in m.group(1) or "${" in m.group(1):
+                    raise SystemExit(f"{rel}: {key} is already a reference, not a secret")
                 secrets[key] = m.group(1)
             new = text
             for key, value in secrets.items():

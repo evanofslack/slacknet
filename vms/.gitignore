@@ -1,1 +1,3 @@
 data
+# keepalived.conf.tpl lives in data/ (rendered keepalived.conf stays ignored via the root .gitignore)
+!raspi/*/keepalived/data/

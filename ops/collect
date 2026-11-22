@@ -1,13 +1,25 @@
 #!/usr/bin/env bash
 # Collect read-only inventory from hosts into ../.inventory/<host>/ and summarise.
 #   ./collect                 all hosts
-#   ./collect --limit nubuntu one host (any extra args go to pyinfra)
+#   ./collect --limit nubuntu one host; --limit a,b for several (other args go to pyinfra)
 set -euo pipefail
 cd "$(dirname "$0")"
 INV=../.inventory
 umask 077
 
-uv run --no-env-file pyinfra inventory.py deploys/collect.py -y "$@" || echo "pyinfra reported failures (unreachable hosts?) — continuing with what was fetched"
+# pyinfra's --limit takes one host per flag; split "--limit a,b" into "--limit a --limit b"
+args=()
+while [ $# -gt 0 ]; do
+  if [ "$1" = "--limit" ] && [ $# -gt 1 ]; then
+    IFS=, read -ra hs <<< "$2"
+    for h in "${hs[@]}"; do args+=(--limit "$h"); done
+    shift 2
+  else
+    args+=("$1"); shift
+  fi
+done
+
+uv run --no-env-file pyinfra inventory.py deploys/collect.py -y ${args[@]+"${args[@]}"} || echo "pyinfra reported failures (unreachable hosts?) — continuing with what was fetched"
 
 for tb in "$INV"/_tarballs/*.tar.gz; do
   [ -e "$tb" ] || continue
