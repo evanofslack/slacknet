@@ -164,6 +164,7 @@ docker ps -a --filter label=com.docker.compose.project={n} --format '{{{{.Names}
 for c in $(docker ps -aq --filter label=com.docker.compose.project={n}); do
   docker inspect -f '{{{{range .Mounts}}}}{{{{if eq .Type "bind"}}}}{{{{.Source}}}}{{{{"\\n"}}}}{{{{end}}}}{{{{end}}}}' "$c"
 done | sort -u | while read -r src; do
+  [ -n "$src" ] || continue
   for d in {q(old)} {q(new)}; do
     case "$src" in
       "$d"/*) rel="${{src#"$d"/}}"
