@@ -1,0 +1,184 @@
+version: "3.7"
+services:
+  analogdb:
+    image: evanofslack/analogdb:latest
+    container_name: analogdb
+    restart: unless-stopped
+    stop_grace_period: 20s
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+    ports:
+      - 8080:${ANALOGDB_HTTP_PORT}
+      - 9091:${ANALOGDB_METRICS_PORT}
+    environment:
+      APP_NAME: ${ANALOGDB_APP_NAME}
+      APP_ENV: ${ANALOGDB_APP_ENV}
+      HTTP_PORT: ${ANALOGDB_HTTP_PORT}
+      LOG_LEVEL: ${ANALOGDB_LOG_LEVEL}
+      WEBHOOK_URL: ${ANALOGDB_WEBHOOK_URL}
+      MIGRATION_ENABLED: ${ANALOGDB_MIGRATION_ENABLED}
+      METRICS_ENABLED: ${ANALOGDB_METRICS_ENABLED}
+      METRICS_PORT: ${ANALOGDB_METRICS_PORT}
+      TRACING_ENABLED: ${ANALOGDB_TRACING_ENABLED}
+      TRACING_ENDPOINT: ${ANALOGDB_TRACING_ENDPOINT}
+      CACHE_ENABLED: ${ANALOGDB_CACHE_ENABLED}
+      RATE_LIMIT_ENABLED: ${ANALOGDB_RATE_LIMIT_ENABLED}
+      DATABASE_URL: ${POSTGRES_DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      VECTOR_DATABASE_HOST: ${WEAVIATE_HOST}
+      VECTOR_DATABASE_SCHEME: ${WEAVIATE_SCHEME}
+      KAFKA_ENABLED: ${ANALOGDB_KAFKA_ENABLED}
+      KAFKA_TOPIC: ${KAFKA_TOPIC}
+      KAFKA_BROKERS: ${KAFKA_BROKERS}
+      HTTP_TRUSTED_PROXIES: ${ANALOGDB_HTTP_TRUSTED_PROXIES}
+      SHUTDOWN_DRAIN_DELAY: ${ANALOGDB_SHUTDOWN_DRAIN_DELAY}
+      DUPLICATE_MODE: ${ANALOGDB_DUPLICATE_MODE}
+      IMAGE_BASE_URL: ${ANALOGDB_IMAGE_BASE_URL}
+      CLICKHOUSE_ENABLED: ${ANALOGDB_CLICKHOUSE_ENABLED}
+      CLICKHOUSE_HOST: ${CLICKHOUSE_HOST}
+      CLICKHOUSE_PORT: ${CLICKHOUSE_PORT}
+      CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE}
+      CLICKHOUSE_USERNAME: ${ANALOGDB_CLICKHOUSE_USERNAME}
+      CLICKHOUSE_PASSWORD: ${ANALOGDB_CLICKHOUSE_PASSWORD}
+
+      # legacy
+      AUTH_USERNAME: ${ANALOGDB_AUTH_USERNAME}
+      AUTH_PASSWORD: ${ANALOGDB_AUTH_PASSWORD}
+      RATE_LIMIT_AUTH_USERNAME: ${ANALOGDB_RATE_LIMIT_AUTH_USERNAME}
+      RATE_LIMIT_AUTH_PASSWORD: ${ANALOGDB_RATE_LIMIT_AUTH_PASSWORD}
+
+      AUTH_ADMIN_USERNAME: ${ANALOGDB_AUTH_ADMIN_USERNAME}
+      AUTH_ADMIN_PASSWORD: ${ANALOGDB_AUTH_ADMIN_PASSWORD}
+      AUTH_SCRAPER_USERNAME: ${ANALOGDB_AUTH_SCRAPER_USERNAME}
+      AUTH_SCRAPER_PASSWORD: ${ANALOGDB_AUTH_SCRAPER_PASSWORD}
+      AUTH_WEB_USERNAME: ${ANALOGDB_AUTH_WEB_USERNAME}
+      AUTH_WEB_PASSWORD: ${ANALOGDB_AUTH_WEB_PASSWORD}
+
+    depends_on:
+        - postgres
+        - weaviate
+        - redis
+    networks:
+      - default
+      - analogdb-api
+
+  postgres:
+    image: postgres:15.19-trixie
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PW}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5432:5432
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+    volumes:
+      - redis:/data
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.0
+    container_name: kafka
+    ports:
+      - 9092:9092
+    restart: unless-stopped
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092"
+      KAFKA_LISTENERS: "CONTROLLER://kafka:29093,PLAINTEXT://kafka:29092,PLAINTEXT_HOST://0.0.0.0:9092"
+      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_PROCESS_ROLES: "broker,controller"
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:29093"
+      KAFKA_LOG_DIRS: "/var/lib/kafka/data/kraft-combined-logs"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      # KRaft specific settings
+      CLUSTER_ID: "${KAFKA_CLUSTER_ID}"
+    volumes:
+      - kafka:/var/lib/kafka/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "kafka-topics --bootstrap-server localhost:9092 --list || exit 1",
+        ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 15s
+
+  weaviate:
+    image: cr.weaviate.io/semitechnologies/weaviate:1.39.8
+    container_name: weaviate
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8080"
+      - --scheme
+      - http
+    restart: unless-stopped
+    ports:
+      - 2112:2112
+    environment:
+      CLIP_INFERENCE_API: "http://clip:8080"
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "true"
+      PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+      DEFAULT_VECTORIZER_MODULE: "none"
+      ENABLE_MODULES: "multi2vec-clip,backup-s3"
+      CLUSTER_HOSTNAME: "node1"
+      PROMETHEUS_MONITORING_ENABLED: "true"
+      PROMETHEUS_MONITORING_PORT: 2112
+      BACKUP_S3_BUCKET: ${WEAVIATE_BACKUP_S3_BUCKET}
+      BACKUP_S3_PATH: ${WEAVIATE_BACKUP_S3_PATH}
+      BACKUP_S3_ENDPOINT: ${WEAVIATE_BACKUP_S3_ENDPOINT}
+      AWS_ACCESS_KEY_ID: ${WEAVIATE_AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${WEAVIATE_AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${WEAVIATE_AWS_REGION}
+    volumes:
+      - weaviate:/var/lib/weaviate
+    depends_on:
+      - clip
+
+  clip:
+    image: cr.weaviate.io/semitechnologies/multi2vec-clip:ViT-B-16-laion2b_s34b_b88k-1.5.1
+    container_name: weaviate-clip
+    restart: unless-stopped
+    environment:
+      ENABLE_CUDA: ${WEAVIATE_ENCODE_ENABLE_CUDA:-0}
+
+volumes:
+  redis:
+  kafka:
+  weaviate:
+
+networks:
+  default:
+    external: true
+    name: prod
+  analogdb-api:
+    external: true
