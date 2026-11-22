@@ -382,6 +382,11 @@
                 reverse_proxy {$DORP_ADDR}:8610
         }
 
+        @myki host myki.local.{$DOMAIN}
+        handle @myki {
+                reverse_proxy {$DORP_ADDR}:8711
+        }
+
         @pastebnn host bin.local.{$DOMAIN}
         handle @pastebnn {
                 reverse_proxy {$DORP_ADDR}:8993

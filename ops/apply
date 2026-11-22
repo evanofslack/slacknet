@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Push main to one host's stacks (files only unless --up). Asks before executing.
+#   ./apply <host> --stack a,b [--up] [--any-branch]
+# Review ./diff <host> first. Backups: ~/.slacknet-backups/<ts>/ on the host.
+set -euo pipefail
+cd "$(dirname "$0")"
+host="${1:?usage: ./apply <host> --stack a,b [--up] [--any-branch]}"; shift
+stacks=""; data=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --stack) stacks="$2"; shift 2 ;;
+    --up) data+=(--data up=true); shift ;;
+    --any-branch) data+=(--data any_branch=true); shift ;;
+    *) echo "unknown arg $1" >&2; exit 2 ;;
+  esac
+done
+[ -n "$stacks" ] || { echo "--stack is required (no all-stacks apply)" >&2; exit 2; }
+ts="$(date -u +%Y%m%dT%H%M%SZ)"
+echo "backup id: $ts"
+uv run --no-env-file pyinfra inventory.py deploys/apply.py --limit "$host" \
+  --data "stacks=$stacks" --data "ts=$ts" "${data[@]}"
+echo "rollback: ./restore $host <stack> $ts [--up]"
