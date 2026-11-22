@@ -21,6 +21,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from lib import INV, SECRET_KEY, compose_config, parse_kv_lines  # noqa: E402
 from deploy.desired import Stack, canonical_dir, check_repo, load_hashes, plan, render  # noqa: E402
 
+# secret-shaped values, masked whatever their key is called (webhooks, JWTs)
+SECRET_VALUE = re.compile(
+    r"https://hooks\.slack\.com/\S+?(?=['\"\s]|$)|https://discord(?:app)?\.com/api/webhooks/\S+?(?=['\"\s]|$)"
+    r"|eyJ[\w-]{8,}\.[\w-]{8,}\.[\w-]+"
+)
 SECRET_LINE = re.compile(r"^([+\- ]?\s*-?\s*\"?)([A-Za-z_][\w.-]*)(\"?\s*[:=]\s*)(.+)$")
 NOISE = re.compile(r"(\.bak$|\.bak/|\.old$|\.orig$|\.log$|\.pid$|~$|\.swp$)")
 
@@ -38,6 +43,7 @@ class Masker:
     def __call__(self, line: str) -> str:
         for v in sorted(self.values, key=len, reverse=True):
             line = line.replace(v, "***")
+        line = SECRET_VALUE.sub("***", line)
         m = SECRET_LINE.match(line)
         if m and SECRET_KEY.search(m.group(2)) and not m.group(4).startswith(("${", "***", "{{")):
             line = f"{m.group(1)}{m.group(2)}{m.group(3)}***"
@@ -139,6 +145,7 @@ def diff_stack(host: str, s: Stack, hashes: dict[str, str] | None, runtime: dict
     snap_files = snap / "files"
     render(s)
     mask = Masker()
+    mask.values |= s.secret_values
     for rel, secret in s.files.items():
         if secret:
             want_kv = parse_kv_lines((s.local / rel).read_text(errors="replace"))

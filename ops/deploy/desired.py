@@ -7,6 +7,7 @@ project is "not deployed"; a running project with no repo stack is "unmanaged".
 
 import atexit
 import io
+import re
 import shutil
 import subprocess
 import sys
@@ -32,6 +33,7 @@ class Stack:
     local: Path | None = None          # rendered desired tree
     files: dict[str, bool] = field(default_factory=dict)   # rel path -> is_secret
     op_keys: dict[str, set[str]] = field(default_factory=dict)  # rendered rel -> keys filled from 1Password
+    secret_values: set[str] = field(default_factory=set)        # every value op inject filled in
 
 
 def git(*args: str, binary: bool = False):
@@ -101,6 +103,26 @@ def _scratch() -> Path:
     return d
 
 
+REF = re.compile(r"\{\{\s*op://[^}]*\}\}")
+
+
+def _filled_values(tpl: str, rendered: str) -> set[str]:
+    """Values op inject put in place of each {{ op://... }}, matched line by line."""
+    out = set()
+    for t, r in zip(tpl.splitlines(), rendered.splitlines()):
+        if "op://" not in t:
+            continue
+        pos, rx = 0, ""
+        for m in REF.finditer(t):
+            rx += re.escape(t[pos:m.start()]) + "(.+?)"
+            pos = m.end()
+        rx += re.escape(t[pos:])
+        mm = re.fullmatch(rx, r)
+        if mm:
+            out |= {v for v in mm.groups() if len(v) >= 4}
+    return out
+
+
 def render(stack: Stack, scratch: Path | None = None) -> Stack:
     """Export the stack's HEAD files and render *.tpl into stack.local."""
     scratch = scratch or _scratch()
@@ -120,7 +142,9 @@ def render(stack: Stack, scratch: Path | None = None) -> Stack:
             target = p.with_name(p.name[: -len(".tpl")])
             stack.op_keys[target.relative_to(local).as_posix()] = {
                 k for k, v in parse_kv_lines(p.read_text()).items() if "op://" in v}
+            tpl_text = p.read_text()
             op("inject", "-f", "-i", str(p), "-o", str(target))
+            stack.secret_values |= _filled_values(tpl_text, target.read_text())
             target.chmod(0o600)
             p.unlink()
             stack.files[target.relative_to(local).as_posix()] = True
