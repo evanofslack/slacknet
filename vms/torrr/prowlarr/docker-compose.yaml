@@ -7,7 +7,7 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - ./config:/config
+      - /srv/prowlarr/config:/config
     ports:
       - 9696:9696
     restart: unless-stopped

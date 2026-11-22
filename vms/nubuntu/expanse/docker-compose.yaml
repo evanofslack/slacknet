@@ -4,7 +4,7 @@ services:
     container_name: expanse-postgres
     restart: unless-stopped
     volumes:
-      - ./db:/var/lib/postgresql/data/
+      - /srv/expanse/db:/var/lib/postgresql/data/
     env_file:
       - .env
 
@@ -18,7 +18,7 @@ services:
     depends_on:
       - db
     volumes:
-      - ./backups:/app/backend/backups/
+      - /srv/expanse/backups:/app/backend/backups/
     ports:
       - 1301:1301
     environment:

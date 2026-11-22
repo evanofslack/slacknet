@@ -47,8 +47,11 @@ services:
 
 volumes:
   mimir-1-data:
+    name: mimir_mimir-1-data
   mimir-2-data:
+    name: mimir_mimir-2-data
   mimir-3-data:
+    name: mimir_mimir-3-data
 
 networks:
   default:

@@ -15,5 +15,5 @@ services:
       - TZ=America/New_York
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./config:/config
+      - /srv/radarr/config:/config
       - /mnt/data:/data

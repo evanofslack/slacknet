@@ -1,0 +1,150 @@
+"""Move stacks' state out of their compose dir to /srv/<stack>, and relocate stacks to
+~/slacknet/<repo dir>. Plan: .inventory/<host>/datadirs.json (reconcile/datadirs.py).
+
+Run via ../ops/migrate <host> --stack a,b. Per stack:
+  1. preflight (nothing changed yet): sources present, targets absent, same filesystem,
+     parents writable. Failures print the sudo commands to run by hand.
+  2. back up the compose/config files at the old dir -> ~/.slacknet-backups/<ts>/<stack>.tgz,
+     and the move list -> <stack>.migrate (for --rollback)
+  3. docker compose down (never -v); mv each data path to /srv/<stack>/...
+  4. relocation only: copy app-written files out of tracked dirs (cp -an), then push repo files
+  5. docker compose up -d --pull missing (never updates images); verify mounts
+
+--rollback (with --ts): down, mv everything back, restore the old files, up from the old dir.
+"""
+
+import json
+import os
+import shlex
+import sys
+
+from pyinfra import host
+from pyinfra.operations import files, server
+
+OPS_DIR = os.getcwd()
+sys.path.insert(0, OPS_DIR)
+from deploy.desired import check_repo, plan, render  # noqa: E402
+from lib import COMPOSE_NAMES, INV  # noqa: E402
+
+q = shlex.quote
+want = [s for s in str(host.data.get("stacks") or "").split(",") if s]
+ts = str(host.data.get("ts") or "")
+rollback = bool(host.data.get("rollback"))
+if not want or not ts:
+    raise SystemExit("migrate: --stack and ts are required")
+
+manifest_path = INV / host.name / "datadirs.json"
+if not manifest_path.exists():
+    raise SystemExit(f"migrate: no {manifest_path}; run reconcile/datadirs.py")
+manifest = json.loads(manifest_path.read_text())
+B = f"$HOME/.slacknet-backups/{q(ts)}"
+
+
+def compose_args(names: list[str]) -> str:
+    return " ".join(f"-f {q(n)}" for n in names)
+
+
+# ------------------------------------------------------------------ rollback
+if rollback:
+    for name in want:
+        n = q(name)
+        server.shell(
+            name=f"{name}: rollback from {ts}",
+            commands=[f"""set -eu
+M={B}/{n}.migrate
+test -f "$M" || {{ echo "no migration record $M"; exit 1; }}
+OLD=$(sed -n 's/^old_wd\\t//p' "$M"); CFG=$(sed -n 's/^old_cfg\\t//p' "$M")
+cd / && docker compose -p {n} down
+grep '^mv\\t' "$M" | while IFS="$(printf '\\t')" read -r _ src dst; do
+  if [ -e "$dst" ] && [ ! -e "$src" ]; then mkdir -p "$(dirname "$src")" && mv "$dst" "$src" && echo "moved back $dst -> $src"; fi
+done
+cd "$OLD" && tar xzf {B}/{n}.tgz
+args=""; for f in $(echo "$CFG" | tr ',' ' '); do args="$args -f $f"; done
+docker compose -p {n} $args up -d --pull missing
+docker compose -p {n} ps --format '{{{{.Name}}}} {{{{.State}}}}'
+"""],
+        )
+else:
+    check_repo(bool(host.data.get("any_branch")))
+    stacks, _ = plan(host.name)
+
+for name in ([] if rollback else want):
+    if name not in manifest:
+        raise SystemExit(f"migrate: {name!r} has nothing to migrate on {host.name} (see datadirs.json)")
+    m = manifest[name]
+    if not m["moves"] and m["old_wd"] == m["new_wd"]:
+        raise SystemExit(f"migrate: {name!r} only needs volume pins; use ops/apply (files only)")
+    s = render(stacks[name])
+    old, new, n = m["old_wd"], m["new_wd"], q(name)
+    old_cfg = [os.path.basename(f) for f in s.config_files] or m["config_files"]
+    new_cfg = [f for f in COMPOSE_NAMES if f in s.files]
+    if not new_cfg:
+        raise SystemExit(f"migrate: {name}: no compose file in repo")
+    moves = m["moves"]
+    reloc = old != new
+    keep_dirs = m["keep_relative"] if reloc else []
+    backup_files = " ".join(q(f) for f in sorted(set(s.files) | set(old_cfg) | {".env"}))
+
+    record = "\\n".join(
+        [f"old_wd\\t{old}", f"new_wd\\t{new}", f"old_cfg\\t{','.join(old_cfg)}"]
+        + [f"mv\\t{mv['src']}\\t{mv['dst']}" for mv in moves])
+    pre = []
+    for mv in moves:
+        src, dst = q(mv["src"]), q(mv["dst"])
+        pre.append(f"""
+if [ -e {dst} ] && [ ! -e {src} ]; then echo "already moved: {mv['rel']}"
+elif [ ! -e {src} ]; then echo "MISSING source {mv['src']}"; bad=1
+elif [ -e {dst} ]; then echo "TARGET EXISTS {mv['dst']}"; bad=1
+else
+  [ "$(stat -c %d "$(dirname {src})")" = "$(stat -c %d /srv)" ] || {{ echo "DIFFERENT FILESYSTEM: {mv['src']}"; bad=1; }}
+  if [ ! -w "$(dirname {src})" ]; then echo "NOT WRITABLE: parent of {mv['src']}"; sudo_cmds="$sudo_cmds
+  sudo mkdir -p $(dirname {dst}) && sudo mv {src} {dst}"; fi
+fi""")
+    # 1-3: preflight, backup, down, move
+    server.shell(
+        name=f"{name}: preflight, back up, down, move data",
+        commands=[f"""set -eu
+bad=0; sudo_cmds=""
+test -w /srv || {{ echo "/srv not writable (sudo chown $USER: /srv)"; exit 1; }}
+{''.join(pre)}
+if [ -n "$sudo_cmds" ]; then echo "run by hand, then rerun migrate:$sudo_cmds"; bad=1; fi
+[ "$bad" = 0 ] || exit 1
+mkdir -p {B} && chmod 700 $HOME/.slacknet-backups {B}
+if [ -d {q(old)} ]; then cd {q(old)} && for f in {backup_files}; do [ -e "$f" ] && echo "$f"; done | tar czf {B}/{n}.tgz -T - ; else tar czf {B}/{n}.tgz -T /dev/null; fi
+chmod 600 {B}/{n}.tgz
+printf '{record}\\n' > {B}/{n}.migrate
+cd / && docker compose -p {n} down
+""" + "".join(
+            f"if [ -e {q(mv['src'])} ]; then mkdir -p \"$(dirname {q(mv['dst'])})\" && mv {q(mv['src'])} {q(mv['dst'])} && echo 'moved {mv['rel']}'; fi\n"
+            for mv in moves) + (
+            f"mkdir -p {q(new)}\n" + "".join(
+                f"if [ -d {q(old + '/' + r)} ]; then mkdir -p {q(new + '/' + r)} && cp -an {q(old + '/' + r)}/. {q(new + '/' + r)}/ && echo 'carried over ./{r}'; fi\n"
+                for r in keep_dirs) if reloc else "")],
+    )
+    # 4: repo files into the (new) dir
+    for rel, secret in s.files.items():
+        files.put(
+            name=f"{name}: {rel}",
+            src=str(s.local / rel),
+            dest=f"{new}/{rel}",
+            mode="600" if rel == ".env" else None,
+        )
+    # 5: up + verify
+    server.shell(
+        name=f"{name}: up -d --pull missing, verify",
+        commands=[f"""set -eu
+cd {q(new)} && docker compose -p {n} {compose_args(new_cfg)} up -d --pull missing
+sleep 5
+docker compose -p {n} ps -a --format '{{{{.Name}}}} {{{{.State}}}} {{{{.Status}}}}'
+bad=0
+for c in $(docker compose -p {n} ps -aq); do
+  docker inspect -f '{{{{range .Mounts}}}}{{{{if eq .Type "bind"}}}}{{{{.Source}}}}{{{{"\\n"}}}}{{{{end}}}}{{{{end}}}}' "$c"
+done | sort -u | while read -r src; do
+  case "$src" in
+    {q(old)}/*) [ {q(old)} != {q(new)} ] && echo "STILL UNDER OLD DIR: $src" && exit 1 ;;
+  esac
+  [ -e "$src" ] || {{ echo "MISSING mount source: $src"; exit 1; }}
+  echo "mount ok: $src"
+done
+"""],
+    )

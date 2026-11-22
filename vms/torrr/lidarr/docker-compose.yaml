@@ -7,7 +7,7 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - ./config:/config
+      - /srv/lidarr/config:/config
       - /mnt/data:/data
     ports:
       - 8686:8686

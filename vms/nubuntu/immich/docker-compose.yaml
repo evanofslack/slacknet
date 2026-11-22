@@ -54,3 +54,4 @@ services:
 
 volumes:
   model-cache:
+    name: immich_model-cache

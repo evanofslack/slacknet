@@ -12,6 +12,7 @@ services:
         - influx-data:/var/lib/influxdb
 volumes:
   influx-data:
+    name: influxdb_influx-data
 
 networks:
   default:

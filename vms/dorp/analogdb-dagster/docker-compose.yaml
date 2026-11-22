@@ -69,7 +69,9 @@ services:
 
 volumes:
   dagster_postgres_data:
+    name: analogdb-dagster_dagster_postgres_data
   dagster_storage:
+    name: analogdb-dagster_dagster_storage
 
 networks:
   default:

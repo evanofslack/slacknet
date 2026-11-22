@@ -31,4 +31,6 @@ services:
 
 volumes:
   rustfs_data:
+    name: rustfs_rustfs_data
   rustfs_logs:
+    name: rustfs_rustfs_logs

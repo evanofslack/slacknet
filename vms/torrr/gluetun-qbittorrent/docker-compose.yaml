@@ -9,7 +9,7 @@ services:
     ports:
       - 8080:8080 # qBittorrent web UI (qbit shares gluetun's network, so its ports live here)
     volumes:
-      - ./gluetun:/gluetun
+      - /srv/gluetun-qbittorrent/gluetun:/gluetun
     environment:
       - TZ=${TZ}
       - VPN_SERVICE_PROVIDER=protonvpn
@@ -38,6 +38,6 @@ services:
       - TZ=${TZ}
       - WEBUI_PORT=8080
     volumes:
-      - ./qbittorrent:/config
+      - /srv/gluetun-qbittorrent/qbittorrent:/config
       - ${DATA_ROOT}:/data
     restart: unless-stopped

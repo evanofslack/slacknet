@@ -3,7 +3,7 @@
 # The location where your uploaded files are stored
 UPLOAD_LOCATION=/mnt/photos/immich
 # The location where your database files are stored
-DB_DATA_LOCATION=./postgres
+DB_DATA_LOCATION=/srv/immich/postgres
 
 # To set a timezone, uncomment the next line and change Etc/UTC to a TZ identifier from this list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
 TZ=America/New_York

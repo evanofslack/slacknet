@@ -9,5 +9,5 @@ services:
        ports:
          - 5055:5055
        volumes:
-         - ./data:/app/config
+         - /srv/seerr/data:/app/config
        restart: unless-stopped

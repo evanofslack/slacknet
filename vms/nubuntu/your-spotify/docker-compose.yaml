@@ -22,7 +22,7 @@ services:
     image: mongo:4.4
     restart: unless-stopped
     volumes:
-      - ./your_spotify_db:/data/db
+      - /srv/your-spotify/your_spotify_db:/data/db
 
   web:
     image: yooooomi/your_spotify_client

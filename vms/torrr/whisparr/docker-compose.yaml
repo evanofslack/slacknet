@@ -13,5 +13,5 @@ services:
         # - UMASK=002
       - TZ=America/New_York
     volumes:
-      - ./config:/config
+      - /srv/whisparr/config:/config
       - /mnt/data:/data

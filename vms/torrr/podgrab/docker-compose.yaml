@@ -13,5 +13,5 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - ./config:/config
+      - /srv/podgrab/config:/config
       - /mnt/media/podcasts:/assets

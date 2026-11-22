@@ -5,7 +5,7 @@ services:
     ports:
       - "8087:80"
     volumes:
-      - ./srv:/srv
-      - ./filebrowser.db:/database.db
+      - /srv/filebrowser/srv:/srv
+      - /srv/filebrowser/filebrowser.db:/database.db
       - ./filebrowser.json:/.filebrowser.json
     restart: always

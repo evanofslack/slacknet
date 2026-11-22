@@ -19,7 +19,7 @@ services:
     volumes:
       - /mnt/media/nsfw:/data
       - /etc/localtime:/etc/localtime:ro
-      - ./config:/root/.stash
-      - ./metadata:/metadata
-      - ./cache:/cache
-      - ./generated:/generated
+      - /srv/stash/config:/root/.stash
+      - /srv/stash/metadata:/metadata
+      - /srv/stash/cache:/cache
+      - /srv/stash/generated:/generated

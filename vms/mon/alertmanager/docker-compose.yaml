@@ -13,6 +13,7 @@ services:
 
 volumes:
   alertmanager-data:
+    name: alertmanager_alertmanager-data
 
 networks:
   default:

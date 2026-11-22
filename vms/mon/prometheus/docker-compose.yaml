@@ -22,6 +22,7 @@ services:
 
 volumes:
   prometheus-data:
+    name: prometheus_prometheus-data
 
 networks:
   default:

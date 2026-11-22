@@ -87,8 +87,13 @@ networks:
 
 volumes:
   rustfs_data_0:
+    name: rustfs_rustfs_data_0
   rustfs_data_1:
+    name: rustfs_rustfs_data_1
   rustfs_data_2:
+    name: rustfs_rustfs_data_2
   rustfs_data_3:
+    name: rustfs_rustfs_data_3
   logs:
+    name: rustfs_logs
 

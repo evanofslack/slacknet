@@ -5,8 +5,8 @@ services:
       hostname: changedetection
       restart: unless-stopped
       volumes:
-        - ./data:/datastore
-        - ./proxies.json:/datastore/proxies.json
+        - /srv/changedetection/data:/datastore
+        - /srv/changedetection/proxies.json:/datastore/proxies.json
       environment:
         - PORT=5000
         - PUID=1000
@@ -33,7 +33,7 @@ services:
             - SCREEN_HEIGHT=1080
             - SCREEN_DEPTH=24
         volumes:
-            - ./browser/dev/shm:/dev/shm
+            - /srv/changedetection/browser/dev/shm:/dev/shm
 
     playwright-chrome:
         container_name: changedetection-playwright

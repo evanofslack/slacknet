@@ -48,4 +48,5 @@ services:
 
 volumes:
   postgres_data:
+    name: ow2stats_postgres_data
 

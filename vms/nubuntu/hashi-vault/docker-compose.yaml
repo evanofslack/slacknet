@@ -13,11 +13,11 @@ services:
       - 8201:8201
     restart: unless-stopped
     volumes:
-      - ./logs:/vault/logs/:rw
-      - ./data:/vault/data/:rw
+      - /srv/hashi-vault/logs:/vault/logs/:rw
+      - /srv/hashi-vault/data:/vault/data/:rw
       - ./config:/vault/config/:rw
-      - ./certs:/certs/:rw
-      - ./file:/vault/file/:rw
+      - /srv/hashi-vault/certs:/certs/:rw
+      - /srv/hashi-vault/file:/vault/file/:rw
     cap_add:
       - IPC_LOCK
     entrypoint: vault server -config /vault/config/config.hcl

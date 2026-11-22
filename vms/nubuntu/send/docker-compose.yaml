@@ -5,7 +5,7 @@ services:
     container_name: send-redis
     restart: unless-stopped
     volumes:
-      - ./send-redis:/data
+      - /srv/send/send-redis:/data
 
   send:
     image: registry.gitlab.com/timvisee/send:latest
