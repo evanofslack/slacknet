@@ -26,7 +26,7 @@ services:
       - PING_EMAIL_DOMAIN= #optional
       - SECRET_KEY=${SECRET_KEY}
     volumes:
-      - ./data:/config
+      - /srv/healthchecks/data:/config
     ports:
       - 8055:8000
         # - 2525:2525 #optional

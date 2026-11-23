@@ -7,8 +7,8 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ./conf:/opt/adguardhome/conf
-      - ./work:/opt/adguardhome/work
+      - /srv/adguard/conf:/opt/adguardhome/conf
+      - /srv/adguard/work:/opt/adguardhome/work
     ports:
       # DNS
       - 53:53/tcp

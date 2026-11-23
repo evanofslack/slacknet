@@ -30,6 +30,17 @@ do_up = bool(host.data.get("up"))
 do_create = bool(host.data.get("create"))
 
 stacks, _ = plan(host.name)
+
+# The repo points stack state at /srv/<stack>. Pushing that to a stack whose data is still in
+# its compose dir would start it on empty dirs (now, or on the next restart): migrate first.
+from reconcile.datadirs import plan_host  # noqa: E402
+
+pending = plan_host(host.name)
+blocked = [n for n in want if pending.get(n, {}).get("moves")]
+if blocked:
+    raise SystemExit(
+        f"apply: {', '.join(blocked)} on {host.name} still have data in their stack dir (per the last "
+        f"snapshot); run ops/migrate first (or ops/collect if they were already migrated)")
 created = set()
 for name in want:
     if name not in stacks:

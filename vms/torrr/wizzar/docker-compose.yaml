@@ -8,7 +8,7 @@ services:
     ports:
       - 5690:5690
     volumes:
-      - ./config:/data/database
+      - /srv/wizzar/config:/data/database
     environment:
       - APP_URL=https://setup.eslack.net
       - DISABLE_BUILTIN_AUTH=false #Set to true ONLY if you are using another auth provider (Authelia, Authentik, etc)

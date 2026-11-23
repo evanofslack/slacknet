@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Move stacks' data to /srv/<stack> and relocate them to ~/slacknet/<repo dir>. Downtime per stack.
+#   ./migrate <host> --stack a,b [--any-branch] [--no-up]   (--no-up: move + push files, leave it down)
+#   ./migrate <host> --stack a --rollback <ts>
+# Plan comes from .inventory/<host>/datadirs.json (reconcile/datadirs.py); review it first.
+# Backups + move records: ~/.slacknet-backups/<ts>/ on the host.
+set -euo pipefail
+cd "$(dirname "$0")"
+host="${1:?usage: ./migrate <host> --stack a,b [--any-branch] | --stack a --rollback <ts>}"; shift
+stacks=""; data=(); ts="$(date -u +%Y%m%dT%H%M%SZ)"; rb=0
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --stack) stacks="$2"; shift 2 ;;
+    --rollback) rb=1; ts="$2"; data+=(--data rollback=true); shift 2 ;;
+    --any-branch) data+=(--data any_branch=true); shift ;;
+    --no-up) data+=(--data no_up=true); shift ;;
+    *) echo "unknown arg $1" >&2; exit 2 ;;
+  esac
+done
+[ -n "$stacks" ] || { echo "--stack is required" >&2; exit 2; }
+echo "migration id: $ts"
+uv run --no-env-file pyinfra -vvv inventory.py deploys/migrate.py --limit "$host" \
+  --data "stacks=$stacks" --data "ts=$ts" ${data[@]+"${data[@]}"}
+[ "$rb" = 1 ] || echo "rollback: ./migrate $host --stack <stack> --rollback $ts"

@@ -15,7 +15,7 @@ services:
       - "10001:10001"
       - "/loki"
     volumes:
-      - ./loki:/loki
+      - /srv/loki/loki:/loki
 
   loki:
     image: grafana/loki:2.8.2

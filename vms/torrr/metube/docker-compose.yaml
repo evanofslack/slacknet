@@ -7,7 +7,7 @@ services:
       - "8081:8081"
     volumes:
       - /mnt/media/videos:/downloads
-      - ./state:/state
+      - /srv/metube/state:/state
     environment:
       - DOWNLOAD_DIR=/downloads
       - AUDIO_DOWNLOAD_DIR=/downloads/audio

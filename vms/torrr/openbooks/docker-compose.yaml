@@ -7,7 +7,7 @@ services:
     ports:
       - "8071:80"
     volumes:
-      - ./data:/books
+      - /srv/openbooks/data:/books
     environment:
       - PUID=1000
       - PGID=1000

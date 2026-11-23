@@ -17,7 +17,7 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - APP_KEY=${APP_KEY}
     volumes:
-      - ./config:/config
+      - /srv/speedtest-tracker/config:/config
     depends_on:
       - db
   db:
@@ -29,4 +29,4 @@ services:
       - POSTGRES_USER=speedy
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - /srv/speedtest-tracker/postgres:/var/lib/postgresql/data

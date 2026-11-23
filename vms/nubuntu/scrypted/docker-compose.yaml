@@ -16,4 +16,5 @@ services:
 
 volumes:
   scrypted_data:
+    name: scrypted_scrypted_data
 

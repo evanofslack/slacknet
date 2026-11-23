@@ -9,7 +9,7 @@ services:
     ports:
       - 3493:3493
     volumes:
-      - ./nut:/etc/nut/local
+      - /srv/nut/nut:/etc/nut/local
     environment:
       API_USER: ${API_USER}
       API_PASSWORD: ${API_PASSWORD}

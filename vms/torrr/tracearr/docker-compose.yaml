@@ -81,4 +81,6 @@ networks:
 
 volumes:
   timescale_data:
+    name: tracearr_timescale_data
   redis_data:
+    name: tracearr_redis_data
