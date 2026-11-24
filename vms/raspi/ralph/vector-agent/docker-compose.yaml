@@ -1,9 +1,10 @@
 version: "3.7"
 services:
   vector-agent:
-    image: timberio/vector:latest-alpine
+    image: timberio/vector:0.59.0-alpine
     container_name: vector-agent
     restart: unless-stopped
+    command: ["--config", "/etc/vector/vector.toml"]
     environment:
       - LOG=info
       - HOSTNAME=raspi
